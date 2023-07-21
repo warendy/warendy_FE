@@ -1,0 +1,112 @@
+.container {
+  padding: 120px 40px 160px;
+}
+
+.contentArea {
+  overflow: hidden;
+  min-height: 380px;
+}
+
+.contentTitle {
+  display: flex;
+  padding: 5px 0 6px;
+}
+
+.title {
+  font-size: 20px;
+  letter-spacing: -0.36px;
+}
+
+.mainTitle {
+  line-height: 29px;
+  font-size: inherit;
+}
+
+.collectionList {
+  display: flex;
+}
+.left {
+  background-color: #fff;
+  display: table;
+  table-layout: fixed;
+  min-width: 205px;
+  border-radius: 0;
+  margin-top: 20px;
+}
+
+.collectionListTab {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabItem {
+  display: table-cell;
+  text-align: center;
+}
+
+.tabLink {
+  text-decoration: none;
+  position: relative;
+  display: block;
+  padding-top: 12px;
+  height: 68px;
+}
+.tabOn {
+  border-right: 2px solid #222;
+}
+
+.tabBox {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.tabLink .title {
+  color: #222;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.07px;
+}
+
+.count {
+  margin-top: 0;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.1px;
+}
+
+.tabOn .count {
+  font-weight: 700;
+  color: #f15746;
+}
+
+.right {
+  width: 100%;
+}
+
+.collectionHead {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.filter {
+  display: flex;
+}
+
+.btnFilter {
+  position: relative;
+  padding: 5px 30px 5px 10px;
+  display: inline-block;
+  width: 120px;
+  line-height: 24px;
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: 12px;
+  font-size: 13px;
+  letter-spacing: -0.07px;
+}
+
+.collectionArea {
+  padding: 90px 0;
+}

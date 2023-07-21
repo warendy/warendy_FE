@@ -1,0 +1,148 @@
+.container {
+  width: 1920px;
+  padding-top: 18rem;
+}
+
+.snbArea {
+  float: left;
+  width: 18rem;
+  margin-right: 2rem;
+}
+
+.mainTitle {
+  line-height: 2.9rem;
+  padding-bottom: 3rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.snbTitle {
+  line-height: 2.2rem;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.8rem;
+  letter-spacing: -0.27px;
+  font-weight: 700;
+}
+
+.menuItem {
+  line-height: 1.8rem;
+  font-size: 1.5rem;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.menuItem:nth-child(n + 2) {
+  margin-top: 1.2rem;
+}
+
+.contentArea {
+  overflow: hidden;
+  min-height: 38rem;
+}
+
+.userMembership {
+  display: flex;
+  padding: 2.3rem 0 2.3rem 2.3rem;
+  border: 1px solid #ebebeb;
+  border-radius: 1rem;
+  background-color: #fff;
+}
+
+.userDetail {
+  display: flex;
+}
+
+.userThumb {
+  position: relative;
+  margin-right: 1.2rem;
+  border-radius: 100%;
+  flex-shrink: 0;
+}
+
+.name {
+  display: flex;
+  line-height: 2.1rem;
+  font-size: 1.8rem;
+  letter-spacing: -0.27px;
+  font-weight: 600;
+  color: #000;
+}
+
+.email {
+  line-height: 2rem;
+  font-size: 1.4rem;
+  letter-spacing: -0.05px;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.btn {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 3.4rem;
+  margin-top: 1.2rem;
+  background-color: #fff;
+}
+
+.outline {
+  border: 1px solid #d3d3d3;
+  color: rgba(34, 34, 34, 0.8);
+  padding: 0 1.4rem;
+  height: 3.4rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.06px;
+}
+
+.wineCollection {
+  margin-left: 7px;
+}
+
+.userType {
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.myHomeTitle {
+  margin-top: 4.2rem;
+  padding-bottom: 1.6rem;
+  display: flex;
+  max-width: 100%;
+}
+
+.title {
+  font-size: 1.7rem;
+  letter-spacing: -0.27px;
+}
+
+.btnMore {
+  margin-top: 0.3rem;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btnText {
+  font-size: 1.3rem;
+  letter-spacing: -0.07px;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.arrowRight {
+  color: #cccccc;
+  margin: 0.4rem;
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.contentBox {
+  border-bottom: 1px solid #ebebeb;
+}
