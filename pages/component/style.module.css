@@ -1,0 +1,10 @@
+/* styles.module.css */
+.container {
+  width: 1920px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  width: 1500px;
+  margin: 0 auto;
+}

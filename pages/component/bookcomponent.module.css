@@ -1,0 +1,86 @@
+/* BookComponent.module.css */
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust this if you want to control the centering height */
+}
+
+.book {
+  position: relative;
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 6px;
+  height: 180px;
+  width: 400px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.leftPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  background: #f9f9f9;
+  transform-origin: right;
+  transform-style: preserve-3d;
+  z-index: 1;
+  border-top-right-radius: 8px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: flipLeft 3s infinite;
+}
+
+.rightPage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background: #f9f9f9;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  z-index: 1;
+  border-top-left-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: flipRight 2s infinite;
+}
+
+.spine {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 2px;
+  background: rgba(217, 217, 217, 0.5);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+@keyframes flipLeft {
+  0% {
+    transform: perspective(600px) rotateY(-10deg);
+  }
+  50% {
+    transform: perspective(600px) rotateY(10deg);
+  }
+  100% {
+    transform: perspective(600px) rotateY(-10deg);
+  }
+}
+
+@keyframes flipRight {
+  0% {
+    transform: perspective(600px) rotateY(10deg);
+  }
+  70% {
+    transform: perspective(600px) rotateY(180deg);
+  }
+  100% {
+    transform: perspective(600px) rotateY(10deg);
+  }
+}

@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  border-top: 1px solid rgba(235, 235, 235, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.footerbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Add this property */
+  align-items: center; /* Optional: Align items vertically if needed */
+}
+
+.policy {
+  margin-left: 5.3rem;
+  margin-right: 10rem; /* Change this to 0 to remove extra space */
+}
