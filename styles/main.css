@@ -1,7 +1,14 @@
+/* styles.module.css */
+
+body {
+  font-family: "JejuGothic";
+}
+
 .inner {
   width: 66.66%;
   margin: auto;
 }
+
 .top {
   margin-top: 10rem;
   padding-bottom: 7rem;
