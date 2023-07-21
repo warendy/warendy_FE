@@ -1,0 +1,17 @@
+* {
+  color: #222222;
+}
+
+.inner {
+  width: 66.66%;
+  margin: auto;
+}
+
+.top {
+  margin-top: 10rem;
+  padding-bottom: 7rem;
+  padding-top: 7.8rem;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
+}

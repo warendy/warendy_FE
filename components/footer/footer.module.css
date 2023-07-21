@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  margin: 0 auto; /* Center the wrapper */
+  border-top: 1px solid rgba(235, 235, 235, 0.7);
+  justify-content: center;
+  align-items: center;
+  height: 62px;
+}
+
+.center {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.footerbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.policy {
+  margin-left: 53px;
+  margin-right: 405px;
+}
