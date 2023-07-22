@@ -1,0 +1,93 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.headerTop,
+.headerMain {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+}
+
+.topInner {
+  display: flex;
+  padding: 8px 40px 0;
+  height: 22px;
+}
+
+.topList {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.topItem {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.link {
+  color: #222222;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: -0.06px;
+  color: rgba(34, 34, 34, 0.8);
+}
+
+.mainInner {
+  display: flex;
+  padding: 20px 40px;
+  height: 30px;
+  min-width: 320px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+}
+
+.img {
+  width: 120px;
+  height: 27px;
+}
+
+.iconList {
+  display: flex;
+  min-width: 120px;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+.gnbArea {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.gnbList {
+  display: flex;
+  align-items: center;
+}
+
+.gnbItem {
+  margin-right: 40px;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.searchBtnBox {
+  display: flex;
+}
