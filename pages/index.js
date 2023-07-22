@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/header/header";
+import Header from "../components/header/randingheader";
 import RandingPage from "./randing-page/randingPage";
 import Darkscreen from "./darkscreen/darkscreen";
 import Footer from "../components/footer/footer";
