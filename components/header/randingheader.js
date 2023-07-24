@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./randingheader.module.css";
 import Image from "next/image";
 
-export default function LandingPage() {
+export default function RandingHeader() {
   return (
     <div className={styles.body}>
       <div className={styles.main}>
