@@ -1,0 +1,10 @@
+.searchWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 13.8rem;
+}
+.title {
+  padding-top: 6.7rem;
+}
