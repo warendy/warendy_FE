@@ -22,7 +22,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className={styles.topItem}>
-                <Link href="/login" className={styles.link}>
+                <Link href="/signin/sign-in" className={styles.link}>
                   로그인
                 </Link>
               </li>
