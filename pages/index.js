@@ -6,7 +6,6 @@ const Index = () => {
   return (
     <>
       <MyPage />
-      <WineCollection />
     </>
   );
 };
