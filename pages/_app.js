@@ -9,7 +9,7 @@ const MyApp = ({ Component, pageProps }) => {
     <>
       <Header />
       <Component {...pageProps} />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

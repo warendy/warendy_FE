@@ -1,0 +1,40 @@
+.tabContent {
+  margin-top: 20px;
+}
+
+.tabList {
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.07px;
+  min-height: 25rem;
+}
+
+.tabList:nth-child(n + 2) {
+  padding-top: 3rem;
+}
+
+.tabItem {
+  /* min-width: 100%; */
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 0 8rem;
+  line-height: 2.4rem;
+  letter-spacing: -0.1px;
+  border-right: 1px solid #ebebeb;
+}
+
+.tabContent {
+  font-size: 1.6rem;
+}
+
+.tabItem:nth-child(n + 2) {
+  padding-top: 2.5rem;
+}
+
+.plus {
+  padding-top: 3rem;
+  font-size: 2.5rem;
+}
