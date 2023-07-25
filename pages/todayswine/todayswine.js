@@ -7,7 +7,6 @@ const ReviewPage = () => {
     <>
       <div className="container">
         <div className={styles.myReview + " inner "}>
-          <h3 className="title">내가 쓴 와인 리뷰</h3>
           <div className={styles.reviewPage}>
             <div className={styles.filter}>
               <h3 className={styles.filterName}>필터</h3>
@@ -25,22 +24,81 @@ const ReviewPage = () => {
                   <input type="checkbox" className={styles.input} />
                   스파클링와인
                 </label>
+                <div className={styles.filterType}>당도</div>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  낮음
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  중간
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  높음
+                </label>
+                <div className={styles.filterType}>산미</div>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  낮음
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  중간
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  높음
+                </label>
+                <div className={styles.filterType}>탄닌</div>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  낮음
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  중간
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  높음
+                </label>
+                <div className={styles.filterType}>바디감</div>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  낮음
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  중간
+                </label>
+                <label className={styles.type}>
+                  <input type="checkbox" className={styles.input} />
+                  높음
+                </label>
               </div>
             </div>
             <div className={styles.contentArea}>
-              <div className={styles.reviewCard}>
-                <div className={styles.img}>
-                  <Image src="/images/wine.png" alt="Logo" width={35} height={140} />
-                </div>
-                <div className={styles.review}>
-                  <div className={styles.reviewArea}>
-                    <div className={styles.date}>리뷰 작성일 : 23.02.07</div>
-                    <div className={styles.wineName}>프리미티보 디 만두리아</div>
-                  </div>
-                  <Link href="/my/my-review" className={styles.btnReview + " btn outline "} type="button">
-                    리뷰보기
-                  </Link>
-                </div>
+              <div className={styles.lovedWines}>
+                <ul className={styles.lovedWineList}>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                  <li className={styles.lovedWineItem}></li>
+                </ul>
+              </div>
+              <div className={styles.pageContainer}>
+                <ul className={styles.pageNumber}>
+                  <li className={styles.number}>1</li>
+                  <li className={styles.number}>2</li>
+                  <li className={styles.number}>3</li>
+                  <li className={styles.number}>4</li>
+                </ul>
               </div>
             </div>
           </div>

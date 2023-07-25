@@ -1,7 +1,9 @@
-/* styles.module.css */
+* {
+  color: #222222;
+}
 
-body {
-  font-family: "JejuGothic";
+.container {
+  padding-top: 14rem;
 }
 
 .inner {
@@ -10,20 +12,45 @@ body {
 }
 
 .top {
-  margin-top: 10rem;
-  padding-bottom: 7rem;
-  padding-top: 7.8rem;
-  border-bottom: 1px solid #cccccc;
+  padding-top: 6.5rem;
+  padding-bottom: 6.5rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.36px;
+  margin: auto;
+  padding-bottom: 1.5rem;
   display: flex;
   justify-content: center;
 }
 
-.title {
-  font-size: 2.2rem;
-  line-height: 2.9rem;
-  letter-spacing: -0.36px;
-  margin: auto;
-  padding-top: 6.5rem;
-  padding-bottom: 6.5rem;
-  border-bottom: 1px solid #cccccc;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 3.4rem;
+  margin-top: 1.2rem;
+  background-color: #fff;
+}
+
+.input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.outline {
+  border: 1px solid #d3d3d3;
+  color: rgba(34, 34, 34, 0.8);
+  padding: 0 1.4rem;
+  height: 3.4rem;
+  border-radius: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: -0.06px;
 }
