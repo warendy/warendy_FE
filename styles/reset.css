@@ -86,7 +86,6 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
 article,
 aside,
 details,
@@ -100,6 +99,7 @@ nav,
 section {
   display: block;
 }
+
 html {
   font-size: 10px;
 }
@@ -130,3 +130,4 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
