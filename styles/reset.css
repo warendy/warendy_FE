@@ -86,11 +86,6 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
-
-html {
-  font-size: 10px;
-}
-/* HTML5 display-role reset for older browsers */
 article,
 aside,
 details,
@@ -104,8 +99,17 @@ nav,
 section {
   display: block;
 }
+
+html {
+  font-size: 10px;
+}
 body {
   line-height: 1;
+  font-family: "JejuGothic";
+}
+a {
+  text-decoration: none;
+  color: rgba(34, 34, 34, 0.8);
 }
 ol,
 ul {
@@ -126,7 +130,4 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-a {
-  text-decoration: none;
-  color: rgba(34, 34, 34, 0.8);
-}
+
