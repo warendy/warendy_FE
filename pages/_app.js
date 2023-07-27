@@ -1,10 +1,10 @@
-import react from "react";
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
+import React from "react";
+import Header from "../components/header/header.js";
+import Footer from "../components/footer/footer.js";
 import "../styles/reset.css";
 import "../styles/main.css";
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <Header />
@@ -12,7 +12,6 @@ function MyApp({ Component, pageProps }) {
       <Footer />
     </>
   );
-}
+};
 
 export default MyApp;
-//
