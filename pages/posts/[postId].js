@@ -5,7 +5,7 @@ import styles from "../posts/postld.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// 가상의 묵시적 게시글 데이
+// 가상의 묵시적 게시글 데이터
 const dummyPosts = [
   { id: 1, title: "게시글 1", content: "이것은 게시글 1의 내용입니다." },
   { id: 2, title: "게시글 2", content: "이것은 게시글 2의 내용입니다." },

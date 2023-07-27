@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function Search() {
-  // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들
+  // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들ㅇ
   const [showMap1, setShowMap1] = useState(false);
   const [showMap2, setShowMap2] = useState(false);
   const [showMap3, setShowMap3] = useState(false);

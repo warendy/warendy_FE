@@ -6,7 +6,7 @@ const dummyPosts = [
   { id: 1, title: "게시글 1", location: "강남구" },
   { id: 2, title: "게시글 2", location: "동작구" },
   { id: 3, title: "게시글 3", location: "서초구" },
-  // ... 추가 게시글 데이
+  // ... 추가 게시글 데이터
 ];
 
 export default function Posts() {
