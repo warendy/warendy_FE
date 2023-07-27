@@ -1,14 +1,10 @@
 import React from "react";
-import Randingpage from "./randingpage";
-import Bookcomponent from "./bookcomponent";
-import Login from "./login";
+import Main from "./main/main";
 
-export default function index() {
+export default function Index() {
   return (
-    <div className={styles.wrapper}>
-      <Randingpage />
-      <Bookcomponent />
-      <Login />
-    </div>
+    <>
+      <Main />
+    </>
   );
 }
