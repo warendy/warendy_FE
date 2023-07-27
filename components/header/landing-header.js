@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./randingheader.module.css";
 import Image from "next/image";
+import styles from "./landing-header.module.css";
 
-export default function RandingHeader() {
+export default function LandingHeader() {
   return (
     <div className={styles.body}>
       <div className={styles.main}>
