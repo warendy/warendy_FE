@@ -1,0 +1,26 @@
+.postWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 13.8rem;
+}
+.select {
+  border: none;
+}
+.Input {
+  border: none;
+  border-bottom: 1px solid #ccc; /* 인풋 박스 바닥에 1px 선 추가 (선택사항) */
+  outline: none; /* 포커스 시 생기는 외곽선 제거 (선택사하) */
+}
+.button {
+  background: none;
+  border: none;
+}
+.myBtn {
+  border: none;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}

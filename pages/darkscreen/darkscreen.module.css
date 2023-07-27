@@ -1,0 +1,17 @@
+/* darkscreen.module.css */
+
+.background {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  min-height: 100%;
+  background-color: grey;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+.fullscreen {
+  width: 100%;
+  height: 50%;
+  display: none;
+}
