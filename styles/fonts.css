@@ -1,4 +1,6 @@
 @font-face {
   font-family: "JejuGothic";
-  src: url(../public/fonts/20957748_JejuGothic_OTF.otf);
+
+  src: url("/fonts/JejuGothic.ttf") format("truetype");
+
 }
