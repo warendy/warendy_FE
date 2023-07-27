@@ -1,10 +1,14 @@
 import React from "react";
-import Post from "./post/post";
+import MyPage from "./my/my-page.js";
+import WineCollection from "./my/wine-collection.js";
+import Main from "./main/main";
+import "../styles/main.css";
+import "../styles/reset.css";
 
-export default function Index() {
+export default function IndexPage() {
   return (
     <>
-      <Post />
+      <Main />
     </>
   );
 }
