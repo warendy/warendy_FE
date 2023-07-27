@@ -1,44 +1,50 @@
-.myReview {
+.headerBg {
+  position: relative;
+  width: 100%;
+  height: 20vh;
+}
+
+.bgInner {
+  width: 66.6%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px grey solid;
+}
+
+.wineExplainContainer {
+  width: 66.6%;
+  height: 10vh;
+  margin: auto;
+  display: flex;
+  border-bottom: 1px gray solid;
+  background-color: pink;
+}
+
+.wineExplainContents {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-left: 10rem;
+  margin: auto;
 }
-.reviewPage {
+
+.wineName {
+  font-size: 3.5rem; /* Set this to the size you want */
+  line-height: 2.9rem;
+  letter-spacing: -0.36px;
+  padding-bottom: 1.5rem;
   display: flex;
-  min-height: 50rem;
+  margin-left: 10rem;
 }
 
-.filter {
-  display: flex;
-  flex-direction: column;
-  margin-right: 5rem;
-  min-width: 20rem;
-  border-right: 1px solid #cccccc;
-}
-
-.filterName {
-  font-size: 1.8rem;
-  font-weight: 700;
-  line-height: 2.2rem;
-  margin-bottom: 1.2rem;
-  display: inline-block;
-  vertical-align: top;
-  letter-spacing: -0.27px;
-}
-
-.filterMain {
-  display: flex;
-  flex-direction: column;
-  padding-top: 1.5rem;
-  line-height: 1.8rem;
-}
-
-.filterType {
-  font-size: 1.5rem;
-  padding-bottom: 1rem;
-}
-
-.type {
-  font-size: 1.3rem;
+.wineSub {
+  font-size: 1.5rem; /* Set this to the size you want */
+  line-height: 2rem;
+  margin-left: 10rem;
+  margin-bottom: 1rem;
 }
 
 .contentArea {
@@ -47,7 +53,7 @@
 
 .lovedWines {
   width: 100%;
-  height: 40vh;
+  height: 55vh;
   justify-content: center;
   flex-direction: column;
 }
@@ -61,12 +67,12 @@
   margin: 0 auto;
   width: 66.6%;
   list-style: none; /* Remove the default bullet points */
-  padding: 0; /* Remove default padding for the list */
+  padding: 5rem;
 }
 
 .lovedWineItem {
   width: 25%; /* Set the desired width of each li to 18% of the container to accommodate the arrows */
-  height: 50%; /* Set the desired height of each li to 70% of the container */
+  height: 65%; /* Set the desired height of each li to 70% of the container */
   background-color: #ebebeb; /* Set the background color to gray */
   margin: 2.5%; /* Add some spacing between each li (2.5% of the container width) */
 }
