@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./randingPage.module.css";
+import styles from "./landingpage.module.css";
 
-export default function randingpage() {
+export default function LandingPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.center}>
