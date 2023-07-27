@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./randingheader.module.css";
+import styles from "./landing-header.module.css";
 import Image from "next/image";
 
 export default function RandingHeader() {
