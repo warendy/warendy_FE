@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../search/search.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import MyMap from "../mymap/my-map";
 
 export default function Search() {
-  // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들ㅇ
+  // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들
   const [showMap1, setShowMap1] = useState(false);
   const [showMap2, setShowMap2] = useState(false);
   const [showMap3, setShowMap3] = useState(false);
@@ -50,10 +51,7 @@ export default function Search() {
             </li>
             {showMap1 && (
               <li>
-                <div style={{ border: "1px solid black", height: "200px" }}>
-                  {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
-                  카카오맵 지도 표시 영역
-                </div>
+                <MyMap />
               </li>
             )}
             <li>

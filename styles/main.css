@@ -1,4 +1,3 @@
-
 * {
   color: #222222;
 }
@@ -12,10 +11,13 @@
   margin: auto;
 }
 
-
 .top {
-  padding-top: 6.5rem;
-  padding-bottom: 6.5rem;
+  margin-top: 14rem;
+  padding-bottom: 7rem;
+  padding-top: 7.8rem;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
 }
 
 .title {
@@ -56,4 +58,3 @@
   font-size: 1.3rem;
   letter-spacing: -0.06px;
 }
-

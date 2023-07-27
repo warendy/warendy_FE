@@ -44,7 +44,7 @@ const Header = () => {
               <div className={styles.gnbArea}>
                 <nav className={styles.gnb}>
                   <Link
-                    href="/wineBar"
+                    href="/search/search"
                     className={`${styles.gnbItem} ${styles.link}`}
                   >
                     <FontAwesomeIcon
