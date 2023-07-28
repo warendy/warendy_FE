@@ -6,7 +6,7 @@ export default function LandingHeader() {
   return (
     <div className={styles.body}>
       <div className={styles.main}>
-        <Image src="/warendyLogo.svg" alt="Logo" className={styles.img} width={100} height={100} />
+        <Image src="/logo.svg" alt="Logo" className={styles.img} width={100} height={100} />
       </div>
     </div>
   );
