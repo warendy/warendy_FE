@@ -1,94 +1,14 @@
-/* main.module.css */
-
-.headerBg {
-  position: relative;
-  width: 100%;
-  height: 25vh;
+.mainCarousel {
+  display: flex;
+  justify-content: center;
   background-color: #771516;
 }
 
-.bgInner {
-  width: 66.6%;
-  height: 100%;
-  background-color: pink;
-  margin: 0 auto;
-  display: none;
-}
-
-.searchContainer {
-  width: 66.6%;
-  height: 100%;
-  background-color: white;
-  margin: 0 auto;
+.contentArea {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.searchInner {
-  width: 60%;
-  display: flex;
-  border-bottom: grey solid 1px;
-  transform: translateY(3rem);
-  margin-top: 8rem;
-  margin-bottom: 5rem;
-}
-
-.searchBar {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  border-style: none;
-  margin-left: 1rem;
-  color: grey;
-  font-weight: 800;
-  font-size: 1.5rem;
-}
-
-.searchBar::placeholder {
-  color: #d9d9d9;
-}
-
-.icon {
-  font-size: 2rem;
-}
-
-.currentContainer {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  height: 30%;
-  background-color: #f5f5f5;
-  position: relative; /* Add this */
-  top: 1rem;
-}
-
-.currentSearchTitle,
-.currentSearch {
-  font-size: 1.5rem;
-  padding: 2rem 0rem 0rem 2rem;
-}
-
-.currentSearch {
-  display: flex;
-  flex-direction: row;
-  margin-top: 0.5rem;
-}
-
-.currentSearch li {
-  background-color: #d9d9d9;
-  margin: 0rem 1rem 1rem 0rem;
-  border-radius: 1rem;
-  padding: 0.5rem;
-}
-
-.transparentBg {
-  width: 100%;
-  opacity: 0.7;
-}
-
-.todayWinesContainer,
-.todayMoodContainer,
 .etiquetteContainer {
   height: 20vh;
   display: flex;
@@ -98,7 +18,6 @@
   border-bottom: grey solid 1px;
 }
 
-.todayWines,
 .etiquette {
   width: 100%;
   display: flex;
@@ -106,117 +25,9 @@
   flex-direction: column;
 }
 
-.todayWineTitle,
 .etiquetteTitle {
   font-size: 2.5rem;
   text-align: center;
-}
-
-.todayWineList {
-  height: 23vh;
-  display: flex;
-  justify-content: space-between; /* Distribute the items evenly along the row */
-  align-items: center; /* Vertically center the items */
-  margin: 0 auto;
-  width: 66.6%;
-  list-style: none; /* Remove the default bullet points */
-  padding: 0; /* Remove default padding for the list */
-}
-
-.arrowContainer {
-  width: 5%; /* Set the desired width for the arrow container */
-  height: 70%; /* Set the desired height for the arrow container */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.todayWineItem {
-  width: 18%; /* Set the desired width of each li to 18% of the container to accommodate the arrows */
-  height: 70%; /* Set the desired height of each li to 70% of the container */
-  background-color: #ebebeb; /* Set the background color to gray */
-  margin: 2.5%; /* Add some spacing between each li (2.5% of the container width) */
-}
-
-.todayMood {
-  width: 66.6%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 0 auto;
-}
-
-.todayMoodList {
-  width: 60%; /* Set the desired width of the list */
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* Distribute the items evenly along the row */
-  margin: 0 auto;
-}
-
-.todayMoodItem {
-  width: 30%; /* Set the desired width of each li to 30% of the list */
-  height: 7vh;
-  background-color: #9d1617;
-  margin-bottom: 10px; /* Add some vertical spacing between each row */
-  border-radius: 25px;
-}
-
-.todayMoodItem:nth-child(even) {
-  background-color: #b14545;
-}
-
-.todayMoodItem a {
-  text-decoration: none;
-  color: white;
-  font-size: 2rem;
-  display: flex; /* Add display flex to center the content vertically */
-  justify-content: center; /* Add justify-content center to center the content horizontally */
-  align-items: center; /* Add align-items center to center the content vertically */
-  height: 100%; /* Set the anchor tag's height to fill the entire .todayMoodItem box */
-  text-align: center; /* Horizontally center the text within the anchor tag */
-}
-
-.lovedWineContainer {
-  height: 45vh;
-  display: flex;
-  justify-content: center;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-  border-bottom: grey solid 1px;
-}
-
-.lovedWines {
-  width: 100%;
-  height: 30vh;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.lovedWineTitle {
-  font-size: 2.5rem;
-  text-align: center;
-}
-
-.lovedWineList {
-  height: 23vh;
-  display: flex;
-  flex-wrap: wrap; /* Add this to wrap the li elements if they exceed the width */
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  width: 66.6%;
-  list-style: none; /* Remove the default bullet points */
-  padding: 0; /* Remove default padding for the list */
-}
-
-.lovedWineItem {
-  width: 18%; /* Set the desired width of each li to 18% of the container to accommodate the arrows */
-  height: 70%; /* Set the desired height of each li to 70% of the container */
-  background-color: #ebebeb; /* Set the background color to gray */
-  margin: 2.5%; /* Add some spacing between each li (2.5% of the container width) */
 }
 
 .etiquetteList {
