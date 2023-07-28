@@ -1,4 +1,4 @@
-import styles from "./mostlovedwine.module.css";
+import styles from "./most-loved.module.css";
 
 export default function MostLovedWine() {
   return (

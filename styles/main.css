@@ -69,3 +69,8 @@
   font-size: 1.3rem;
   letter-spacing: -0.06px;
 }
+
+.padding {
+  padding-top: 6.5rem;
+  padding-bottom: 6.5rem;
+}
