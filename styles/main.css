@@ -30,6 +30,17 @@
   justify-content: center;
 }
 
+.resetBtn {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
