@@ -110,20 +110,23 @@ body {
 
 html {
   font-size: 10px;
+}
 
 a {
   text-decoration: none;
   color: rgba(34, 34, 34, 0.8);
-
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -131,9 +134,8 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-
