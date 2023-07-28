@@ -29,7 +29,7 @@ const MyPage = () => {
   return (
     <>
       <div className="container">
-        <div className="inner top">
+        <div className="inner padding">
           <div className={styles.snbArea}>
             <button
               onClick={() => handleSnbLinkClick("my")}

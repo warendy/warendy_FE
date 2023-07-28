@@ -4,7 +4,7 @@ const SignIn = () => {
   return (
     <>
       <div className="container">
-        <div className="inner top">
+        <div className="inner padding">
           <h3 className={styles.mainTitle + " title "}>회원가입</h3>
           <div className={styles.contentArea + " inner "}>
             <div className={styles.inputInfo}>

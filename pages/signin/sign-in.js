@@ -8,7 +8,7 @@ const SignIn = () => {
   return (
     <>
       <div className="container">
-        <div className="inner top">
+        <div className="inner padding">
           <Image
             src="/images/logo.svg"
             alt="Logo"

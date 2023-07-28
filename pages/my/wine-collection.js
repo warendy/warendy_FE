@@ -5,7 +5,7 @@ const WineCollection = () => {
   return (
     <>
       <div className="container">
-        <div className="inner top">
+        <div className="inner padding">
           <h3 className="title">나만의 와인 컬렉션</h3>
           <Collection />
         </div>

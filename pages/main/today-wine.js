@@ -6,7 +6,7 @@ import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 export default function TodayWine() {
   return (
     <>
-      <div className={styles.todayWinesContainer + " top "}>
+      <div className={styles.todayWinesContainer + " padding "}>
         <h3 className="title">오늘의 와인</h3>
         <ul className={styles.todayWineList}>
           <button className="resetBtn btn">

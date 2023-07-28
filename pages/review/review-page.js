@@ -6,7 +6,7 @@ const ReviewPage = () => {
   return (
     <>
       <div className="container">
-        <div className="inner top">
+        <div className="inner padding">
           <h3 className="title">내가 쓴 리뷰</h3>
           <div className={styles.reviewPage}>
             <div className={styles.filter}>
