@@ -6,7 +6,6 @@
 }
 
 .detailContainer {
-  background-color: aquamarine;
   height: 35vh;
   display: flex;
   flex-direction: row;
@@ -24,7 +23,6 @@
 .introBox {
   width: 50%;
   height: 100%;
-  background-color: pink;
 }
 
 .introFirst {
@@ -123,7 +121,6 @@
 .withFood {
   width: 100%;
   height: 50%;
-  background-color: darkorange;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -151,7 +148,7 @@
   width: 30%; /* reduced width */
   height: 70%;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: chocolate;
   color: black;
   font-size: 1em;
   text-align: center;
@@ -164,7 +161,6 @@
   flex-direction: column;
   width: 100%;
   height: 25vh;
-  background-color: aqua;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
