@@ -101,6 +101,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
+  display: none;
 }
 
 .resultAnimal {
@@ -108,8 +109,11 @@
   height: 50%;
 }
 
-.resultTitle {
+.resultTitle,
+.suggetionTitle {
   font-size: 3rem;
+  text-align: center;
+  line-height: 5rem;
 }
 
 .resultTitleOne {
@@ -127,6 +131,7 @@
   width: 100%;
   height: 50%;
   justify-content: center;
+  display: none;
 }
 
 .resultWine {
@@ -145,6 +150,73 @@
 .img {
   width: 100%;
   height: 100%;
+}
+
+.shareContainer {
+  position: absolute;
+  width: 100%;
+  height: 15%;
+  bottom: -25%;
+  background-color: #9d1617;
+  border-radius: 5rem;
+  display: none;
+}
+
+.share {
+  height: 100%;
+  font-size: 2.5rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.36px;
+  margin: auto;
+  padding-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  align-items: center;
+}
+
+.shareIcon {
+  background-color: white;
+  margin-left: 2rem;
+}
+
+.suggestionCotnainer {
+  position: absolute;
+  width: 50%;
+  height: 35%;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.suggetionTitle {
+  top: 20%;
+  position: relative;
+}
+.buttonContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.memberLogin {
+  width: 40%;
+  height: 15%;
+  background-color: #b86566;
+  color: white;
+}
+
+.nonMemberLogin {
+  width: 40%;
+  height: 15%;
+  background-color: #9d1617;
+  color: white;
 }
 
 @media screen and (max-width: 768px) {
