@@ -28,5 +28,5 @@ const WineItem = ({ wineItem, onDrop }) => {
     </li>
   );
 };
-
+// my
 export default WineItem;

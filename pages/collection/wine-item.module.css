@@ -6,7 +6,7 @@
   border-top: 1px solid #cccccc;
 }
 
-/* .filter {
+.filter {
   display: flex;
   justify-content: flex-end;
 }
@@ -37,7 +37,7 @@
   left: 0;
   padding: 0.5rem;
   z-index: 1;
-} */
+}
 
 .markedArea {
   display: flex;
