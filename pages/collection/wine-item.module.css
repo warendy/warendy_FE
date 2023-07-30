@@ -1,0 +1,94 @@
+.myCollection {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 5rem;
+  border-top: 1px solid #cccccc;
+}
+
+.filter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filterMain {
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  display: inline-block;
+  line-height: 2.4rem;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 1.2rem;
+  font-size: 1.3rem;
+  letter-spacing: -0.07px;
+}
+
+.result {
+  padding-right: 0.5rem;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 100%;
+  left: 0;
+  padding: 0.5rem;
+  z-index: 1;
+}
+
+.markedArea {
+  display: flex;
+  align-items: center;
+}
+
+.markedWine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80rem;
+  min-height: 20rem;
+  border: 2px solid #ebebeb;
+  /* background-color: #9d1617; */
+}
+
+.wineList {
+  margin: 0 3rem;
+}
+
+.wineItem {
+  width: 100%;
+  min-height: 15rem;
+}
+
+.tabArea {
+  display: flex;
+  align-items: center;
+  min-height: 20rem;
+}
+
+.tabContent {
+  display: flex;
+  border: 2px solid #ebebeb;
+}
+
+.tabList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3rem;
+}
+
+.selectedWine {
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 0 8rem;
+  line-height: 2.4rem;
+  letter-spacing: -0.1px;
+}
