@@ -13,5 +13,5 @@ const Collection = ({ collection, onRemove }) => {
     </ul>
   );
 };
-
+// my
 export default Collection;

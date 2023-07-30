@@ -6,6 +6,7 @@ import styles from "./my-collection.module.css";
 import Layout from "../../components/layout/layout";
 import WineItem from "../collection/wine-item";
 import Collection from "../collection/collection";
+// import
 
 const wineList = [
   {
