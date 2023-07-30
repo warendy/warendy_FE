@@ -2,6 +2,10 @@ import React from "react";
 import styles from "./landing-page.module.css";
 import Image from "next/image";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
+
+
 export default function LandingPage() {
   return (
     <div className={styles.wrapper}>
@@ -31,6 +35,26 @@ export default function LandingPage() {
               <h2 className={styles.resultTitleTwo}>까베르네 소비뇽, 리오하를 추천합니다!</h2>
             </div>
           </div>
+
+
+          <div className={styles.shareContainer}>
+            <h3 className={styles.share}>
+              친구들에게 결과를 공유해보세요!
+              <FontAwesomeIcon icon={faShareFromSquare} className={styles.shareIcon} />
+            </h3>
+          </div>
+        </div>
+
+        <div className={styles.suggestionCotnainer}>
+          <h2 className={styles.suggetionTitle}>
+            와인의 세계를
+            <br /> 더 알고 싶지 않으세요?
+          </h2>
+          <div className={styles.buttonContainer}>
+            <button className={`btn outline ${styles.memberLogin}`}>회원 로그인</button>
+            <button className={`btn outline ${styles.nonMemberLogin}`}>비회원 회원가입</button>
+          </div>
+
         </div>
       </div>
     </div>
