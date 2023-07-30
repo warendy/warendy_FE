@@ -33,7 +33,7 @@ const MyPage = () => {
           <div className={styles.snbArea}>
             <button
               onClick={() => handleSnbLinkClick("my")}
-              className={styles.menuBtn + " btn "}
+              className="resetBtn btn"
             >
               <h2 className={styles.mainTitle}>마이페이지</h2>
             </button>
@@ -44,7 +44,7 @@ const MyPage = () => {
                   <li className={styles.menuItem}>
                     <button
                       onClick={() => handleSnbLinkClick("profile")}
-                      className={styles.menuBtn + " btn "}
+                      className="resetBtn btn"
                     >
                       로그인 정보
                     </button>
@@ -52,7 +52,7 @@ const MyPage = () => {
                   <li className={styles.menuItem}>
                     <button
                       onClick={() => handleSnbLinkClick("profile-edit")}
-                      className={styles.menuBtn + " btn "}
+                      className="resetBtn btn"
                     >
                       프로필 관리
                     </button>

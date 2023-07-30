@@ -1,7 +1,12 @@
 import React from "react";
 import Main from "./main/main";
+import { worker } from "../mocks/handlers";
 
-export default function IndexPage() {
+if (worker) {
+  worker.start();
+}
+
+export default function Index() {
   return (
     <>
       <Main />

@@ -1,6 +1,6 @@
 /* darkscreen.module.css */
 
-.background {
+.backGround {
   position: absolute;
   top: 100px;
   width: 100%;
@@ -10,7 +10,7 @@
   opacity: 0.3;
 }
 
-.fullscreen {
+.fullScreen {
   width: 100%;
   height: 50%;
   display: none;

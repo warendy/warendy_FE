@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
 import styles from "./todayswine.module.css";
 
 const ReviewPage = () => {
@@ -7,6 +5,7 @@ const ReviewPage = () => {
     <>
       <div className="container">
         <div className={styles.myReview + " inner "}>
+          <h3 className="title">오늘의 와인</h3>
           <div className={styles.reviewPage}>
             <div className={styles.filter}>
               <h3 className={styles.filterName}>필터</h3>

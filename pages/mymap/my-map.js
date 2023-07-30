@@ -4,8 +4,7 @@ export default function MyMap() {
   useEffect(() => {
     const mapScript = document.createElement("script");
     mapScript.async = true;
-    mapScript.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=99d585418706339ae15d964c524e4848";
+    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VITE_KAKAO_MAP_API_KEY}`;
     document.head.appendChild(mapScript);
 
     const onLoadKakaoMap = () => {
