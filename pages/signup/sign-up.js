@@ -2,7 +2,7 @@ import styles from "./sign-up.module.css";
 
 import Layout from "../../components/layout/layout";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <Layout>
       <h3 className={styles.mainTitle + " title "}>회원가입</h3>
@@ -49,4 +49,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

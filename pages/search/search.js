@@ -26,6 +26,7 @@ export default function Search() {
   const handleSearchLocation = (e) => {
     setSearchLocation(e.target.value);
   };
+  const kakaoMapApiKey = process.env.VITE_KAKAO_MAP_API_KEY;
 
   return (
     <>
@@ -51,7 +52,7 @@ export default function Search() {
             </li>
             {showMap1 && (
               <li>
-                <MyMap />
+                <MyMap kakaoMapApiKey={kakaoMapApiKey} />
               </li>
             )}
             <li>
