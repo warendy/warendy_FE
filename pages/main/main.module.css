@@ -1,0 +1,48 @@
+.mainCarousel {
+  display: flex;
+  justify-content: center;
+  background-color: #771516;
+}
+
+.contentArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.etiquetteContainer {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  border-bottom: grey solid 1px;
+}
+
+.etiquette {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.etiquetteTitle {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.etiquetteList {
+  height: 23vh;
+  display: flex;
+  justify-content: space-between; /* Distribute the items evenly along the row */
+  align-items: center; /* Vertically center the items */
+  margin: 0 auto;
+  width: 66.6%;
+  list-style: none; /* Remove the default bullet points */
+  padding: 0;
+  background-color: #e9e9e9;
+  margin-bottom: 5rem;
+}
+
+.etiquetteTitle {
+  margin-bottom: 5rem;
+}

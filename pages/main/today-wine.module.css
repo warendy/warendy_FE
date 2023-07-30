@@ -1,0 +1,27 @@
+.todayWinesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: grey solid 1px;
+}
+
+.todayWineList {
+  display: flex;
+  margin: 0 auto;
+}
+
+.recommended {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25rem;
+  height: 30rem;
+  border-radius: 1rem;
+  background-color: #ebebeb;
+  margin: 2.5%;
+}
+
+.icon {
+  font-size: 4rem;
+  color: #cccccc;
+}
