@@ -31,7 +31,7 @@ const My = () => {
                 프로필 관리
               </Link>
               <Link
-                href="/my/wine-collection"
+                href="/my/my-collection"
                 className={styles.wineCollection + " btn outline "}
                 type="button"
               >
