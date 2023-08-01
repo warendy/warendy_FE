@@ -5,6 +5,7 @@ import styles from "./main.module.css";
 import TodayWine from "./today-wine";
 import TodayMood from "./today-mood";
 import LovedWine from "./loved-wine";
+import SearchBar from "../../pages/searchbar/search-bar";
 
 const Main = () => {
   return (
@@ -12,13 +13,9 @@ const Main = () => {
       <div className="container">
         <div className="inner">
           <div className={styles.mainCarousel}>
-            <Image
-              src="/images/mainbg.svg"
-              alt="main Carousel"
-              width={850}
-              height={450}
-            />
+            <Image src="/images/mainbg.svg" alt="main Carousel" width={850} height={450} />
           </div>
+          <SearchBar />
           <div className={styles.contentArea}>
             <TodayWine />
             <TodayMood />

@@ -13,36 +13,16 @@ export default function TodayWine() {
             <FontAwesomeIcon icon={faCaretLeft} className={styles.icon} />
           </button>
           <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
+            <Image src="/images/wine.png" alt="recommended wine" width={30} height={120} />
           </li>
           <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
+            <Image src="/images/wine.png" alt="recommended wine" width={30} height={120} />
           </li>
           <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
+            <Image src="/images/wine.png" alt="recommended wine" width={30} height={120} />
           </li>
           <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
+            <Image src="/images/wine.png" alt="recommended wine" width={30} height={120} />
           </li>
           <button className="resetBtn btn">
             <FontAwesomeIcon icon={faCaretRight} className={styles.icon} />
