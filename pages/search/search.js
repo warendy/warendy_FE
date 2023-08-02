@@ -2,25 +2,25 @@ import React, { useState, useEffect } from "react";
 import styles from "../search/search.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import MyMap from "../mymap/my-map";
+import MyMap from "../map/my-map";
 
 export default function Search() {
   // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들
-  const [showMap1, setShowMap1] = useState(false);
-  const [showMap2, setShowMap2] = useState(false);
-  const [showMap3, setShowMap3] = useState(false);
+  const [showMapF, setShowMapF] = useState(false);
+  const [showMapS, setShowMapS] = useState(false);
+  const [showMapT, setShowMapT] = useState(false);
   const [searchLocation, setSearchLocation] = useState("");
 
   const handleToggleMap1 = () => {
-    setShowMap1(!showMap1);
+    setShowMapF(!showMapF);
   };
 
   const handleToggleMap2 = () => {
-    setShowMap2(!showMap2);
+    setShowMapS(!showMapS);
   };
 
   const handleToggleMap3 = () => {
-    setShowMap3(!showMap3);
+    setShowMapT(!showMapT);
   };
 
   const handleSearchLocation = (e) => {
@@ -35,7 +35,12 @@ export default function Search() {
         <div className={styles.searchWrap}>
           <div>
             <label>지역 검색:</label>
-            <input type="text" placeholder="지역을 입력하세요" value={searchLocation} onChange={handleSearchLocation} />
+            <input
+              type="text"
+              placeholder="지역을 입력하세요"
+              value={searchLocation}
+              onChange={handleSearchLocation}
+            />
             <button className={styles.button}>
               <FontAwesomeIcon icon={faSearch} />
             </button>
@@ -45,7 +50,7 @@ export default function Search() {
             <li>
               와인한잔 <button onClick={handleToggleMap1}>+</button>
             </li>
-            {showMap1 && (
+            {showMapF && (
               <li>
                 <MyMap kakaoMapApiKey={kakaoMapApiKey} />
               </li>
@@ -53,7 +58,7 @@ export default function Search() {
             <li>
               와인두잔 <button onClick={handleToggleMap2}>+</button>
             </li>
-            {showMap2 && (
+            {showMapS && (
               <li>
                 <div style={{ border: "1px solid black", height: "200px" }}>
                   {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
@@ -64,7 +69,7 @@ export default function Search() {
             <li>
               와인세잔 <button onClick={handleToggleMap3}>+</button>
             </li>
-            {showMap3 && (
+            {showMapT && (
               <li>
                 <div style={{ border: "1px solid black", height: "200px" }}>
                   {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
