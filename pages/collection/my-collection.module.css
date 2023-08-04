@@ -1,0 +1,141 @@
+.myCollectionContainer {
+  padding: 0.4rem;
+}
+
+.myCollectionArea {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-left: 12rem;
+  /* max-width: 127rem; */
+}
+
+.fixedTab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 15rem;
+}
+
+.tabTitle {
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 1rem 1rem;
+}
+
+.fixed {
+  margin-right: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.fixedContent.dark {
+  background-color: #000000;
+}
+
+.fixedContent.draggingOver {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fixedContent.shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 생성되는 tab들 */
+.createdTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.tabArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  user-select: none;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}
+
+.createdContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 25rem;
+  min-height: 10rem;
+}
+
+.tabContent {
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  background-color: #f7eded;
+  padding: 1rem;
+  border: 1px solid #ebe5e5;
+  transition: box-shadow 0.2s;
+  max-width: 18rem;
+}
+
+.tabContent.dark {
+  background-color: #000000;
+}
+
+.tabContent.draggingOver {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tabContent.shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.createdContentArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.draggingItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  padding: 1rem;
+  transition: box-shadow 0.2s;
+  max-height: 15rem;
+}
+
+/* 다크 모드 스타일 */
+.draggingItem.dark {
+  background-color: #121212;
+}
+
+/* 드래깅 스타일 */
+.draggingItem.dragging {
+  opacity: 0.9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.draggingItem.shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.deleteBtn {
+  position: absolute;
+  display: none;
+  top: 1rem;
+  right: 1rem;
+}
+
+.draggingItem:hover .deleteBtn {
+  display: block;
+}
+
+.wineName {
+  font-weight: 500;
+}
