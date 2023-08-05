@@ -3,30 +3,25 @@ import styles from "../search/search.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import MyMap from "../map/my-map";
+import axios from "axios";
+import { fetchNearbyWineStores } from "@/utils/api";
 
 export default function Search() {
-  // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들
   const [showMapF, setShowMapF] = useState(false);
-  const [showMapS, setShowMapS] = useState(false);
-  const [showMapT, setShowMapT] = useState(false);
   const [searchLocation, setSearchLocation] = useState("");
+  const [wineBars, setWineBars] = useState([]);
 
   const handleToggleMap1 = () => {
     setShowMapF(!showMapF);
   };
 
-  const handleToggleMap2 = () => {
-    setShowMapS(!showMapS);
-  };
-
-  const handleToggleMap3 = () => {
-    setShowMapT(!showMapT);
-  };
+  useEffect(() => {
+    fetchNearbyWineStores(37.0, 128.0);
+  }, []);
 
   const handleSearchLocation = (e) => {
     setSearchLocation(e.target.value);
   };
-  const kakaoMapApiKey = process.env.VITE_KAKAO_MAP_API_KEY;
 
   return (
     <>
@@ -52,29 +47,10 @@ export default function Search() {
             </li>
             {showMapF && (
               <li>
-                <MyMap kakaoMapApiKey={kakaoMapApiKey} />
-              </li>
-            )}
-            <li>
-              와인두잔 <button onClick={handleToggleMap2}>+</button>
-            </li>
-            {showMapS && (
-              <li>
-                <div style={{ border: "1px solid black", height: "200px" }}>
-                  {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
-                  카카오맵 지도 표시 영역
-                </div>
-              </li>
-            )}
-            <li>
-              와인세잔 <button onClick={handleToggleMap3}>+</button>
-            </li>
-            {showMapT && (
-              <li>
-                <div style={{ border: "1px solid black", height: "200px" }}>
-                  {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
-                  카카오맵 지도 표시 영역
-                </div>
+                <MyMap
+                  kakaoMapApiKey={process.env.KAKAO_MAP_KEY}
+                  wineBars={wineBars}
+                />
               </li>
             )}
           </ul>
