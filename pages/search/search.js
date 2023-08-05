@@ -35,12 +35,7 @@ export default function Search() {
         <div className={styles.searchWrap}>
           <div>
             <label>지역 검색:</label>
-            <input
-              type="text"
-              placeholder="지역을 입력하세요"
-              value={searchLocation}
-              onChange={handleSearchLocation}
-            />
+            <input type="text" placeholder="지역을 입력하세요" value={searchLocation} onChange={handleSearchLocation} />
             <button className={styles.button}>
               <FontAwesomeIcon icon={faSearch} />
             </button>
