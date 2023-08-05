@@ -60,6 +60,7 @@
   font-size: 1.8rem;
   background-color: #9d1617;
   min-width: 38rem;
+  cursor: pointer;
 }
 
 .text {
@@ -78,6 +79,7 @@
   border-radius: 1rem;
   background-color: #fff;
   min-width: 38rem;
+  cursor: pointer;
 }
 
 .social {
