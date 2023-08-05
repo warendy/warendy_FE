@@ -2,11 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMapMarkerAlt,
-  faComment,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
 import styles from "./header.module.css";
 
 const Header = () => {
@@ -22,7 +19,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className={styles.topItem}>
-                <Link href="/signin/sign-in" className={styles.link}>
+                <Link href="/sign-in" className={styles.link}>
                   로그인
                 </Link>
               </li>

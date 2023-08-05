@@ -4,6 +4,7 @@
 
 .container {
   padding-top: 14rem;
+  min-height: 192rem;
 }
 
 .inner {
@@ -80,7 +81,6 @@
   padding-bottom: 6.5rem;
 }
 
-
 .heartBadge {
   position: relative;
   width: 2rem;
@@ -109,4 +109,3 @@
   transform: rotate(45deg);
   transform-origin: 100% 100%;
 }
-
