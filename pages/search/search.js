@@ -6,6 +6,7 @@ import MyMap from "../map/my-map";
 import axios from "axios";
 import { fetchNearbyWineStores } from "@/utils/api";
 
+//시작
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
   const [searchLocation, setSearchLocation] = useState("");

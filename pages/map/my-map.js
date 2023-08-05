@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MapComponent from "./map-componen";
 
-const proxyServerAddress = "https://warendy.shop/winebars?Lng={lng}&Lat={lat}";
+const proxyServerAddress = "https://warendy.shop/winebars?Lng={lng}&Lat={lat}"; //수정요망
 
 export default function MyMap() {
   const [userLocation, setUserLocation] = useState(null);
