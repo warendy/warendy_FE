@@ -7,7 +7,7 @@
 .center {
   position: relative;
   display: flex;
-  justify-content: center; /* Add this line */
+  justify-content: center;
   align-items: center;
   width: 66.6%;
   height: 100vh;
@@ -18,8 +18,8 @@
   text-align: center;
   padding: 12px;
   margin-bottom: 6px;
-  height: 30rem;
-  width: 800rem;
+  height: 70rem;
+  width: 700rem;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -27,6 +27,8 @@
   position: relative;
   margin: 0 auto;
   z-index: 1;
+  border-top: 1px dashed gray;
+  display: block;
 }
 
 .leftPage {
@@ -36,12 +38,9 @@
   height: 100%;
   width: 50%;
   background: #f9f9f9;
-  transform-origin: right;
-  transform-style: preserve-3d;
   z-index: 1;
   border-top-right-radius: 8px;
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
-  animation: flipLeft 3s infinite;
 }
 
 .rightPage {
@@ -51,12 +50,12 @@
   height: 100%;
   width: 50%;
   background: #f9f9f9;
-  transform-origin: left;
+  transform-origin: left; /* Change transform-origin */
   transform-style: preserve-3d;
   z-index: 1;
   border-top-left-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  animation: flipRight 2s infinite;
+  box-shadow: 10px 10px 5px 5px rgba(0, 0, 0, 0.3);
+  animation: flipRight 5s forwards; /* change here */
 }
 
 .spine {
@@ -68,41 +67,65 @@
   background: rgba(217, 217, 217, 0.5);
   transform: translateX(-50%);
   z-index: 2;
+  border: 4px dashed indianred;
 }
 
 .content {
-  /* Add new styles */
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   width: 50%;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .contentTwo,
 .contentThree {
-  /* Add new styles */
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   width: 50%;
   text-align: center;
   display: none;
+  font-size: 2rem;
 }
 
-.resultCotnainer {
+.btnContainer {
+  width: 50%;
+  height: 20%;
+  display: flex;
+  justify-content: space-around;
   position: absolute;
+  right: 0;
+  flex-wrap: inherit;
+  bottom: 0;
+}
+
+.btnContainer > button {
+  border-style: none;
+  background-color: transparent;
+}
+.icon {
+  width: 9rem;
+  height: 3rem;
+  background-color: gold;
+  border-radius: 3rem;
+  opacity: 0.8;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.resultContainer {
   width: 60%;
-  height: 50%;
-  background-color: bisque;
+  height: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
-
   display: none;
+  padding: 4rem;
+  box-shadow: 0px 15px 8px rgba(0, 0, 0, 0.2);
 }
 
 .resultAnimal {
@@ -110,16 +133,14 @@
   height: 50%;
 }
 
-
 .resultTitle {
   font-size: 3rem;
-
+}
 .resultTitle,
 .suggetionTitle {
   font-size: 3rem;
   text-align: center;
   line-height: 5rem;
-
 }
 
 .resultTitleOne {
@@ -137,8 +158,6 @@
   width: 100%;
   height: 50%;
   justify-content: center;
-
-  display: none;
 }
 
 .resultWine {
@@ -159,12 +178,11 @@
   height: 100%;
 }
 
-
 .shareContainer {
   position: absolute;
-  width: 100%;
-  height: 15%;
-  bottom: -25%;
+  width: 70%;
+  height: 5%;
+  bottom: 10%;
   background-color: #9d1617;
   border-radius: 5rem;
   display: none;
@@ -198,6 +216,7 @@
   justify-content: center;
   align-items: center;
   z-index: 3;
+  display: none;
 }
 
 .suggetionTitle {
@@ -227,7 +246,6 @@
   color: white;
 }
 
-
 @media screen and (max-width: 768px) {
   .content {
     width: 50%;
@@ -235,26 +253,16 @@
   }
 }
 
-@keyframes flipLeft {
-  0% {
-    transform: perspective(600px) rotateY(-10deg);
+@keyframes flipRight {
+  100% {
+    transform: perspective(800px) rotateY(-180deg);
   }
   50% {
-    transform: perspective(600px) rotateY(10deg);
+    transform: perspective(800px) rotateY(0deg) rotateX(1deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
-  100% {
-    transform: perspective(600px) rotateY(-10deg);
-  }
-}
-
-@keyframes flipRight {
-  0% {
-    transform: perspective(600px) rotateY(10deg);
-  }
-  70% {
-    transform: perspective(600px) rotateY(180deg);
-  }
-  100% {
-    transform: perspective(600px) rotateY(10deg);
+  75% {
+    transform: perspective(800px) rotateY(-150deg) rotateX(2deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 }
