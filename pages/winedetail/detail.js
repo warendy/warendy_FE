@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import Image from "next/image";
 import StarRating from "./star-rating";
+import { wineState } from "@/pages/recoil_state";
+import { useRecoilValue } from "recoil";
 
 export default function Detail() {
-  const [ratings, setRatings] = useState([0, 0, 0]); // Initialize ratings for each review
-  const [reviewText, setReviewText] = useState(""); // State for the review text input
+  const wine = useRecoilValue(wineState);
+  const [ratings, setRatings] = useState([0, 0, 0]);
+  const [reviewText, setReviewText] = useState("");
+
+  // 와인 데이터를 저장할 상태를 추가
+  const [wineData, setWineData] = useState(null);
+
+  useEffect(() => {
+    // wine 상태의 ID 부분을 가져옴
+    const wineId = wine.id;
+
+    fetch(`https://warendy.shop/wines/${wineId}/detail`)
+      .then((response) => response.json())
+      .then((data) => setWineData(data))
+      .catch((error) => console.error(error));
+  }, [wine.id]);
 
   const handleSetRating = (reviewIndex, newRating) => {
     setRatings((prevRatings) => {
@@ -16,13 +32,9 @@ export default function Detail() {
   };
 
   const handleReviewSubmit = (reviewIndex) => {
-    // You can now access the star rating and review text for each review.
     const rating = ratings[reviewIndex];
     const text = reviewText;
 
-    // Here you can perform any actions you need to save the review, like sending it to a server or storing it in a state.
-
-    // Clear the review text after submitting.
     setReviewText("");
   };
   return (
@@ -77,10 +89,10 @@ export default function Detail() {
           </div>
 
           <div className={styles.detailList}>
-            <div className={styles.detailRegion}>REGION</div>
-            <div className={styles.detailWinery}>WINERY</div>
-            <div className={styles.detailRating}>RATING</div>
-            <div className={styles.detailPrice}>PRICE</div>
+            <div className={styles.detailRegion}>REGION :</div>
+            <div className={styles.detailWinery}>WINERY :</div>
+            <div className={styles.detailRating}>RATING :</div>
+            <div className={styles.detailPrice}>PRICE :</div>
           </div>
 
           <div className={styles.reviewContainer}>
