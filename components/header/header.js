@@ -19,7 +19,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className={styles.topItem}>
-                <Link href="/signin/sign-in" className={styles.link}>
+                <Link href="/sign-in" className={styles.link}>
                   로그인
                 </Link>
               </li>

@@ -1,5 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
+import styles from "./my-collection.module.css";
 
 const CreateTabButton = ({ onCreateTab }) => {
   const handleCreateTab = () => {

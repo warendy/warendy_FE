@@ -8,6 +8,8 @@ import styles from "./SigninForm.module.css";
 import { postLogin } from "../pages/services/api";
 // import { validateEmail, validatePassword } from "./formValidation";
 import Layout from "./layout/layout";
+import { useSetRecoilState } from "recoil"; // Recoil의 useSetRecoilState를 임포트합니다.
+import { myAtom } from "../recoil-persist-config"; // Atom을 정의한 파일을 임포트합니다.
 
 const SigninForm = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +17,35 @@ const SigninForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
-  // const validateEmail = (inputValue) => {
-  //   // 폼의 유효성 검사
-  //   const isEmailValid = validateEmail(email);
-  //   const isPasswordValid = validatePassword(password);
-  //   setIsButtonDisabled(!isEmailValid || !isPasswordValid);
+  const setMyAtom = useSetRecoilState(myAtom);
+
+  const validateEmail = (inputValue) => {
+    // 폼의 유효성 검사
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+    setIsButtonDisabled(!isEmailValid || !isPasswordValid);
+  };
+  // 백엔드 API 호출 함수 (예시)
+  // const postLogin = async (loginData) => {
+  //   try {
+  //     const response = await fetch("/api/signin", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(loginData),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Login failed");
+  //     }
+
+  //     const data = await response.json();
+  //     return data.token; // 로그인 토큰 반환
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     return null;
+  //   }
   // };
 
   const handleLogin = async () => {
@@ -30,14 +56,20 @@ const SigninForm = () => {
 
     try {
       // 폼의 유효성 검사
-      validateForm();
+      // validateForm();
 
-      if (isButtonDisabled) {
-        return; // 유효성 검사에 실패하면 로그인 처리를 하지 않음
-      }
+      // if (isButtonDisabled) {
+      //   return; // 유효성 검사에 실패하면 로그인 처리를 하지 않음
+      // }
       // 로그인 API 호출
       const loginResponse = await postLogin(loginInform);
       console.log("Login Response:", loginResponse);
+
+      // 로그인 성공 시 Recoil Atom을 업데이트합니다.
+      setMyAtom({
+        email: email,
+        token: loginResponse.token, // 로그인 응답에서 토큰을 가져와서 업데이트합니다.
+      });
 
       // 로그인 처리 및 리다이렉션 등 추가 로직
     } catch (error) {

@@ -1,4 +1,5 @@
 .myCollectionContainer {
+  position: relative;
   padding: 0.4rem;
 }
 
@@ -11,7 +12,7 @@
   /* max-width: 127rem; */
 }
 
-.fixedTab {
+.bookmarkedTab {
   position: absolute;
   top: 0;
   left: 0;
@@ -44,10 +45,11 @@
 
 /* 생성되는 tab들 */
 .createdTab {
+  position: absolute;
+  top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2.5rem;
 }
 
 .tabArea {
@@ -138,4 +140,10 @@
 
 .wineName {
   font-weight: 500;
+}
+
+.saveBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
