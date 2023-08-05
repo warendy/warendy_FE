@@ -21,7 +21,7 @@ export default function LandingPage() {
   ];
 
   const handleYesClick = () => {
-    setButtonClickCount(buttonClickCount + 1); // Update the button click count
+    setButtonClickCount(buttonClickCount + 1);
     if (textIndex < texts.length - 1) {
       setAnswers([...answers, "yes"]);
       setTextIndex(textIndex + 1);
@@ -31,7 +31,7 @@ export default function LandingPage() {
   };
 
   const handleNoClick = () => {
-    setButtonClickCount(buttonClickCount + 1); // Update the button click count
+    setButtonClickCount(buttonClickCount + 1);
     setAnswers([...answers, "no"]);
     if (textIndex < texts.length - 1) {
       setTextIndex(textIndex + 1);
@@ -41,11 +41,9 @@ export default function LandingPage() {
   };
 
   const calculateResult = (finalAnswers) => {
-    // Count the number of 'Yes' and 'No' respectively.
     const yesCount = finalAnswers.filter((answer) => answer === "yes").length;
     const noCount = finalAnswers.filter((answer) => answer === "no").length;
 
-    // Output different images, titles, and descriptions depending on the number of 'Yes' or 'No' responses.
     if (yesCount >= 3) {
       setImagePath("/images/cat.svg");
       setResultTitle("남들과 격하게 한탕하고 싶은 당신!");

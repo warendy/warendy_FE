@@ -6,7 +6,7 @@ const StarRating = ({ rating, setRating, reviewText, setReviewText }) => {
   const [hoveredRating, setHoveredRating] = useState(0);
 
   const handleStarClick = (clickedStarIndex) => {
-    const newRating = clickedStarIndex + 1; // Add 1 to convert index to 1-based rating
+    const newRating = clickedStarIndex + 1; //
     setRating(newRating);
   };
 

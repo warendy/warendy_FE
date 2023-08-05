@@ -55,7 +55,7 @@ export default function Detail() {
                 <div className={styles.wineTitle}>프랑스</div>
                 <div className="heartBadge"></div>
               </div>
-              <div className={styles.introTitle}>Domaine Besson, Chablis 1er Cru Vailllons</div>
+              <div className={styles.introTitle}>{wineData?.wineName}</div>
               <div className={styles.figureBox}>
                 <div className={styles.label}>Bitter</div>
                 <div className={`${styles.progress} ${styles.sweetnessProgress}`}></div>
