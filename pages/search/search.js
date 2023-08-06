@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import MyMap from "../map/my-map";
 import axios from "axios";
-import { fetchNearbyWineStores } from "@/utils/api";
-
+import { fetchNearbyWineStores } from "@/utlis/api";
 //시작
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
@@ -17,7 +16,7 @@ export default function Search() {
   };
 
   useEffect(() => {
-    fetchNearbyWineStores(37.0, 128.0);
+    fetchNearbyWineStores(128.0, 37.0);
   }, []);
 
   const handleSearchLocation = (e) => {

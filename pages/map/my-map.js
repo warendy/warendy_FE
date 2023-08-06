@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import MapComponent from "./map-componen";
+import MapComponent from "./map-component";
 
 const proxyServerAddress = "https://warendy.shop/winebars?Lng={lng}&Lat={lat}"; //수정요망
 
