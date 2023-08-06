@@ -22,7 +22,7 @@ export default function MyMap() {
         });
 
         window.kakao.maps.load(() => {
-          // Kakao 지도 API 로드 후 초기화
+          // Kakao 지도 API 로드 후 초기화아
           if (userLocation) {
             initializeMap();
           }

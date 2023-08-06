@@ -62,5 +62,5 @@ export default function MapComponent({ wineBars, userLocation }) {
     });
   };
 
-  return <div ref={mapRef} style={{ width: "500px", height: "400px" }} />;
+  return <div ref={mapRef} style={{ width: "501px", height: "400px" }} />;
 }
