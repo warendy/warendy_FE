@@ -8,20 +8,32 @@ const proxyServerAddress =
 export default function MyMap() {
   const [userLocation, setUserLocation] = useState(null);
   const [wineBars, setWineBars] = useState([]);
-  const [userMarkerPosition, setUserMarkerPosition] = useState(null);
 
   useEffect(() => {
-    const kakaoMapScript = document.createElement("script");
-    kakaoMapScript.async = false;
-    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false`;
-    document.head.appendChild(kakaoMapScript);
+    const loadKakaoMap = async () => {
+      try {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false`;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
 
-    kakaoMapScript.addEventListener("load", () => {
-      onLoadKakaoAPI(); // onLoadKakaoAPI 함수 호출
-    });
+        window.kakao.maps.load(() => {
+          // Kakao 지도 API 로드 후 초기화
+          if (userLocation) {
+            initializeMap();
+          }
+        });
+      } catch (error) {
+        console.error("Error loading Kakao Map API:", error);
+      }
+    };
 
-    fetchUserLocation();
-  }, []);
+    loadKakaoMap();
+  }, [userLocation]);
 
   const fetchUserLocation = async () => {
     try {
@@ -37,44 +49,11 @@ export default function MyMap() {
     }
   };
 
-  const onLoadKakaoAPI = async () => {
-    window.kakao.maps.load(async () => {
-      const container = document.getElementById("map");
-      const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
-
-      const map = new window.kakao.maps.Map(container, options);
-
-      if (userLocation) {
-        // 사용자의 위치에 마커 표시
-        const userMarkerPosition = new window.kakao.maps.LatLng(
-          userLocation.latitude,
-          userLocation.longitude
-        );
-
-        const userMarker = new window.kakao.maps.Marker({
-          position: userMarkerPosition,
-        });
-
-        userMarker.setMap(map);
-        setUserMarkerPosition(userMarkerPosition);
-
-        // 주변 와인바 정보 먼저 받아오기
-        await fetchWineBarsNearby(userLocation, map);
-      }
-    });
+  const initializeMap = async () => {
+    // 서버 API 호출하여 주변 와인바 정보를 받아옴
+    await fetchWineBarsNearby(userLocation);
   };
-  useEffect(() => {
-    console.log("wineBars:", wineBars);
-  }, [wineBars]);
 
-  useEffect(() => {
-    console.log("userLocation:", userLocation);
-  }, [userLocation]);
-
-  // 서버 API 호출하여 주변 와인바 정보를 받아옴
   const fetchWineBarsNearby = async (location) => {
     try {
       const apiUrl = proxyServerAddress
@@ -90,16 +69,24 @@ export default function MyMap() {
     }
   };
 
-  // 최초 렌더링 시에만 위치 정보 가져오기
   useEffect(() => {
     fetchUserLocation();
   }, []);
 
+  useEffect(() => {
+    console.log("wineBars:", wineBars);
+  }, [wineBars]);
+
+  useEffect(() => {
+    console.log("userLocation:", userLocation);
+  }, [userLocation]);
+
   return (
     <div>
       <h2>MyMap Component</h2>
-      <MapComponent wineBars={wineBars} userLocation={userLocation} />{" "}
-      {/* MapComponent로 userLocation 전달 */}
+      {userLocation && (
+        <MapComponent userLocation={userLocation} wineBars={wineBars} />
+      )}
     </div>
   );
 }

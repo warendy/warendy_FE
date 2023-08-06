@@ -1,12 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function MapComponent({ wineBars, userLocation }) {
-  useEffect(() => {
-    if (!window.kakao || !window.kakao.maps || !userLocation) {
-      return;
-    }
+  const mapRef = useRef(null);
 
-    const container = document.getElementById("map");
+  useEffect(() => {
+    const loadKakaoMap = async () => {
+      try {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false`;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      } catch (error) {
+        console.error("Error loading Kakao Map API:", error);
+      }
+    };
+
+    loadKakaoMap();
+  }, []);
+
+  useEffect(() => {
+    if (userLocation && window.kakao && window.kakao.maps) {
+      initializeMap();
+    }
+  }, [wineBars, userLocation]);
+
+  const initializeMap = () => {
+    const container = mapRef.current;
     const options = {
       center: new window.kakao.maps.LatLng(
         userLocation.latitude,
@@ -28,7 +51,7 @@ export default function MapComponent({ wineBars, userLocation }) {
       });
       marker.setMap(map);
     }
-  }, [wineBars, userLocation]); // userLocation을 의존성 배열에 추가하여 변경될 때마다 useEffect 호출
+  };
 
   const displayWineBarMarkers = (wineBarData, map) => {
     wineBarData.forEach((wineBar) => {
@@ -39,5 +62,5 @@ export default function MapComponent({ wineBars, userLocation }) {
     });
   };
 
-  return <div id="map" style={{ width: "500px", height: "400px" }} />;
+  return <div ref={mapRef} style={{ width: "500px", height: "400px" }} />;
 }
