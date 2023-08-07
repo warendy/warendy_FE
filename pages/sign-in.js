@@ -1,11 +1,12 @@
 import React from "react";
+import Layout from "../components/layout/layout";
 import SigninForm from "../components/SigninForm";
 
 const SignIn = () => {
   return (
-    <div>
+    <Layout>
       <SigninForm />
-    </div>
+    </Layout>
   );
 };
 

@@ -32,6 +32,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "sweetalert2": "^11.7.20"
   },
   "devDependencies": {
