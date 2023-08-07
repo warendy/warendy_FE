@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./InputForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
-import { validateEmail, validatePassword } from "./FormValidation";
+import {
+  validateEmail,
+  validatePassword,
+  validateNickname,
+} from "./FormValidation";
 
 const InputForm = ({
   type,
@@ -10,11 +14,14 @@ const InputForm = ({
   setEmail,
   password,
   setPassword,
+  nickname,
+  setNickname,
   isValidEmail,
   setIsValidEmail,
   isValidPassword,
   setIsValidPassword,
-  showAvatarInput,
+  isValidNickname,
+  setIsValidNickname,
   onSubmit,
 }) => {
   const handleInputChange = (e) => {
@@ -25,6 +32,9 @@ const InputForm = ({
     } else if (name === "password") {
       setPassword(value);
       setIsValidPassword(validatePassword(value));
+    } else if (name === "nickname") {
+      setNickname(value);
+      setIsValidNickname(validateNickname(value));
     }
   };
 
@@ -33,7 +43,10 @@ const InputForm = ({
     setIsValidEmail(true);
   };
 
-  const isFormValid = isValidEmail && isValidPassword;
+  const isFormValid =
+    type === "signup"
+      ? isValidEmail && isValidPassword && isValidNickname
+      : isValidEmail && isValidPassword;
 
   return (
     <>
@@ -41,7 +54,11 @@ const InputForm = ({
         <h3 className={`${styles.title} ${isValidEmail ? "" : styles.valid}`}>
           이메일 주소
         </h3>
-        <div className={styles.inputArea}>
+        <div
+          className={`${styles.inputArea} ${
+            isValidEmail ? "" : styles.inputValid
+          }`}
+        >
           <input
             type="email"
             name="email"
@@ -67,17 +84,19 @@ const InputForm = ({
         >
           비밀번호
         </h3>
-        <div>
-          <div className={styles.inputArea}>
-            <input
-              type="password"
-              name="password"
-              autoComplete="off"
-              value={password}
-              onChange={handleInputChange}
-              className="input"
-            />
-          </div>
+        <div
+          className={`${styles.inputArea} ${
+            isValidPassword ? "" : styles.inputValid
+          }`}
+        >
+          <input
+            type="password"
+            name="password"
+            autoComplete="off"
+            value={password}
+            onChange={handleInputChange}
+            className={styles.input + " input "}
+          />
         </div>
         {!isValidPassword && (
           <p className={styles.error}>
@@ -85,14 +104,30 @@ const InputForm = ({
           </p>
         )}
       </div>
-      {showAvatarInput && (
-        <div className="avatar">
+      {type === "signup" && (
+        <div className={styles.nickname}>
           <h3
-            className={`${styles.title} ${isValidPassword ? "" : styles.valid}`}
+            className={`${styles.title} ${isValidNickname ? "" : styles.valid}`}
           >
             닉네임
           </h3>
-          <input type="text" />
+          <div
+            className={`${styles.inputArea} ${
+              isValidNickname ? "" : styles.inputValid
+            }`}
+          >
+            <input
+              type="text"
+              name="nickname"
+              autoComplete="off"
+              value={nickname}
+              onChange={handleInputChange}
+              className={styles.input + " input "}
+            />
+          </div>
+          {!isValidNickname && (
+            <p className={styles.error}>필수 입력 항목입니다. (3자 이상) </p>
+          )}
         </div>
       )}
       <div className={styles.btnArea}>
@@ -100,7 +135,7 @@ const InputForm = ({
           type="submit"
           value="Submit Form"
           disabled={!isFormValid}
-          onClick={onSubmit} // Use the onSubmit prop here to handle form submission
+          onClick={onSubmit}
           className={`${styles.btn} ${styles.text} ${
             isFormValid ? styles.validate : styles.unvalidate
           } btn`}
