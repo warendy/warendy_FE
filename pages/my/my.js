@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./my.module.css";
 
-import MyReview from "./my-review";
+import MyBoard from "../../components/MyBoard";
+import MyReview from "../../components/MyReview";
 
 const My = () => {
   return (
@@ -42,17 +41,7 @@ const My = () => {
         </div>
         <div className={styles.userType}>그래프</div>
       </div>
-      <div className={styles.myHomeTitle}>
-        <h3 className={styles.title}>내가 쓴 게시글</h3>
-        <Link href="/post/post" className={styles.btnMore}>
-          <span className={styles.btnText}>더보기</span>
-          <FontAwesomeIcon icon={faAngleRight} className={styles.arrowRight} />
-        </Link>
-      </div>
-      <div className={styles.contentBox}>
-        <div>1</div>
-        <div>2</div>
-      </div>
+      <MyBoard />
       <MyReview />
     </div>
   );

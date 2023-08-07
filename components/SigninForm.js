@@ -19,11 +19,11 @@ const SigninForm = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const router = useRouter();
-  const setUserToken = useSetRecoilState(userTokenState);
+  // const setUserToken = useSetRecoilState(userTokenState);
   const [token, setToken] = useRecoilState(userTokenState);
 
   const handleLogin = async () => {
-    const loginInform = {
+    const loginInfo = {
       email: email,
       password: password,
     };
@@ -36,11 +36,10 @@ const SigninForm = () => {
         return;
       }
 
-      const loginResponse = await postLogin(loginInform);
+      const loginResponse = await postLogin(loginInfo);
       console.log("Login Response:", loginResponse);
 
       setToken(loginResponse);
-
       sessionStorage.setItem("userTokenState", loginResponse);
 
       router.push("/");
@@ -88,7 +87,7 @@ const SigninForm = () => {
           setIsValidEmail={setIsValidEmail}
           isValidPassword={isValidPassword}
           setIsValidPassword={setIsValidPassword}
-          onSubmit={handleLogin} // Pass handleLogin as onSubmit prop
+          onSubmit={handleLogin}
         />
         {showErrorMessage && <Modal />}
         <Link href="/sign-up" className={styles.btnSignup}>

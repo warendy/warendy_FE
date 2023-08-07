@@ -25,12 +25,47 @@ export const postLogin = async (loginInform) => {
 // 회원 가입 API 호출
 export const postSignup = async (signupInform) => {
   try {
+    console.log(signupInform);
     const response = await instance.post("/signup", signupInform);
+
     return response.data;
   } catch (error) {
     throw new Error("Signup failed");
     console.error("Error fetching data:", error);
     return null;
+  }
+};
+
+// 내가 쓴 게시글 API 호출
+export const postMyBoard = async (dataToSend, token) => {
+  console.log(dataToSend, token);
+  try {
+    const response = await instance.post("/boards", dataToSend, {
+      headers: { Authorization: token },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
+// 내가 쓴 게시글 API 요청
+export const getMyBoard = async () => {
+  // console.log(dataToSend);
+  try {
+    const response = await instance.get(
+      "/boards/creator?creator=동욱200",
+      // dataToSend,
+      {
+        // headers: { Authorization: token },
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
   }
 };
 
@@ -52,7 +87,7 @@ export const saveMyCollection = async (dataToSend, token) => {
   }
 };
 
-// 와인 정보 요청
+// 와인 정보 API 요청
 export const getWine = async (token) => {
   try {
     const response = await instance.get("/collections/wines", {
@@ -65,4 +100,5 @@ export const getWine = async (token) => {
     return null;
   }
 };
+
 export default instance;

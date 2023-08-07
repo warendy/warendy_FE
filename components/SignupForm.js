@@ -8,12 +8,14 @@ import Modal from "./Modal";
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidNickname, setIsValidNickname] = useState(true);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAppropriate, setIsAppropriate] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [showAvatarInput, setShowAvatarInput] = useState(false);
+  const [showNicknameInput, setshowNicknameInput] = useState(false);
 
   const router = useRouter();
 
@@ -21,6 +23,7 @@ const SignupForm = () => {
     const signupInform = {
       email: email,
       password: password,
+      nickname: nickname,
     };
 
     try {
@@ -53,8 +56,8 @@ const SignupForm = () => {
   }, [isAppropriate]);
 
   useEffect(() => {
-    setIsFormValid(isValidEmail && isValidPassword);
-  }, [isValidEmail, isValidPassword]);
+    setIsFormValid(isValidEmail && isValidPassword && isValidNickname);
+  }, [isValidEmail, isValidPassword, isValidNickname]);
 
   return (
     <>
@@ -66,11 +69,15 @@ const SignupForm = () => {
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
+          nickname={nickname}
+          setNickname={setNickname}
           isValidEmail={isValidEmail}
           setIsValidEmail={setIsValidEmail}
           isValidPassword={isValidPassword}
           setIsValidPassword={setIsValidPassword}
-          showAvaterInput={showAvatarInput}
+          isValidNickname={isValidNickname}
+          setIsValidNickname={setIsValidNickname}
+          showNicknameInput={showNicknameInput}
           onSubmit={handleSignup}
         />
         {showErrorMessage && <Modal />}
@@ -80,70 +87,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
-{
-  /* <h3 className={styles.mainTitle + " title "}>회원가입</h3>
-<div className={styles.contentArea}>
-  <div className={styles.email}>
-    <h3 className={`${styles.title} ${isValidEmail ? "" : styles.valid}`}>
-      이메일 주소
-    </h3>
-    <div className={styles.inputArea}>
-      <input
-        type="email"
-        name="email"
-        placeholder="예) warend@warendy.co.kr"
-        autoComplete="off"
-        value={email}
-        onChange={handleInputChange}
-        className={styles.input + " input "}
-      />
-      {email && (
-        <button type="button" className="input" onClick={handleClear}>
-          <FontAwesomeIcon icon={faCircleXmark} className={styles.icon} />
-        </button>
-      )}
-    </div>
-    {!isValidEmail && (
-      <p className={styles.error}>이메일 주소를 정확히 입력해주세요.</p>
-    )}{" "}
-  </div>
-  <div className={styles.password}>
-    <h3
-      className={`${styles.title} ${isValidPassword ? "" : styles.valid}`}
-    >
-      비밀번호
-    </h3>
-    <div>
-      <div className={styles.inputArea}>
-        <input
-          type="password"
-          name="password"
-          autoComplete="off"
-          value={password}
-          onChange={handleInputChange}
-          className="input"
-        />
-      </div>
-    </div>
-    {!isValidPassword && (
-      <p className={styles.error}>
-        영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자){" "}
-      </p>
-    )}
-  </div>
-  <div className={styles.btnArea}>
-    <button
-      type="submit"
-      value="Submit Form"
-      disabled={!isFormValid}
-      onClick={handleSignup}
-      className={`${styles.btn} ${styles.text} ${
-        isFormValid ? styles.unvalidate : styles.validate
-      } btn`}
-    >
-      가입하기
-    </button>
-  </div>
-</div> */
-}
