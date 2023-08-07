@@ -15,7 +15,7 @@ export const TItems = {
 const CollectionPage = () => {
   const [items, setItems] = useState({
     [TItemStatus.SELECT]: [...Array(5)].map((_, i) => ({
-      id: `${i}${i}${i}`,
+      id: `${i}`,
       title: `레드 ${i + 1}000`,
       status: TItemStatus.SELECT,
     })),

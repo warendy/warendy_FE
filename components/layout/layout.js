@@ -1,11 +1,5 @@
-import React from "react";
-
 const Layout = ({ children }) => {
-  return (
-    <div className="container">
-      <div className="inner padding">{children}</div>
-    </div>
-  );
+  return <div className="container inner">{children}</div>;
 };
 
 export default Layout;

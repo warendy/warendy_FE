@@ -24,18 +24,18 @@ const My = () => {
               <strong className={styles.name}>내 이름은 동우기</strong>
               <p className={styles.email}>waren@warendy.com</p>
               <Link
-                href="/my/profile-edit"
-                className="outline btn"
-                type="button"
-              >
-                프로필 관리
-              </Link>
-              <Link
-                href="/my/my-collection"
+                href="/my/collection-page"
                 className={styles.wineCollection + " btn outline "}
                 type="button"
               >
                 나만의 와인 컬렉션
+              </Link>
+              <Link
+                href="/my/collection-page"
+                className="btn outline"
+                type="button"
+              >
+                와인 취향
               </Link>
             </div>
           </div>
@@ -44,7 +44,7 @@ const My = () => {
       </div>
       <div className={styles.myHomeTitle}>
         <h3 className={styles.title}>내가 쓴 게시글</h3>
-        <Link href="/my/post" className={styles.btnMore}>
+        <Link href="/post/post" className={styles.btnMore}>
           <span className={styles.btnText}>더보기</span>
           <FontAwesomeIcon icon={faAngleRight} className={styles.arrowRight} />
         </Link>
