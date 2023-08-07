@@ -13,9 +13,10 @@ export const postLogin = async (loginInform) => {
   try {
     const response = await instance.post("/signin", loginInform);
     console.log(response);
-    localStorage.setItem("bearerToken", response.headers.authorization);
-    return response.data;
+    // localStorage.setItem("bearerToken", response.headers.authorization);
+    return response.headers.authorization;
   } catch (error) {
+    throw new Error("Signin failed");
     console.error("Error fetching data:", error);
     return null;
   }
@@ -27,6 +28,7 @@ export const postSignup = async (signupInform) => {
     const response = await instance.post("/signup", signupInform);
     return response.data;
   } catch (error) {
+    throw new Error("Signup failed");
     console.error("Error fetching data:", error);
     return null;
   }

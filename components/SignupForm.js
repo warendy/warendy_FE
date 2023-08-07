@@ -1,13 +1,22 @@
-import React, { useState } from "react";
-import styles from "./SignupForm.module.css";
-import Layout from "./layout/layout";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import styles from "./InputForm.module.css";
 import { postSignup } from "../pages/services/api";
+import InputForm from "./InputForm";
+import Modal from "./Modal";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isAppropriate, setIsAppropriate] = useState(true);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showAvatarInput, setShowAvatarInput] = useState(false);
 
-  // 회원 가입 버튼 클릭 이벤트 핸들러
+  const router = useRouter();
+
   const handleSignup = async () => {
     const signupInform = {
       email: email,
@@ -15,67 +24,126 @@ const SignupForm = () => {
     };
 
     try {
-      // 회원 가입 API 호출
+      if (!isFormValid) {
+        setShowErrorMessage(true);
+        return;
+      }
+      setShowErrorMessage(false);
       const signupResponse = await postSignup(signupInform);
       console.log("Signup Response:", signupResponse);
 
-      // 회원 가입 처리 및 리다이렉션 등 추가 로직
+      router.push("/sign-in");
     } catch (error) {
       console.error("Error fetching data:", error);
+      setShowErrorMessage(true);
     }
   };
 
+  useEffect(() => {
+    let timer;
+    if (!isAppropriate) {
+      setShowErrorMessage(true);
+      timer = setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 5000);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isAppropriate]);
+
+  useEffect(() => {
+    setIsFormValid(isValidEmail && isValidPassword);
+  }, [isValidEmail, isValidPassword]);
+
   return (
-    <Layout>
+    <>
       <h3 className={styles.mainTitle + " title "}>회원가입</h3>
-      <div className={styles.contentArea + " inner "}>
-        <div className={styles.inputInfo}>
-          <div className={styles.email}>
-            <h3 className={styles.title}>이메일 주소</h3>
-            <div>
-              <div className={styles.inputArea}>
-                <input
-                  type="email"
-                  placeholder="예) waren@warendy.com"
-                  className={styles.input + " input "}
-                  autoComplete="off"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <p className={styles.error}>이메일 주소를 정확히 입력해주세요.</p>
-            </div>
-          </div>
-          <div className={styles.password}>
-            <h3 className={styles.title}>비밀번호</h3>
-            <div>
-              <div className={styles.inputArea}>
-                <input
-                  type="password"
-                  placeholder="영문, 숫자, 특수문자 조합 8-16자"
-                  className={styles.input + " input "}
-                  autoComplete="off"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
-            <p className={styles.error}>
-              영문, 숫자, 특수문자를 조합해서 입력해주세요.
-            </p>
-          </div>
-          <div className={styles.btnArea}>
-            <button
-              onClick={handleSignup}
-              className={styles.btnSignup + " btn "}
-            >
-              <span className={styles.text}>가입하기</span>
-            </button>
-          </div>
-        </div>
+      <div className={styles.contentArea}>
+        <InputForm
+          type="signup"
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          isValidEmail={isValidEmail}
+          setIsValidEmail={setIsValidEmail}
+          isValidPassword={isValidPassword}
+          setIsValidPassword={setIsValidPassword}
+          showAvaterInput={showAvatarInput}
+          onSubmit={handleSignup}
+        />
+        {showErrorMessage && <Modal />}
       </div>
-    </Layout>
+    </>
   );
 };
 
 export default SignupForm;
+
+{
+  /* <h3 className={styles.mainTitle + " title "}>회원가입</h3>
+<div className={styles.contentArea}>
+  <div className={styles.email}>
+    <h3 className={`${styles.title} ${isValidEmail ? "" : styles.valid}`}>
+      이메일 주소
+    </h3>
+    <div className={styles.inputArea}>
+      <input
+        type="email"
+        name="email"
+        placeholder="예) warend@warendy.co.kr"
+        autoComplete="off"
+        value={email}
+        onChange={handleInputChange}
+        className={styles.input + " input "}
+      />
+      {email && (
+        <button type="button" className="input" onClick={handleClear}>
+          <FontAwesomeIcon icon={faCircleXmark} className={styles.icon} />
+        </button>
+      )}
+    </div>
+    {!isValidEmail && (
+      <p className={styles.error}>이메일 주소를 정확히 입력해주세요.</p>
+    )}{" "}
+  </div>
+  <div className={styles.password}>
+    <h3
+      className={`${styles.title} ${isValidPassword ? "" : styles.valid}`}
+    >
+      비밀번호
+    </h3>
+    <div>
+      <div className={styles.inputArea}>
+        <input
+          type="password"
+          name="password"
+          autoComplete="off"
+          value={password}
+          onChange={handleInputChange}
+          className="input"
+        />
+      </div>
+    </div>
+    {!isValidPassword && (
+      <p className={styles.error}>
+        영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자){" "}
+      </p>
+    )}
+  </div>
+  <div className={styles.btnArea}>
+    <button
+      type="submit"
+      value="Submit Form"
+      disabled={!isFormValid}
+      onClick={handleSignup}
+      className={`${styles.btn} ${styles.text} ${
+        isFormValid ? styles.unvalidate : styles.validate
+      } btn`}
+    >
+      가입하기
+    </button>
+  </div>
+</div> */
+}
