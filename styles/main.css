@@ -3,17 +3,14 @@
 }
 
 .container {
-  padding-top: 14rem;
+  min-height: 192rem;
+  padding-top: 18rem;
+  padding-bottom: 6.5rem;
 }
 
 .inner {
   width: 66.66%;
   margin: auto;
-}
-
-.padding {
-  padding-top: 6.5rem;
-  padding-bottom: 6.5rem;
 }
 
 .top {
@@ -55,6 +52,7 @@
   line-height: 3.4rem;
   margin-top: 1.2rem;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .input {
@@ -79,7 +77,6 @@
   padding-top: 6.5rem;
   padding-bottom: 6.5rem;
 }
-
 
 .heartBadge {
   position: relative;
@@ -109,4 +106,3 @@
   transform: rotate(45deg);
   transform-origin: 100% 100%;
 }
-
