@@ -40,14 +40,8 @@ const NearbyWineBars = ({ userLocation, wineBars }) => {
       wineBar.lnt
     );
 
-    console.log(`Distance to ${wineBar.name}: ${distance.toFixed(2)} km`);
-
     return distance <= MAX_DISTANCE;
   });
-
-  // wineBars와 filteredWineBars 데이터를 확인하기 위해 console.log를 추가
-  console.log("wineBars:", wineBars);
-  console.log("filteredWineBars:", filteredWineBars);
 
   return (
     <ul>

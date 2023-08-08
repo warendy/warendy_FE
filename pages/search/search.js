@@ -36,9 +36,6 @@ export default function Search() {
     }
   }, [userLocation]); // userLocation만 의존성 배열에 넣음
 
-  console.log(userLocation);
-  console.log(wineBars);
-
   // useEffect 내부에서의 userLocation 값 업데이트를 위한 함수
   const fetchUserLocation = () => {
     if (navigator.geolocation) {

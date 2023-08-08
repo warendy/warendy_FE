@@ -73,14 +73,6 @@ export default function MyMap() {
     fetchUserLocation();
   }, []);
 
-  useEffect(() => {
-    console.log("wineBars:", wineBars);
-  }, [wineBars]);
-
-  useEffect(() => {
-    console.log("userLocation:", userLocation);
-  }, [userLocation]);
-
   return (
     <div>
       <h2>MyMap Component</h2>
