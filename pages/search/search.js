@@ -30,7 +30,7 @@ export default function Search() {
       }
     };
 
-    // userLocation이 변경되었을 때만 fetchData 함수 호출을
+    // userLocation이 변경되었을 때만 fetchData 함수 호출
     if (userLocation) {
       fetchData();
     }
