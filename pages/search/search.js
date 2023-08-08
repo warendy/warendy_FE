@@ -87,7 +87,7 @@ export default function Search() {
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
-          {userLocation && ( // userLocation이 null이 아닐 때에만 NearbyWineBars 컴포넌트 렌더링
+          {userLocation && (
             <>
               <h3 className={styles.title}>주변 와인바 리스트</h3>
               <NearbyWineBars userLocation={userLocation} wineBars={wineBars} />

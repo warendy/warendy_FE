@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { fetchNearbyWineStores } from "@/utlis/api";
+import React from "react";
+
+const MAX_DISTANCE = 10; // 보여줄 최대 거리 (단위: km)
 
 const getDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371; // 지구 반지름 (단위: km)
@@ -22,18 +23,15 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
       Math.sin(dLon / 2) *
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c;
 
+  const distance = R * c;
   return distance;
 };
-
-const MAX_DISTANCE = 10; // 보여줄 최대 거리 (단위: km)
 
 const NearbyWineBars = ({ userLocation, wineBars }) => {
   // 주변 와인바 정보가 없을 경우 빈 배열로 초기화
   const nearbyWineBars = wineBars || [];
 
-  // 주변 와인바의 위치 정보와 사용자의 위치를 비교하여 일정 범위 내에 있는 와인바만 필터링
   const filteredWineBars = nearbyWineBars.filter((wineBar) => {
     const distance = getDistance(
       userLocation.latitude,
@@ -42,13 +40,19 @@ const NearbyWineBars = ({ userLocation, wineBars }) => {
       wineBar.lnt
     );
 
-    // 일정 거리 이내에 있는 와인바만 보여줌 (MAX_DISTANCE 이내)
+    console.log(`Distance to ${wineBar.name}: ${distance.toFixed(2)} km`);
+
     return distance <= MAX_DISTANCE;
   });
+
+  // wineBars와 filteredWineBars 데이터를 확인하기 위해 console.log를 추가
+  console.log("wineBars:", wineBars);
+  console.log("filteredWineBars:", filteredWineBars);
+
   return (
     <ul>
       {filteredWineBars.map((wineBar) => (
-        <li key={wineBar.id}>
+        <li key={wineBar.name}>
           {/* 와인바 정보를 리스트로 보여줌 */}
           {wineBar.name} - 거리:{" "}
           {getDistance(
@@ -56,7 +60,7 @@ const NearbyWineBars = ({ userLocation, wineBars }) => {
             userLocation.longitude,
             wineBar.lat,
             wineBar.lnt
-          )}{" "}
+          ).toFixed(2)}{" "}
           km
         </li>
       ))}
