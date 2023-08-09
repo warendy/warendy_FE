@@ -1,6 +1,26 @@
+import { useEffect, useState } from "react";
 import styles from "./winebysituation.module.css";
+import { addWineToFavorite, getWineDetail, getRecommendedWineList } from "../services/api";
+import { wineListState } from "@/recoil/atoms";
+import { useRecoilValue } from "recoil";
+import axios from "axios";
 
 export default function WineBySituation() {
+  const [wines, setWines] = useState([]);
+
+  useEffect(() => {
+    const fetchWines = async () => {
+      try {
+        const recommendedWines = await getRecommendedWineList();
+        const filteredWines = recommendedWines.filter((wine) => wine.body >= 2 && wine.dry >= 2);
+        setWines(filteredWines);
+      } catch (error) {
+        console.error("와인 정보를 가져오는 데 실패했습니다:", error);
+      }
+    };
+
+    fetchWines();
+  }, []);
   return (
     <>
       <div className={styles.headerBg}>
@@ -10,7 +30,7 @@ export default function WineBySituation() {
       </div>
       <div className={styles.wineExplainContainer}>
         <div className={styles.wineExplainContents}>
-          <h2 className="title">분위기 있는 날</h2>
+          <h2 className="title">비 오는 날</h2>
           <h1 className={styles.wineName}>까베르네 쇼비뇽</h1>
           <h3 className={styles.wineSub}>
             한 모금 마실 때마다 시간이 멈춘 듯<br />
@@ -20,15 +40,11 @@ export default function WineBySituation() {
       </div>
       <div className={styles.lovedWines}>
         <ul className={styles.lovedWineList}>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
-          <li className={styles.lovedWineItem}></li>
+          {wines.map((wine) => (
+            <li key={wine.id} className={styles.lovedWineItem}>
+              <img src={wine.picture} alt={`Wine ${wine.id}`} width={100} height={250} />
+            </li>
+          ))}
         </ul>
       </div>
       <div className={styles.pageContainer}>
