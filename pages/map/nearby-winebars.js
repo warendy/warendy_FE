@@ -1,4 +1,5 @@
 import React from "react";
+import MapComponent from "./map-component";
 
 const MAX_DISTANCE = 10; // 보여줄 최대 거리 (단위: km)
 
@@ -29,10 +30,6 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
-  console.log("userLocation:", userLocation);
-  console.log("wineBars:", wineBars);
-  console.log("onWineBarClick:", onWineBarClick);
-
   // 주변 와인바 정보가 없을 경우 빈 배열로 초기화
   const nearbyWineBars = wineBars || [];
 
@@ -44,7 +41,6 @@ const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
         wineBar.lat,
         wineBar.lnt
       );
-
       const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
         wineBar.lat
       }`;
@@ -77,14 +73,16 @@ const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
   console.log("Duplicate keys:", hasDuplicates ? "Yes" : "No");
 
   return (
-    <ul>
-      {filteredWineBars.map((wineBar) => (
-        <li key={wineBar.key}>
-          {wineBar.name} - 거리: {wineBar.distance.toFixed(2)} km
-          <button onClick={() => onWineBarClick(wineBar)}>+</button>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul>
+        {filteredWineBars.map((wineBar) => (
+          <li key={wineBar.key}>
+            {wineBar.name} - 거리: {wineBar.distance.toFixed(2)} km
+            <button onClick={() => onWineBarClick(wineBar)}>+</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

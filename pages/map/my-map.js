@@ -5,8 +5,7 @@ import MapComponent from "./map-component";
 const proxyServerAddress =
   "https://warendy.shop/winebars/around?lnt={lnt}&lat={lat}";
 
-export default function MyMap() {
-  const [userLocation, setUserLocation] = useState(null);
+export default function MyMap({ userLocation }) {
   const [wineBars, setWineBars] = useState([]);
 
   useEffect(() => {
@@ -35,20 +34,6 @@ export default function MyMap() {
     loadKakaoMap();
   }, [userLocation]);
 
-  const fetchUserLocation = async () => {
-    try {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      });
-
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setUserLocation({ latitude, longitude });
-    } catch (error) {
-      console.error("Error getting user's location:", error);
-    }
-  };
-
   const initializeMap = async () => {
     // 서버 API 호출하여 주변 와인바 정보를 받아옴
     await fetchWineBarsNearby(userLocation);
@@ -68,10 +53,6 @@ export default function MyMap() {
       console.error("Error fetching nearby wine bars:", error);
     }
   };
-
-  useEffect(() => {
-    fetchUserLocation();
-  }, []);
 
   return (
     <div>

@@ -6,6 +6,7 @@ import MyMap from "../map/my-map";
 import axios from "axios";
 import { fetchNearbyWineStores } from "@/utlis/api";
 import NearbyWineBars from "../map/nearby-winebars";
+import MapComponent from "../map/map-component";
 
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
@@ -21,16 +22,16 @@ export default function Search() {
 
   const handleWineBarClick = (wineBar) => {
     // 이미 있는 와인바인지 확인
-    if (!filteredWineBars.some((bar) => bar.name === wineBar.name)) {
+    console.log(filteredWineBars, wineBar);
+    if (filteredWineBars.some((bar) => bar.name === wineBar.name)) {
       setSelectedWineBar(wineBar);
       setShowMapF(true);
-
-      // 함수형 업데이트를 사용하여 기존의 filteredWineBars 배열과 새로운 와인바를 합쳐서 새로운 배열을 생성
-      setFilteredWineBars((prevWineBars) => [...prevWineBars, wineBar]);
     }
   };
 
   useEffect(() => {
+    console.log("userLocation:", userLocation);
+    console.log("selectedWineBar:", selectedWineBar);
     const fetchData = async () => {
       try {
         const wineBarsData = await fetchNearbyWineStores(
@@ -97,7 +98,7 @@ export default function Search() {
               <NearbyWineBars
                 userLocation={userLocation}
                 wineBars={filteredWineBars}
-                onWineBarClick={handleWineBarClick} // 수정된 부분
+                onWineBarClick={handleWineBarClick}
               />
             </>
           )}
@@ -106,8 +107,8 @@ export default function Search() {
       {selectedWineBar && showMapF && (
         <div className={styles.map}>
           <MyMap
-            kakaoMapApiKey={process.env.KAKAO_MAP_KEY}
-            wineBars={[selectedWineBar]}
+            userLocation={userLocation}
+            wineBars={selectedWineBar ? [selectedWineBar] : []} // 수정된 부분
           />
           <button className={styles.writeButton}>글쓰기</button>
         </div>

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
-export default function MapComponent({ wineBars, userLocation }) {
-  const mapRef = useRef(null);
+export default function MapComponent({ userLocation, wineBars }) {
+  console.log("userLocation in MapComponent:", userLocation);
+  console.log("wineBars in MapComponent:", wineBars);
 
   useEffect(() => {
     const loadKakaoMap = async () => {
@@ -19,17 +20,16 @@ export default function MapComponent({ wineBars, userLocation }) {
       }
     };
 
-    loadKakaoMap();
+    loadKakaoMap().then(() => {
+      window.kakao.maps.load(() => {
+        initializeMap();
+      });
+    });
   }, []);
 
-  useEffect(() => {
-    if (userLocation && window.kakao && window.kakao.maps) {
-      initializeMap();
-    }
-  }, [wineBars, userLocation]);
-
   const initializeMap = () => {
-    const container = mapRef.current;
+    // 지도 객체 생성 및 초기화
+    const container = document.getElementById("map");
     const options = {
       center: new window.kakao.maps.LatLng(
         userLocation.latitude,
@@ -37,30 +37,35 @@ export default function MapComponent({ wineBars, userLocation }) {
       ),
       level: 3,
     };
-
     const map = new window.kakao.maps.Map(container, options);
 
-    if (wineBars.length > 0) {
-      displayWineBarMarkers(wineBars, map);
-    } else {
-      const marker = new window.kakao.maps.Marker({
+    if (userLocation) {
+      const userMarker = new window.kakao.maps.Marker({
         position: new window.kakao.maps.LatLng(
           userLocation.latitude,
           userLocation.longitude
         ),
+        map: map,
+        title: "내 위치",
       });
-      marker.setMap(map);
     }
+
+    // wineBars 배열을 사용하여 와인바 마커 생성 및 추가
+    displayWineBarMarkers(wineBars, map);
   };
 
   const displayWineBarMarkers = (wineBarData, map) => {
     wineBarData.forEach((wineBar) => {
+      console.log("WineBar lat:", wineBar.lat);
+      console.log("WineBar lng:", wineBar.lng);
+
       const marker = new window.kakao.maps.Marker({
         position: new window.kakao.maps.LatLng(wineBar.lat, wineBar.lng),
+        map: map,
+        title: wineBar.name,
       });
-      marker.setMap(map);
     });
   };
 
-  return <div ref={mapRef} style={{ width: "501px", height: "400px" }} />;
+  return <div id="map" style={{ width: "1920px", height: "400px" }} />;
 }
