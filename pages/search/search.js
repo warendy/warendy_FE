@@ -11,10 +11,23 @@ export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [searchLocation, setSearchLocation] = useState("");
-  const [wineBars, setWineBars] = useState([]);
+  const [filteredWineBars, setFilteredWineBars] = useState([]);
+  const [selectedWineBar, setSelectedWineBar] = useState(null); // 변경된 상태 추가
+  const [displayedWineBars, setDisplayedWineBars] = useState([]);
 
   const handleToggleMap1 = () => {
     setShowMapF(!showMapF);
+  };
+
+  const handleWineBarClick = (wineBar) => {
+    // 이미 있는 와인바인지 확인
+    if (!filteredWineBars.some((bar) => bar.name === wineBar.name)) {
+      setSelectedWineBar(wineBar);
+      setShowMapF(true);
+
+      // 함수형 업데이트를 사용하여 기존의 filteredWineBars 배열과 새로운 와인바를 합쳐서 새로운 배열을 생성
+      setFilteredWineBars((prevWineBars) => [...prevWineBars, wineBar]);
+    }
   };
 
   useEffect(() => {
@@ -24,19 +37,18 @@ export default function Search() {
           userLocation.longitude,
           userLocation.latitude
         );
-        setWineBars(wineBarsData);
+
+        setFilteredWineBars(wineBarsData);
       } catch (error) {
         console.error("Error fetching nearby wine stores:", error);
       }
     };
 
-    // userLocation이 변경되었을 때만 fetchData 함수 호출
     if (userLocation) {
       fetchData();
     }
-  }, [userLocation]); // userLocation만 의존성 배열에 넣음
+  }, [userLocation]);
 
-  // useEffect 내부에서의 userLocation 값 업데이트를 위한 함수
   const fetchUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -44,10 +56,6 @@ export default function Search() {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           setUserLocation({ latitude, longitude });
-
-          // 마커 위치를 업데이트하기 위해 MyMap 컴포넌트에 userLocation 전달
-          // MyMap 컴포넌트에서 userLocation을 다시 MapComponent로 전달
-          // MapComponent에서 마커 위치를 업데이트
         },
         (error) => {
           console.error("Error getting user's location:", error);
@@ -58,7 +66,6 @@ export default function Search() {
     }
   };
 
-  // 최초 렌더링 시에만 위치 정보 가져오기
   useEffect(() => {
     fetchUserLocation();
   }, []);
@@ -87,24 +94,24 @@ export default function Search() {
           {userLocation && (
             <>
               <h3 className={styles.title}>주변 와인바 리스트</h3>
-              <NearbyWineBars userLocation={userLocation} wineBars={wineBars} />
+              <NearbyWineBars
+                userLocation={userLocation}
+                wineBars={filteredWineBars}
+                onWineBarClick={handleWineBarClick} // 수정된 부분
+              />
             </>
           )}
-          <ul>
-            <li>
-              와인한잔 <button onClick={handleToggleMap1}>+</button>
-            </li>
-            {showMapF && (
-              <li>
-                <MyMap
-                  kakaoMapApiKey={process.env.KAKAO_MAP_KEY}
-                  wineBars={wineBars}
-                />
-              </li>
-            )}
-          </ul>
         </div>
       </div>
+      {selectedWineBar && showMapF && (
+        <div className={styles.map}>
+          <MyMap
+            kakaoMapApiKey={process.env.KAKAO_MAP_KEY}
+            wineBars={[selectedWineBar]}
+          />
+          <button className={styles.writeButton}>글쓰기</button>
+        </div>
+      )}
     </>
   );
 }

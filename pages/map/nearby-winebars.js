@@ -28,34 +28,60 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
   return distance;
 };
 
-const NearbyWineBars = ({ userLocation, wineBars }) => {
+const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
+  console.log("userLocation:", userLocation);
+  console.log("wineBars:", wineBars);
+  console.log("onWineBarClick:", onWineBarClick);
+
   // 주변 와인바 정보가 없을 경우 빈 배열로 초기화
   const nearbyWineBars = wineBars || [];
 
-  const filteredWineBars = nearbyWineBars.filter((wineBar) => {
-    const distance = getDistance(
-      userLocation.latitude,
-      userLocation.longitude,
-      wineBar.lat,
-      wineBar.lnt
-    );
+  const filteredWineBars = nearbyWineBars
+    .map((wineBar) => {
+      const distance = getDistance(
+        userLocation.latitude,
+        userLocation.longitude,
+        wineBar.lat,
+        wineBar.lnt
+      );
 
-    return distance <= MAX_DISTANCE;
+      const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
+        wineBar.lat
+      }`;
+      console.log("Generated key:", key);
+
+      return {
+        ...wineBar,
+        distance: distance,
+        key: key,
+      };
+    })
+    .filter((wineBar) => {
+      return wineBar.distance <= MAX_DISTANCE;
+    });
+
+  const generatedKeys = filteredWineBars.map((wineBar) => {
+    const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
+      wineBar.lat
+    }`;
+    console.log("Generated key:", key);
+    return key;
   });
+
+  const hasDuplicates = new Set(generatedKeys).size !== generatedKeys.length;
+
+  console.log(
+    "Filtered WineBars with Keys:",
+    filteredWineBars.map((wineBar) => wineBar.key)
+  );
+  console.log("Duplicate keys:", hasDuplicates ? "Yes" : "No");
 
   return (
     <ul>
       {filteredWineBars.map((wineBar) => (
-        <li key={wineBar.name}>
-          {/* 와인바 정보를 리스트로 보여줌 */}
-          {wineBar.name} - 거리:{" "}
-          {getDistance(
-            userLocation.latitude,
-            userLocation.longitude,
-            wineBar.lat,
-            wineBar.lnt
-          ).toFixed(2)}{" "}
-          km
+        <li key={wineBar.key}>
+          {wineBar.name} - 거리: {wineBar.distance.toFixed(2)} km
+          <button onClick={() => onWineBarClick(wineBar)}>+</button>
         </li>
       ))}
     </ul>
