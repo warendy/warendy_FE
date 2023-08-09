@@ -60,39 +60,8 @@ export default function TodayWine() {
           <button className="resetBtn btn" onClick={handlePrevious}>
             <FontAwesomeIcon icon={faCaretLeft} className={styles.icon} />
           </button>
-          <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
-          </li>
-          <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
-          </li>
-          <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
-          </li>
-          <li className={styles.recommended}>
-            <Image
-              src="/images/wine.png"
-              alt="recommended wine"
-              width={30}
-              height={120}
-            />
-          </li>
-          <button className="resetBtn btn">
+          {renderWines()}
+          <button className="resetBtn btn" onClick={handleNext}>
             <FontAwesomeIcon icon={faCaretRight} className={styles.icon} />
           </button>
         </ul>

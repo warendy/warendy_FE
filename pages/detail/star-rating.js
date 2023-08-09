@@ -1,33 +1,27 @@
 import React, { useState } from "react";
 import styles from "./star-rating.module.css";
 
-const StarRating = ({ rating, setRating, isInteractive = true }) => {
+const StarRating = ({ rating, setRating, reviewText, setReviewText }) => {
   const MAX_STARS = 5;
   const [hoveredRating, setHoveredRating] = useState(0);
 
   const handleStarClick = (clickedStarIndex) => {
-    if (isInteractive) {
-      const newRating = clickedStarIndex + 1;
-      setRating(newRating);
-    }
+    const newRating = clickedStarIndex + 1; // Add 1 to convert index to 1-based rating
+    setRating(newRating);
   };
 
   const handleStarHover = (hoveredStarIndex) => {
-    if (isInteractive) {
-      setHoveredRating(hoveredStarIndex + 1);
-    }
+    setHoveredRating(hoveredStarIndex + 1);
   };
 
   const handleStarHoverLeave = () => {
-    if (isInteractive) {
-      setHoveredRating(0);
-    }
+    setHoveredRating(0);
   };
 
   return (
     <div className={styles.starRating} onMouseLeave={handleStarHoverLeave}>
       {[...Array(MAX_STARS)].map((_, index) => {
-        const starClass = index < rating ? styles.filled : isInteractive && hoveredRating > index ? styles.filled : styles.unfilled;
+        const starClass = index < rating ? styles.filled : hoveredRating > index ? styles.filled : styles.unfilled;
         return (
           <span
             key={index}

@@ -24,7 +24,6 @@ export default function WineBySituation() {
 
     fetchWines();
   }, []);
-  console.log(wines);
   return (
     <>
       <div className={styles.headerBg}>
@@ -48,7 +47,11 @@ export default function WineBySituation() {
           {wines.map((wine) => (
             <li key={wine.id} className={styles.lovedWineItem}>
               <Link href={`/detail/${wine.id}`}>
-                <img src={wine.picture} alt={`Wine ${wine.id}`} width={100} height={250} />
+                {" "}
+                {/* <- 여기에 Link 추가 */}
+                <a>
+                  <img src={wine.picture} alt={`Wine ${wine.id}`} width={100} height={250} />
+                </a>
               </Link>
             </li>
           ))}

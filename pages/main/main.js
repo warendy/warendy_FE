@@ -26,7 +26,6 @@ const Main = () => {
 
     getWineData();
   }, []);
-  console.log(wineList);
 
   return (
     <>
