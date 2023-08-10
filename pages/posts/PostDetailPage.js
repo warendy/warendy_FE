@@ -10,6 +10,7 @@ const PostDetailPage = ({ postId }) => {
     const fetchPostData = async () => {
       if (postId) {
         try {
+          console.log(postId);
           const response = await axios.get(
             `https://warendy.shop/boards/${postId}/detail`,
             {
@@ -27,7 +28,7 @@ const PostDetailPage = ({ postId }) => {
     };
 
     fetchPostData();
-  }, [postId]);
+  }, [postId, userToken]);
 
   if (!post) {
     return <div>Loading...</div>;

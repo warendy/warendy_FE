@@ -19,6 +19,7 @@ export default function PostSearch() {
       try {
         const response = await axios.get("https://warendy.shop/boards/all");
         const postData = response.data.content;
+        console.log(postData);
         setSearchResults(postData);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -63,7 +64,9 @@ export default function PostSearch() {
         <ul className={styles.list}>
           {searchResults.map((post) => (
             <li key={post.name}>
-              <Link href={`/posts/${encodeURI(post.name)}`}>{post.name}</Link>
+              <Link href={`/posts/detail?postId=${post.boardId}`}>
+                {post.name}
+              </Link>
             </li>
           ))}
         </ul>

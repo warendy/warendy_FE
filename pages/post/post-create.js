@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import { userTokenState } from "@/recoil/atoms";
+import styles from "./PostDetail.module.css";
 
 const locationOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
 
@@ -18,9 +19,11 @@ export default function PostDetail() {
   const [headcount, setHeadcount] = useState("");
   const [amOrPm, setAmOrPm] = useState("");
   const [time, setTime] = useState("");
+  const [contents, setContents] = useState("");
 
   const postWinebarData = async () => {
     try {
+      console.log(userToken);
       const res = await axios.post(
         `https://warendy.shop/boards/winebars?winebar-id=${winebarId}`,
         {
@@ -66,72 +69,110 @@ export default function PostDetail() {
   // }
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className="top">와인바 상세 정보</h2>
       <div className="inner">
         {/* <div>
           <h1>{winebar.name}</h1>
           {winebar.description && <p>{winebar.description}</p>}
         </div> */}
-        <div>
-          <label>지역</label>
-          {/* <select>
+
+        <div className={styles.formWrap}>
+          {" "}
+          {/* 모듈 CSS 클래스를 적용합니다. */}
+          <div className={styles.formRow}>
+            <div className={styles.formColumn}>
+              <label>제목</label>
+              {/* <select>
             {locationOptions.map((location, index) => (
               <option key={index} value={location}>
                 {location}
               </option>
             ))}
           </select> */}
-
-          <label>제목</label>
-          <input
-            type="text"
-            placeholder="제목을 입력하세요"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-
-          <br />
-
-          <label>시간</label>
-          <select
-            value={amOrPm}
-            onChange={(e) => {
-              setAmOrPm(e.target.value);
-            }}
-          >
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-          </select>
-          <input
-            type="number"
-            placeholder="시간을 입력하세요"
-            value={time}
-            onChange={(e) => {
-              setTime(e.target.value);
-            }}
-          />
-
-          <br />
-
-          <label>날짜</label>
-          <DatePicker selected={date} onChange={handleDateChange} />
-
-          <br />
-
-          <label>인원</label>
-          <input
-            type="number"
-            placeholder="인원수를 입력하세요"
-            value={headcount}
-            onChange={(e) => {
-              setHeadcount(e.target.value);
-            }}
-          />
+              <input
+                type="text"
+                placeholder="제목을 입력하세요"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                style={{
+                  width: "41rem", // 원하는 너비 값
+                  height: "7.8rem", // 원하는 높이 값
+                  // 추가로 원하는 스타일 속성들을 지정할 수 있습니다.
+                }}
+              />
+            </div>
+            <div className={styles.flexContainer}>
+              <label>시간</label>
+              <div className={styles.timeContainer}>
+                <select
+                  value={amOrPm}
+                  onChange={(e) => handleAmPmChange(e.target.value)}
+                  className={styles.amPmSelect}
+                >
+                  <option value="AM">AM</option>
+                  <option value="PM">PM</option>
+                </select>
+                <input
+                  type="number"
+                  placeholder="시간을 입력하세요"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  className={styles.timeInput}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.formRow}>
+            <div className={styles.formColumn}>
+              <label>날짜</label>
+              <DatePicker
+                selected={date}
+                onChange={handleDateChange}
+                customInput={
+                  <input
+                    className={styles.datePickerInput}
+                    style={{
+                      width: "41rem",
+                      height: "7.8rem",
+                      // 원하는 추가 스타일을 여기에 추가할 수 있습니다.
+                    }}
+                  />
+                }
+              />
+            </div>
+            <div className={styles.formColumn}>
+              <label>인원</label>
+              <input
+                type="number"
+                placeholder="인원수를 입력하세요"
+                value={headcount}
+                onChange={(e) => {
+                  setHeadcount(e.target.value);
+                }}
+                style={{
+                  width: "41rem", // 원하는 너비 값
+                  height: "7.8rem", // 원하는 높이 값
+                  // 추가로 원하는 스타일 속성들을 지정할 수 있습니다.
+                }}
+              />
+            </div>
+          </div>
+          <div className={styles.contentsRow}>
+            <label>모임에 참여하도록 글을 써보세요 !</label>
+            <textarea
+              className={styles.textareaBox} // 클래스명 추가
+              placeholder="글을 입력하세요"
+              value={contents}
+              onChange={(e) => setContents(e.target.value)}
+            />
+          </div>
         </div>
+
         <button
+          className={styles.button}
           onClick={() => {
             if (12 < time || 1 > time) {
               alert("");
