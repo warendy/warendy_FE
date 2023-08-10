@@ -3,12 +3,15 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useRecoilState } from "recoil";
+import { userTokenState } from "@/recoil/atoms";
 
 const locationOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
 
 export default function PostDetail() {
   const router = useRouter();
   const { winebarId } = router.query;
+  const [userToken, setUserToken] = useRecoilState(userTokenState);
   const [winebar, setWinebar] = useState(null);
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
@@ -18,7 +21,6 @@ export default function PostDetail() {
 
   const postWinebarData = async () => {
     try {
-      accessToken = sessionStorage.getItem("userTokenState");
       const res = await axios.post(
         `https://warendy.shop/boards/winebars?winebar-id=${winebarId}`,
         {
@@ -33,7 +35,7 @@ export default function PostDetail() {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `${userToken}`,
           },
         }
       );

@@ -16,7 +16,7 @@ export default function Posts() {
       <ul>
         {dummyPosts.map((post) => (
           <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>{post.title}</Link>
+            <Link href={`/posts/detail?postId=${post.id}`}>{post.title}</Link>
           </li>
         ))}
       </ul>

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { userTokenState } from "@/recoil/atoms";
 
 const PostDetailPage = ({ postId }) => {
   const [post, setPost] = useState(null);
-
+  const [userToken, setUserToken] = useRecoilState(userTokenState);
   useEffect(() => {
     const fetchPostData = async () => {
       if (postId) {
         try {
           const response = await axios.get(
-            `https://warendy.shop/boards/${postId}`
+            `https://warendy.shop/boards/${postId}/detail`,
+            {
+              headers: {
+                Authorization: `${userToken}`,
+              },
+            }
           );
           const postData = response.data;
           setPost(postData);

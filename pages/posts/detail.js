@@ -5,7 +5,11 @@ const PostDetail = () => {
   const router = useRouter();
   const { postId } = router.query;
 
-  return <PostDetailPage postId={postId} />;
+  return (
+    <div className="top">
+      <PostDetailPage postId={postId} />
+    </div>
+  );
 };
 
 export default PostDetail;
