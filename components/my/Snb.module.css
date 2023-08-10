@@ -1,7 +1,6 @@
 .snbArea {
   float: left;
-  width: 18rem;
-  margin-right: 2rem;
+  min-width: 15rem;
 }
 
 .mainTitle {

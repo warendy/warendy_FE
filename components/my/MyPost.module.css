@@ -1,0 +1,122 @@
+.myPostHeader {
+  margin-top: 4.2rem;
+  padding-bottom: 1.6rem;
+  display: flex;
+}
+
+.headerTitle {
+  font-size: 1.8rem;
+  letter-spacing: -0.27px;
+}
+
+.btnAll {
+  margin-top: 0.3rem;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.text {
+  font-size: 1.4rem;
+  letter-spacing: -0.07px;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.arrowRight {
+  color: #cccccc;
+  margin: 0.4rem;
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.myPostArea {
+  background-color: #f4f4f4;
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+}
+
+.myBoardTitle {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.6rem;
+}
+
+.myBoardTitle .index {
+  min-width: 3rem;
+  margin-left: 6rem;
+  margin-right: 16rem;
+}
+
+.myBoardTitle .name {
+  min-width: 3rem;
+  margin-right: 34.5rem;
+}
+
+.myBoardTitle .barName {
+  min-width: 7.5rem;
+  margin-right: 15rem;
+}
+
+.myBoardTitle .date {
+  min-width: 20rem;
+}
+
+.myReviewTitle {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.6rem;
+}
+
+.myReviewTitle .index {
+  min-width: 3rem;
+  margin-left: 6rem;
+  margin-right: 16rem;
+}
+
+.myReviewTitle .name {
+  min-width: 7.5rem;
+  margin-right: 30rem;
+}
+
+.myReviewTitle .rating {
+  min-width: 3rem;
+  margin-right: 20rem;
+}
+
+.myReviewTitle .date {
+  min-width: 7rem;
+  margin-right: 20rem;
+}
+
+.myPostInfo {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.4rem;
+  padding-top: 2rem;
+}
+
+.myPostInfo .index {
+  min-width: 3rem;
+  margin-left: 6rem;
+  margin-right: 16rem;
+}
+
+.myPostInfo .name {
+  min-width: 35rem;
+  margin-right: 2.5rem;
+}
+
+.myPostInfo .barName {
+  min-width: 20rem;
+  margin-right: 2.5rem;
+}
+
+.myPostInfo .rating {
+  min-width: 5rem;
+  margin-right: 17.5rem;
+}
+
+.myPostInfo .date {
+  min-width: 20rem;
+}

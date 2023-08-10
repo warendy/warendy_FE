@@ -3,14 +3,14 @@
   min-height: 50rem;
   padding-top: 2rem;
   border-top: 1px solid #cccccc;
+  flex-direction: column;
 }
 
 .filter {
   display: flex;
   flex-direction: column;
-  margin-right: 5rem;
   min-width: 20rem;
-  border-right: 1px solid #cccccc;
+  padding: 0 2rem;
 }
 
 .filterName {
@@ -24,8 +24,6 @@
 }
 
 .filterMain {
-  display: flex;
-  flex-direction: column;
   padding-top: 1.5rem;
   line-height: 1.8rem;
 }
@@ -37,13 +35,16 @@
 
 .type {
   font-size: 1.3rem;
+  padding-right: 1rem;
 }
 
 .contentArea {
-  min-width: 105rem;
+  min-width: 100rem;
+  padding: 2rem 1rem;
 }
 
 .reviewCard {
+  position: relative;
   border-bottom: 1px solid #cccccc;
   height: 20rem;
   display: flex;
@@ -60,11 +61,11 @@
 }
 
 .review {
-  position: relative;
+  position: absolute;
+  top: 3rem;
+  left: 16rem;
   width: 100%;
-  height: 100%;
   margin-left: 4rem;
-  padding-top: 4rem;
   display: flex;
   justify-content: space-between;
 }
@@ -79,8 +80,13 @@
   padding-top: 2rem;
 }
 
+.reviewContent {
+  margin-top: 3rem;
+  font-size: 1.6rem;
+}
+
 .btnReview {
   position: absolute;
-  right: 0;
-  top: 30%;
+  top: 50%;
+  right: 20rem;
 }

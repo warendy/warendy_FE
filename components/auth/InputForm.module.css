@@ -1,19 +1,16 @@
 .logo {
   display: flex;
-  margin: auto;
-  padding-bottom: 6.5rem;
-}
-
-.inputInfo {
-  max-width: 45rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   margin: 0 auto;
 }
 
-.password {
-  padding-top: 3rem;
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 7rem 0;
+}
+
+.email {
 }
 
 .title {
@@ -30,8 +27,21 @@
   padding-bottom: 1rem;
 }
 
+.inputValid {
+  border-bottom: 1.5px solid red;
+}
+
+.password {
+  padding-top: 3rem;
+}
+
+.passwordConfirm {
+  padding-top: 3rem;
+}
+
 .input {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  /* font: inherit !important; */
 }
 
 .icon {
@@ -47,36 +57,46 @@
 .btnArea {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  padding: 3rem;
-}
-
-.btnSignin {
-  font-size: 1.8rem;
-  font: inherit;
-  border: 1px solid #ebebeb;
-  border-radius: 1rem;
-  padding: 0.3rem 15rem;
-  font-size: 1.8rem;
-  background-color: #9d1617;
-  min-width: 38rem;
+  padding: 3rem 0 1rem 0;
 }
 
 .text {
   padding: 1.5rem 0;
+}
+
+.btn {
+  font: inherit;
+  font-size: 1.8rem;
+  border: 1px solid #ebebeb;
+  border-radius: 0.5rem;
+  min-width: 38rem;
+}
+
+.valid {
+  color: rgb(255, 0, 0);
+}
+
+.validate {
   color: #fff;
+  background-color: #9d1617;
+}
+
+.unvalidate {
+  color: #fff;
+  background-color: rgb(209 213 219);
 }
 
 .btnSignup {
   font-size: 1.6rem;
-  padding: 1rem 0;
+  margin: 1rem 0 1rem 30rem;
 }
 
 .btnSocial {
   font: inherit;
   border: 1px solid #ebebeb;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   background-color: #fff;
+  cursor: pointer;
   min-width: 38rem;
 }
 
@@ -86,6 +106,10 @@
 
 .kakao {
   font-size: 1.5rem;
-  padding: 2rem 0;
+  padding: 1rem 0;
   color: #000;
+}
+
+.nickname {
+  padding-top: 3rem;
 }
