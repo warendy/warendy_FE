@@ -35,8 +35,13 @@
   padding-top: 3rem;
 }
 
+.passwordConfirm {
+  padding-top: 3rem;
+}
+
 .input {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  /* font: inherit !important; */
 }
 
 .icon {

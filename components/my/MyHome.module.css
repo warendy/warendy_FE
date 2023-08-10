@@ -1,9 +1,15 @@
+.myHomeContainer {
+  position: absolute;
+  min-width: 110rem;
+  left: 50rem;
+}
+
 .userMembership {
   display: flex;
-  padding: 2.3rem 0 2.3rem 2.3rem;
+  padding: 2rem;
   border: 1px solid #ebebeb;
-  border-radius: 1rem;
-  background-color: #fff;
+  border-radius: 0.5rem;
+  min-height: 15rem;
 }
 
 .userDetail {
@@ -12,10 +18,11 @@
 }
 
 .userThumb {
-  position: relative;
-  margin-right: 1.2rem;
-  border-radius: 100%;
-  flex-shrink: 0;
+  padding: 1rem;
+}
+
+.userInfo {
+  padding: 1rem;
 }
 
 .name {
@@ -44,4 +51,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.myPostContainer {
+  position: absolute;
+  top: 37rem;
+  left: 50rem;
+  max-width: 110rem;
 }

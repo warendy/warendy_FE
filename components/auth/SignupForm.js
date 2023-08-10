@@ -1,50 +1,45 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./InputForm.module.css";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { userTokenState } from "../recoil/atoms";
-import { postLogin } from "../pages/services/api";
+import { postSignup } from "../../services/api";
 import InputForm from "./InputForm";
-import Modal from "./Modal";
+import Modal from "../Modal";
 
-const SigninForm = () => {
+const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [nickname, setNickname] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidNickname, setIsValidNickname] = useState(true);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAppropriate, setIsAppropriate] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showNicknameInput, setshowNicknameInput] = useState(false);
 
   const router = useRouter();
-  // const setUserToken = useSetRecoilState(userTokenState);
-  const [token, setToken] = useRecoilState(userTokenState);
 
-  const handleLogin = async () => {
-    const loginInfo = {
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    const signupInform = {
       email: email,
       password: password,
+      nickname: nickname,
     };
 
     try {
-      setIsAppropriate(true);
-
       if (!isFormValid) {
         setShowErrorMessage(true);
         return;
       }
+      setShowErrorMessage(false);
+      const signupResponse = await postSignup(signupInform);
+      console.log("Signup Response:", signupResponse);
 
-      const loginResponse = await postLogin(loginInfo);
-      console.log("Login Response:", loginResponse);
-
-      setToken(loginResponse);
-      sessionStorage.setItem("userTokenState", loginResponse);
-
-      router.push("/");
+      router.push("/sign-in");
     } catch (error) {
-      setIsAppropriate(false);
       console.error("Error fetching data:", error);
       setShowErrorMessage(true);
     }
@@ -64,48 +59,36 @@ const SigninForm = () => {
   }, [isAppropriate]);
 
   useEffect(() => {
-    setIsFormValid(isValidEmail && isValidPassword);
-  }, [isValidEmail, isValidPassword]);
+    setIsFormValid(isValidEmail && isValidPassword && isValidNickname);
+  }, [isValidEmail, isValidPassword, isValidNickname]);
 
   return (
     <>
-      <Image
-        src="/images/logo.svg"
-        alt="Logo"
-        className={styles.logo}
-        width={150}
-        height={50}
-      />
+      <h3 className={styles.mainTitle + " title "}>회원가입</h3>
       <div className={styles.contentArea}>
         <InputForm
-          type="signin"
+          type="signup"
           email={email}
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
+          passwordConfirm={passwordConfirm}
+          setPasswordConfirm={setPasswordConfirm}
+          nickname={nickname}
+          setNickname={setNickname}
           isValidEmail={isValidEmail}
           setIsValidEmail={setIsValidEmail}
           isValidPassword={isValidPassword}
           setIsValidPassword={setIsValidPassword}
-          onSubmit={handleLogin}
+          isValidNickname={isValidNickname}
+          setIsValidNickname={setIsValidNickname}
+          showNicknameInput={showNicknameInput}
+          onSubmit={handleSignup}
         />
         {showErrorMessage && <Modal />}
-        <Link href="/sign-up" className={styles.btnSignup}>
-          이메일 가입
-        </Link>
-        <button className={`${styles.btnSocial} ${styles.kakao} + " btn "`}>
-          <Image
-            src="/images/kakao.svg"
-            alt="Logo"
-            className={styles.social}
-            width={30}
-            height={30}
-          />
-          카카오톡으로 로그인
-        </button>
       </div>
     </>
   );
 };
 
-export default SigninForm;
+export default SignupForm;

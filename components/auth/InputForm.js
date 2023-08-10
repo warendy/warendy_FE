@@ -16,6 +16,8 @@ const InputForm = ({
   setPassword,
   nickname,
   setNickname,
+  passwordConfirm,
+  setPasswordConfirm,
   isValidEmail,
   setIsValidEmail,
   isValidPassword,
@@ -32,9 +34,11 @@ const InputForm = ({
     } else if (name === "password") {
       setPassword(value);
       setIsValidPassword(validatePassword(value));
+    } else if (name === "passwordConfirm") {
+      setPasswordConfirm(value);
+      setIsValidNickname(validateNickname(value));
     } else if (name === "nickname") {
       setNickname(value);
-      setIsValidNickname(validateNickname(value));
     }
   };
 
@@ -45,7 +49,10 @@ const InputForm = ({
 
   const isFormValid =
     type === "signup"
-      ? isValidEmail && isValidPassword && isValidNickname
+      ? isValidEmail &&
+        isValidPassword &&
+        isValidNickname &&
+        password === passwordConfirm
       : isValidEmail && isValidPassword;
 
   return (
@@ -105,30 +112,60 @@ const InputForm = ({
         )}
       </div>
       {type === "signup" && (
-        <div className={styles.nickname}>
-          <h3
-            className={`${styles.title} ${isValidNickname ? "" : styles.valid}`}
-          >
-            닉네임
-          </h3>
-          <div
-            className={`${styles.inputArea} ${
-              isValidNickname ? "" : styles.inputValid
-            }`}
-          >
-            <input
-              type="text"
-              name="nickname"
-              autoComplete="off"
-              value={nickname}
-              onChange={handleInputChange}
-              className={styles.input + " input "}
-            />
+        <>
+          <div className={styles.passwordConfirm}>
+            <h3
+              className={`${styles.title} ${
+                password === passwordConfirm ? "" : styles.valid
+              }`}
+            >
+              비밀번호 확인
+            </h3>
+            <div
+              className={`${styles.inputArea} ${
+                password === passwordConfirm ? "" : styles.inputValid
+              }`}
+            >
+              <input
+                type="password"
+                name="passwordConfirm"
+                autoComplete="off"
+                value={passwordConfirm}
+                onChange={handleInputChange}
+                className={styles.input + " input "}
+              />
+            </div>
+            {password !== passwordConfirm && (
+              <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
+            )}
           </div>
-          {!isValidNickname && (
-            <p className={styles.error}>필수 입력 항목입니다. (3자 이상) </p>
-          )}
-        </div>
+          <div className={styles.nickname}>
+            <h3
+              className={`${styles.title} ${
+                isValidNickname ? "" : styles.valid
+              }`}
+            >
+              닉네임
+            </h3>
+            <div
+              className={`${styles.inputArea} ${
+                isValidNickname ? "" : styles.inputValid
+              }`}
+            >
+              <input
+                type="text"
+                name="nickname"
+                autoComplete="off"
+                value={nickname}
+                onChange={handleInputChange}
+                className={styles.input + " input "}
+              />
+            </div>
+            {!isValidNickname && (
+              <p className={styles.error}>필수 입력 항목입니다. (3자 이상) </p>
+            )}
+          </div>
+        </>
       )}
       <div className={styles.btnArea}>
         <button

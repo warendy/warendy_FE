@@ -1,0 +1,40 @@
+.collectionPage {
+  position: relative;
+  padding-top: 2rem;
+  border-top: 1px solid #cccccc;
+}
+
+.saveBtn {
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+.collectionContainer {
+  position: relative;
+}
+
+.collectionTabContainer {
+  position: absolute;
+  top: 3rem;
+  left: 23rem;
+  padding: 3rem;
+  display: flex;
+  min-width: 95rem;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.collectionTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.deleteBtn {
+  position: absolute;
+  display: none;
+  top: 1rem;
+  right: 1rem;
+}

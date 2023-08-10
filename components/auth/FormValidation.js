@@ -1,12 +1,19 @@
 export const validateEmail = (inputValue) => {
-  // 이메일 유효성 검사 로직
-  if (inputValue) {
-    return !(
-      !inputValue.includes("@") ||
-      !inputValue.includes(".", inputValue.indexOf("@")) ||
-      inputValue.endsWith(".")
-    );
+  if (!inputValue) {
+    return false;
   }
+
+  const atIndex = inputValue.indexOf("@");
+  const lastDotIndex = inputValue.lastIndexOf(".");
+
+  if (
+    atIndex !== -1 &&
+    atIndex < lastDotIndex &&
+    lastDotIndex < inputValue.length - 1
+  ) {
+    return true;
+  }
+
   return false;
 };
 
