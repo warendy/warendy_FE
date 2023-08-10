@@ -18,8 +18,7 @@ export const validateEmail = (inputValue) => {
 };
 
 export const validatePassword = (inputValue) => {
-  // 패스워드 유효성 검사 로직
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/; // 영문, 숫자 포함 6글자 이상
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/;
   return passwordRegex.test(inputValue);
 };
 
