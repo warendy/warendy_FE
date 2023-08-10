@@ -9,4 +9,9 @@ module.exports = {
       },
     ];
   },
+  // Link 컴포넌트의 anchor 속성 사용
+  experimental: {
+    // 이 부분을 추가합니다
+    externalDir: true,
+  },
 };

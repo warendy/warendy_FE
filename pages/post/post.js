@@ -1,34 +1,44 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faEdit } from "@fortawesome/free-solid-svg-icons";
 import styles from "../post/post.module.css";
 import axios from "axios";
 
-const PostSearch = () => {
+const seoulOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
+const gyeonggiOptions = ["용인시", "수원시", "성남시", "안양시", "고양시"];
+
+export default function PostSearch() {
   const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedOption, setSelectedOption] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [filteredResults, setFilteredResults] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPosts = async () => {
       try {
-        const response = await axios.get("https://warendy.shop/boards");
-        const data = response.data;
-        setSearchResults(data);
-        setFilteredResults(data);
+        const response = await axios.get("https://warendy.shop/boards/all");
+        const postData = response.data.content;
+        setSearchResults(postData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching posts:", error);
       }
     };
 
-    fetchData();
+    fetchPosts();
   }, []);
 
   const handleLocationChange = (e) => {
     const location = e.target.value;
     setSelectedLocation(location);
+
+    if (location === "서울") {
+      setSelectedOption(seoulOptions);
+    } else if (location === "경기") {
+      setSelectedOption(gyeonggiOptions);
+    } else {
+      setSelectedOption([]);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -36,52 +46,37 @@ const PostSearch = () => {
   };
 
   const handleSearch = () => {
-    const updatedResults = searchResults.filter((post) =>
-      post.title.includes(searchInput)
+    // 검색 로직
+    const filteredResults = searchResults.filter((post) =>
+      post.name.includes(searchInput)
     );
-    setFilteredResults(updatedResults);
+    setSearchResults(filteredResults);
   };
 
   return (
     <>
       <h2 className="top">동행 게시글</h2>
       <div className="inner">
-        <div className={styles.postWrap}>
-          <select
-            className={styles.select}
-            value={selectedLocation}
-            onChange={handleLocationChange}
-          >
-            <option value="">지역별</option>
-            <option value="서울">서울</option>
-            <option value="경기">경기</option>
-          </select>
+        <div className={styles.postWrap}>{/* ... (이전 코드) */}</div>
 
-          <input
-            type="text"
-            placeholder="검색어 입력"
-            value={searchInput}
-            onChange={handleInputChange}
-            className={styles.Input}
-          />
-
-          <button className={styles.button} onClick={handleSearch}>
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-
-          <button className={styles.myBtn}>내가 쓴 글</button>
-        </div>
-
+        {/* 검색 결과 표시 */}
         <ul className={styles.list}>
-          {filteredResults.map((post) => (
-            <li key={post.id}>
-              <Link href={`/posts/${post.id}`}>{post.title}</Link>
+          {searchResults.map((post) => (
+            <li key={post.name}>
+              <Link href={`/posts/${encodeURI(post.name)}`}>{post.name}</Link>
             </li>
           ))}
         </ul>
+
+        {/* 글쓰기 버튼 */}
+        <div className={styles.writeBtnContainer}>
+          <Link href="/post/post-create">
+            <button className={styles.writeBtn}>
+              <FontAwesomeIcon icon={faEdit} /> 글쓰기
+            </button>
+          </Link>
+        </div>
       </div>
     </>
   );
-};
-
-export default PostSearch;
+}
