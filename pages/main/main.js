@@ -5,7 +5,6 @@ import styles from "./main.module.css";
 import TodayWine from "./today-wine";
 import TodayMood from "./today-mood";
 import LovedWine from "./loved-wine";
-import SearchBar from "../../pages/searchbar/search-bar";
 import { getRecommendedWineList } from "@/services/api";
 import { wineListState } from "@/recoil/atoms";
 import { userTokenState } from "@/recoil/atoms";
@@ -25,7 +24,7 @@ const Main = () => {
     };
 
     getWineData();
-  }, []);
+  }, [setWineList]);
 
   return (
     <>
@@ -39,7 +38,6 @@ const Main = () => {
               height={450}
             />
           </div>
-          <SearchBar />
           <div className={styles.contentArea}>
             <TodayWine />
             <TodayMood wines={wineList} />

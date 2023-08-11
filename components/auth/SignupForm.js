@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "./InputForm.module.css";
 import { postSignup } from "../../services/api";
+import { ErrorModal } from "../Modal";
 import InputForm from "./InputForm";
-import Modal from "../Modal";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -85,7 +85,7 @@ const SignupForm = () => {
           showNicknameInput={showNicknameInput}
           onSubmit={handleSignup}
         />
-        {showErrorMessage && <Modal />}
+        {showErrorMessage && <ErrorModal />}
       </div>
     </>
   );

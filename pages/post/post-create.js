@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import { userTokenState } from "@/recoil/atoms";
-import styles from "./PostDetail.module.css";
+import styles from "../posts/PostDetail.module.css";
 
 const locationOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
 

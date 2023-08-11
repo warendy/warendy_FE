@@ -15,6 +15,7 @@ const WineDetail = () => {
   const [dry, setDry] = useState(0);
   const [tannin, setTannin] = useState(0);
   const [acidity, setAcidity] = useState(0);
+
   const handleSetRating = (reviewIndex, newRating) => {
     setRatings((prevRatings) => {
       const updatedRatings = [...prevRatings];
@@ -22,6 +23,7 @@ const WineDetail = () => {
       return updatedRatings;
     });
   };
+
   const progressStyles = {
     body: { width: `${(body / 5) * 100}%` },
     dry: { width: `${(dry / 5) * 100}%` },
@@ -63,7 +65,6 @@ const WineDetail = () => {
 
   useEffect(() => {
     const getWineDetailData = async () => {
-      const { id } = router.query;
       try {
         const data = await getWineDetail(id);
         const region = data.region;
@@ -80,9 +81,8 @@ const WineDetail = () => {
     };
 
     getWineDetailData();
-  }, [id]);
+  }, [id, router.query]);
 
-  console.log(WineDetail);
   if (WineDetail?.hasOwnProperty("wineName")) {
     return (
       <>
@@ -93,7 +93,7 @@ const WineDetail = () => {
             <div className={styles.detailContainer}>
               <div className={styles.wineImage}>
                 <div className={styles.img}>
-                  <img
+                  <Image
                     src={WineDetail?.picture || "/images/winedetail.svg"}
                     alt="Wine"
                     style={{ width: "50%", height: "100%" }}

@@ -27,7 +27,7 @@ export default function WineBySituation() {
     };
 
     fetchWines();
-  }, []);
+  }, [wines.alcohol, wines.acidity]);
   return (
     <>
       <div className={styles.headerBg}>

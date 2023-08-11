@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../search/search.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import MyMap from "../map/my-map";
+// import MyMap from "../map/my-map";
 import axios from "axios";
 import { fetchNearbyWineStores } from "@/services/api";
 import NearbyWineBars from "../map/nearby-winebars";
@@ -13,7 +13,7 @@ export default function Search() {
   const [userLocation, setUserLocation] = useState(null);
   const [searchLocation, setSearchLocation] = useState("");
   const [filteredWineBars, setFilteredWineBars] = useState([]);
-  const [selectedWineBar, setSelectedWineBar] = useState(null); // 변경된 상태 추가
+  const [selectedWineBar, setSelectedWineBar] = useState(null);
   const [displayedWineBars, setDisplayedWineBars] = useState([]);
 
   // 성공에 대한 로직
@@ -30,12 +30,12 @@ export default function Search() {
       error,
     });
   };
+
   const handleToggleMap1 = () => {
     setShowMapF(!showMapF);
   };
 
   const handleWineBarClick = (wineBar) => {
-    // 이미 있는 와인바인지 확인
     if (filteredWineBars.some((bar) => bar.name === wineBar.name)) {
       console.log(wineBar);
       setSelectedWineBar(wineBar);
@@ -63,17 +63,17 @@ export default function Search() {
     }
   }, [userLocation]);
 
-  const fetchUserLocation = () => {
-    if (!("geolocation" in navigator)) {
-      onError({
-        code: 0,
-        message: "Geolocation not supported",
-      });
-    }
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  };
-
   useEffect(() => {
+    const fetchUserLocation = () => {
+      if (!("geolocation" in navigator)) {
+        onError({
+          code: 0,
+          message: "Geolocation not supported",
+        });
+      }
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    };
+
     fetchUserLocation();
   }, []);
 
@@ -110,7 +110,7 @@ export default function Search() {
           )}
         </div>
       </div>
-      {selectedWineBar && showMapF && (
+      {/* {selectedWineBar && showMapF && (
         <div className={styles.map}>
           <MyMap
             userLocation={userLocation}
@@ -119,7 +119,7 @@ export default function Search() {
           />
           <button className={styles.writeButton}>글쓰기</button>
         </div>
-      )}
+      )} */}
     </>
   );
 }
