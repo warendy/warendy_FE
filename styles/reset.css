@@ -106,6 +106,7 @@ section {
 body {
   line-height: 1;
   font-family: "JejuGothic";
+  color: #222222;
 }
 
 html {
@@ -114,7 +115,7 @@ html {
 
 a {
   text-decoration: none;
-  color: rgba(34, 34, 34, 0.8);
+  color: #222222;
 }
 
 ol,

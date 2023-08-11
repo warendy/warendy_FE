@@ -1,68 +1,71 @@
-import { useState, useCallback } from "react";
-import styles from "./my-page.module.css";
-
-import Layout from "../../components/layout/layout";
-import My from "./my";
-import Profile from "./profile";
-import ProfileEdit from "./profile-edit";
+import React, { useState, useEffect, useCallback } from "react";
+import { useRecoilValue } from "recoil";
+import { userTokenState } from "../../recoil/atoms";
+import { getUserInfo, getMyReview, getMyBoard } from "../../services/api";
+import Layout from "../../components/Layout";
+import MyHome from "../../components/my/MyHome";
+import Snb from "../../components/my/Snb";
+import MyInfo from "../../components/my/MyInfo";
+import EditProfile from "../../components/my/EditProfile";
 
 const MyPage = () => {
-  const [selectedPage, setSelectedPage] = useState("my");
+  const [userInfo, setUserInfo] = useState([]);
+  const [myReviews, setMyReviews] = useState([]);
+  const [myBoards, setMyBoards] = useState([]);
+  const [selectedPage, setSelectedPage] = useState("myHome");
+
+  const token = useRecoilValue(userTokenState);
+
+  useEffect(() => {
+    getUserDataFromServer(token);
+  }, [token]);
+
+  const getUserDataFromServer = async (token) => {
+    try {
+      const userInfos = await getUserInfo(token);
+      const reviews = await getMyReview(token);
+      const boards = await getMyBoard(token);
+
+      const userInfoData = userInfos.data;
+      const reviewsArray = Object.values(reviews.content);
+      const boardsArray = Object.values(boards.content);
+
+      setUserInfo(userInfoData);
+      setMyReviews(reviewsArray);
+
+      setMyBoards(boardsArray);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const handleSnbLinkClick = useCallback((page) => {
     setSelectedPage(page);
   }, []);
 
-  const renderContentArea = () => {
-    switch (selectedPage) {
-      case "my":
-        return <My />;
-      case "profile":
-        return <Profile />;
-      case "profile-edit":
-        return <ProfileEdit />;
-
-      default:
-        return <div>페이지를 찾을 수 없습니다.</div>;
-    }
-  };
-
+  // if (userInfo.length > 0) {
   return (
     <Layout>
-      <div className={styles.snbArea}>
-        <button
-          onClick={() => handleSnbLinkClick("my")}
-          className="resetBtn btn"
-        >
-          <h2 className={styles.mainTitle}>마이페이지</h2>
-        </button>
-        <nav>
-          <div>
-            <strong className={styles.snbTitle}>내 정보</strong>
-            <ul>
-              <li className={styles.menuItem}>
-                <button
-                  onClick={() => handleSnbLinkClick("profile")}
-                  className="resetBtn btn"
-                >
-                  로그인 정보
-                </button>
-              </li>
-              <li className={styles.menuItem}>
-                <button
-                  onClick={() => handleSnbLinkClick("profile-edit")}
-                  className="resetBtn btn"
-                >
-                  프로필 관리
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-      <div className={styles.contentArea}>{renderContentArea()}</div>
+      <Snb onPageLinkClick={handleSnbLinkClick} />
+      {selectedPage === "myHome" && (
+        <MyHome userInfo={userInfo} myReviews={myReviews} myBoards={myBoards} />
+      )}
+      {selectedPage === "myInfo" && (
+        <MyInfo userInfo={userInfo} token={token} />
+      )}
+      {selectedPage === "editProfile" && (
+        <EditProfile userInfo={userInfo} token={token} />
+      )}
     </Layout>
   );
 };
+//    else {
+//     return (
+//       <>
+//         <h1>와인정보 불러오는중</h1>
+//       </>
+//     );
+//   }
+// };
 
 export default MyPage;

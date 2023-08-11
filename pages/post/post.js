@@ -1,33 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "../post/post.module.css";
-import axios from "axios";
 
 const seoulOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
 const gyeonggiOptions = ["용인시", "수원시", "성남시", "안양시", "고양시"];
+
+// 가상의 묵시적 게시글 데이터
+const dummyPosts = [
+  { id: 1, title: "게시글 1", location: "강남구" },
+  { id: 2, title: "게시글 2", location: "동작구" },
+  { id: 3, title: "게시글 3", location: "서초구" },
+];
 
 export default function PostSearch() {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedOption, setSelectedOption] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get("https://warendy.shop/boards/all");
-        const postData = response.data.content;
-        console.log(postData);
-        setSearchResults(postData);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
 
   const handleLocationChange = (e) => {
     const location = e.target.value;
@@ -48,8 +39,8 @@ export default function PostSearch() {
 
   const handleSearch = () => {
     // 검색 로직
-    const filteredResults = searchResults.filter((post) =>
-      post.name.includes(searchInput)
+    const filteredResults = dummyPosts.filter((post) =>
+      post.title.includes(searchInput)
     );
     setSearchResults(filteredResults);
   };
@@ -58,27 +49,50 @@ export default function PostSearch() {
     <>
       <h2 className="top">동행 게시글</h2>
       <div className="inner">
-        <div className={styles.postWrap}>{/* ... (이전 코드) */}</div>
+        <div className={styles.postWrap}>
+          <select
+            className={styles.select}
+            value={selectedLocation}
+            onChange={handleLocationChange}
+          >
+            <option value="">지역별</option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+          </select>
+
+          {selectedLocation && (
+            <select className={styles.select} value={selectedOption}>
+              {selectedOption.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <input
+            type="text"
+            placeholder="검색어 입력"
+            value={searchInput}
+            onChange={handleInputChange}
+            className={styles.Input}
+          />
+
+          <button className={styles.button} onClick={handleSearch}>
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+
+          <button className={styles.myBtn}>내가 쓴 글</button>
+        </div>
 
         {/* 검색 결과 표시 */}
         <ul className={styles.list}>
           {searchResults.map((post) => (
-            <li key={post.name}>
-              <Link href={`/posts/detail?postId=${post.boardId}`}>
-                {post.name}
-              </Link>
+            <li key={post.id}>
+              <Link href={`/posts/${post.id}`}>{post.title}</Link>
             </li>
           ))}
         </ul>
-
-        {/* 글쓰기 버튼 */}
-        <div className={styles.writeBtnContainer}>
-          <Link href="/post/post-create">
-            <button className={styles.writeBtn}>
-              <FontAwesomeIcon icon={faEdit} /> 글쓰기
-            </button>
-          </Link>
-        </div>
       </div>
     </>
   );

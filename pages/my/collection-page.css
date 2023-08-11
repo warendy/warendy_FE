@@ -1,49 +1,40 @@
-.pageTitle {
-  margin-bottom: 0.2rem;
+.collectionPage {
+  position: relative;
+  padding-top: 2rem;
+  border-top: 1px solid #cccccc;
 }
 
-.tabOutline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 35rem;
+.saveBtn {
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  z-index: 100;
 }
 
-.title {
-  display: flex;
-  justify-content: center;
-  font-size: 1.8rem;
-  min-width: 20rem;
+.collectionContainer {
+  position: relative;
 }
 
-.contentArea {
+.collectionTabContainer {
+  position: absolute;
+  top: 3rem;
+  left: 23rem;
+  padding: 3rem;
   display: flex;
+  min-width: 95rem;
+  gap: 2rem;
   flex-direction: column;
-  width: 150rem;
 }
 
-.list {
+.collectionTabs {
   display: flex;
   flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
+  gap: 2rem;
 }
 
-.myList {
-  border: 1px solid #cccccc;
-}
-
-.list li {
-  width: 20%;
-  box-sizing: border-box;
-  padding: 1rem;
-}
-
-.btn {
-  width: 9rem;
-  margin: 0 auto;
-}
-
-.myCollection {
-  display: flex;
+.deleteBtn {
+  position: absolute;
+  display: none;
+  top: 1rem;
+  right: 1rem;
 }
