@@ -6,7 +6,7 @@ import MyMap from "../map/my-map";
 import axios from "axios";
 import { fetchNearbyWineStores } from "@/utlis/api";
 import NearbyWineBars from "../map/nearby-winebars";
-import MapComponent from "../map/map-component";
+import useGeolocation from "@/hooks/useGeolocation";
 
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
@@ -16,22 +16,35 @@ export default function Search() {
   const [selectedWineBar, setSelectedWineBar] = useState(null); // 변경된 상태 추가
   const [displayedWineBars, setDisplayedWineBars] = useState([]);
 
+  // 성공에 대한 로직
+  const onSuccess = (location) => {
+    setUserLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
+  };
+
+  // 에러에 대한 로직
+  const onError = (error) => {
+    setUserLocation({
+      error,
+    });
+  };
   const handleToggleMap1 = () => {
     setShowMapF(!showMapF);
   };
 
   const handleWineBarClick = (wineBar) => {
     // 이미 있는 와인바인지 확인
-    console.log(filteredWineBars, wineBar);
     if (filteredWineBars.some((bar) => bar.name === wineBar.name)) {
+      console.log(wineBar);
       setSelectedWineBar(wineBar);
       setShowMapF(true);
     }
   };
 
   useEffect(() => {
-    console.log("userLocation:", userLocation);
-    console.log("selectedWineBar:", selectedWineBar);
+    console.log(userLocation);
     const fetchData = async () => {
       try {
         const wineBarsData = await fetchNearbyWineStores(
@@ -51,20 +64,13 @@ export default function Search() {
   }, [userLocation]);
 
   const fetchUserLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          setUserLocation({ latitude, longitude });
-        },
-        (error) => {
-          console.error("Error getting user's location:", error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported.");
+    if (!("geolocation" in navigator)) {
+      onError({
+        code: 0,
+        message: "Geolocation not supported",
+      });
     }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
   };
 
   useEffect(() => {
@@ -108,7 +114,8 @@ export default function Search() {
         <div className={styles.map}>
           <MyMap
             userLocation={userLocation}
-            wineBars={selectedWineBar ? [selectedWineBar] : []} // 수정된 부분
+            selectedWineBar={selectedWineBar ? selectedWineBar : {}}
+            wineBars={filteredWineBars}
           />
           <button className={styles.writeButton}>글쓰기</button>
         </div>

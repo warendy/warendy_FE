@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import MapComponent from "./map-component";
+import React, { useEffect } from "react";
 
-const proxyServerAddress =
-  "https://warendy.shop/winebars/around?lnt={lnt}&lat={lat}";
-
-export default function MyMap({ userLocation }) {
-  const [wineBars, setWineBars] = useState([]);
-
+const MapComponent = ({ userLocation, selectedWineBar, wineBars }) => {
   useEffect(() => {
     const loadKakaoMap = async () => {
       try {
@@ -21,10 +14,7 @@ export default function MyMap({ userLocation }) {
         });
 
         window.kakao.maps.load(() => {
-          // Kakao 지도 API 로드 후 초기화
-          if (userLocation) {
-            initializeMap();
-          }
+          initializeMap();
         });
       } catch (error) {
         console.error("Error loading Kakao Map API:", error);
@@ -32,34 +22,57 @@ export default function MyMap({ userLocation }) {
     };
 
     loadKakaoMap();
-  }, [userLocation]);
+  }, [selectedWineBar]);
 
-  const initializeMap = async () => {
-    // 서버 API 호출하여 주변 와인바 정보를 받아옴
-    await fetchWineBarsNearby(userLocation);
+  const initializeMap = () => {
+    const container = document.getElementById("map");
+    const options = {
+      center: new window.kakao.maps.LatLng(
+        selectedWineBar.lat,
+        selectedWineBar.lnt
+      ),
+      level: 3,
+    };
+    const map = new window.kakao.maps.Map(container, options);
+
+    displayWineBarMarkers(wineBars, map);
   };
 
-  const fetchWineBarsNearby = async (location) => {
-    try {
-      const apiUrl = proxyServerAddress
-        .replace("{lat}", location.latitude)
-        .replace("{lnt}", location.longitude);
-
-      const response = await axios.get(apiUrl);
-      const data = response.data;
-
-      setWineBars(data);
-    } catch (error) {
-      console.error("Error fetching nearby wine bars:", error);
-    }
+  const displayWineBarMarkers = (wineBarData, map) => {
+    console.log(wineBarData);
+    wineBarData.forEach((wineBar) => {
+      const marker = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(wineBar.lat, wineBar.lng),
+        map: map,
+        title: wineBar.name,
+      });
+      console.log(marker);
+      marker.setMap(map);
+    });
   };
 
   return (
     <div>
       <h2>MyMap Component</h2>
       {userLocation && (
-        <MapComponent userLocation={userLocation} wineBars={wineBars} />
+        <div>
+          {/* 각 버튼을 눌렀을 때 해당 지도 데이터를 설정하는 함수 호출 */}
+          {/* <button onClick={() => handleMapSelection(null)}>전체 지도</button> */}
+          {/* {wineBars.map((wineBar) => (
+            <button
+              key={wineBar.winebarId}
+              onClick={() => handleMapSelection(wineBar)}
+            >
+              {wineBar.name} 지도
+            </button>
+          ))} */}
+          {/* 선택한 지도 데이터가 있을 때만 해당 지도를 표시 */}
+          {/* {selectedMapData && ( */}
+          <div id="map" style={{ width: "100%", height: "400px" }} />
+          {/* )} */}
+        </div>
       )}
     </div>
   );
-}
+};
+export default MapComponent;

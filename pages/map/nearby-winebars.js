@@ -1,7 +1,6 @@
 import React from "react";
-import MapComponent from "./map-component";
 
-const MAX_DISTANCE = 10; // 보여줄 최대 거리 (단위: km)
+const MAX_DISTANCE = 120; // 보여줄 최대 거리 (단위: km)
 
 const getDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371; // 지구 반지름 (단위: km)
@@ -44,7 +43,6 @@ const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
       const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
         wineBar.lat
       }`;
-      console.log("Generated key:", key);
 
       return {
         ...wineBar,
@@ -60,17 +58,10 @@ const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
     const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
       wineBar.lat
     }`;
-    console.log("Generated key:", key);
     return key;
   });
 
   const hasDuplicates = new Set(generatedKeys).size !== generatedKeys.length;
-
-  console.log(
-    "Filtered WineBars with Keys:",
-    filteredWineBars.map((wineBar) => wineBar.key)
-  );
-  console.log("Duplicate keys:", hasDuplicates ? "Yes" : "No");
 
   return (
     <div>
