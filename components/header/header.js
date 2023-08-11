@@ -7,7 +7,7 @@ import { userTokenState } from "../../recoil/atoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
-import styles from "./Header.module.css";
+import styles from "./header.module.css";
 import { LogoutModal } from "../Modal";
 
 const Header = () => {
