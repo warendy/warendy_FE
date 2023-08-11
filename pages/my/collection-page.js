@@ -6,7 +6,7 @@ import {
   getMyWineList,
   getMyCollection,
   saveMyCollection,
-} from "../../services/api";
+} from "@/services/api";
 import styles from "./collection-page.module.css";
 
 import Layout from "../../components/Layout";
