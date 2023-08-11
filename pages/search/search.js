@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import MyMap from "../map/my-map";
 import axios from "axios";
-import { fetchNearbyWineStores } from "@/utlis/api";
+import { fetchNearbyWineStores } from "@/services/api";
 import NearbyWineBars from "../map/nearby-winebars";
 import useGeolocation from "@/hooks/useGeolocation";
 
