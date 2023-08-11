@@ -1,32 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { userTokenState } from "../../recoil/atoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMapMarkerAlt,
-  faComment,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
 import styles from "./header.module.css";
 
 const Header = () => {
+  const [userToken, setUserToken] = useRecoilState(userTokenState);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("userTokenState");
+    setUserToken(null);
+  };
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  //https://velog.io/@yijaee/serverside-html-matching
+
   return (
-    <header>
-      <div className={styles.header}>
+    mounted && (
+      <header className={styles.header}>
         <div className="inner">
           <div className={styles.headerTop}>
-            <ul className={styles.topList}>
-              <li className={styles.topItem}>
-                <Link href="/my/my-page" className={styles.link}>
-                  마이페이지
-                </Link>
-              </li>
-              <li className={styles.topItem}>
-                <Link href="/signin/sign-in" className={styles.link}>
-                  로그인
-                </Link>
-              </li>
-            </ul>
+            <Link href="/my/my-page" className={styles.link}>
+              마이페이지
+            </Link>
+            {userToken ? (
+              <button
+                onClick={handleLogout}
+                className={styles.link + " resetBtn "}
+              >
+                로그아웃
+              </button>
+            ) : (
+              <Link href="/sign-in" className={styles.link}>
+                로그인
+              </Link>
+            )}
           </div>
           <div className={styles.headerMain}>
             <div className={styles.mainInner}>
@@ -71,8 +87,8 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    )
   );
 };
 

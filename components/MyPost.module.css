@@ -31,6 +31,38 @@
   height: 1.3rem;
 }
 
-.contentBox {
-  border-bottom: 1px solid #ebebeb;
+.contentArea {
+  background-color: #f4f4f4;
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+}
+
+.contentTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1.6rem;
+}
+
+.contentIndex {
+  margin-left: 5rem;
+}
+
+.contentDate {
+  margin-right: 13rem;
+}
+
+.contentInfo {
+  padding-top: 2rem;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.index {
+  margin-left: 6rem;
+}
+
+.date {
+  margin-right: 10rem;
 }

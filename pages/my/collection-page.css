@@ -1,6 +1,11 @@
+.pageTitle {
+  margin-bottom: 0.2rem;
+}
+
 .tabOutline {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 35rem;
 }
 
@@ -14,7 +19,7 @@
 .contentArea {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 150rem;
 }
 
 .list {
@@ -24,6 +29,10 @@
   margin: 0;
 }
 
+.myList {
+  border: 1px solid #cccccc;
+}
+
 .list li {
   width: 20%;
   box-sizing: border-box;
@@ -31,10 +40,10 @@
 }
 
 .btn {
-  width: 8rem;
+  width: 9rem;
+  margin: 0 auto;
 }
 
 .myCollection {
   display: flex;
 }
-/* .my */

@@ -42,10 +42,8 @@
 }
 
 .unitContent {
-  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   padding-top: 1.2rem;
   padding-bottom: 1rem;
 }
@@ -60,9 +58,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.passwordInput {
+}
 
 .btnModify {
-  position: absolute;
-  right: 0;
+  /* position: absolute;
+  right: 0; */
   background-color: #fff;
 }
