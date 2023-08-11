@@ -1,0 +1,18 @@
+.modal {
+  position: absolute;
+  top: 5%;
+  right: 38%;
+  z-index: 1000;
+  min-width: 45rem;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  font: inherit;
+  font-size: 2rem;
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+}
