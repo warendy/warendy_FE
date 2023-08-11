@@ -1,0 +1,40 @@
+.starContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.starRating {
+  display: flex;
+}
+
+.star {
+  font-size: 3.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.filled {
+  color: #f1c40f;
+}
+
+.unfilled {
+  color: #ccc;
+}
+
+.halfFilled {
+  position: relative;
+  overflow: hidden;
+  width: 1.15em;
+  color: #f1c40f;
+}
+
+.halfFilled::before {
+  content: "★";
+  position: absolute;
+  width: 0.6em;
+  overflow: hidden;
+  color: #f1c40f;
+}
