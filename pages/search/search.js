@@ -2,31 +2,84 @@ import React, { useState, useEffect } from "react";
 import styles from "../search/search.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import MyMap from "../mymap/my-map";
+import MyMap from "../map/my-map";
+import axios from "axios";
+import { fetchNearbyWineStores } from "@/utlis/api";
+import NearbyWineBars from "../map/nearby-winebars";
+import useGeolocation from "@/hooks/useGeolocation";
 
 export default function Search() {
-  // 각 버튼에 대한 상태를 독립적으로 관리하기 위한 state 변수들
-  const [showMap1, setShowMap1] = useState(false);
-  const [showMap2, setShowMap2] = useState(false);
-  const [showMap3, setShowMap3] = useState(false);
+  const [showMapF, setShowMapF] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
   const [searchLocation, setSearchLocation] = useState("");
+  const [filteredWineBars, setFilteredWineBars] = useState([]);
+  const [selectedWineBar, setSelectedWineBar] = useState(null); // 변경된 상태 추가
+  const [displayedWineBars, setDisplayedWineBars] = useState([]);
 
+  // 성공에 대한 로직
+  const onSuccess = (location) => {
+    setUserLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
+  };
+
+  // 에러에 대한 로직
+  const onError = (error) => {
+    setUserLocation({
+      error,
+    });
+  };
   const handleToggleMap1 = () => {
-    setShowMap1(!showMap1);
+    setShowMapF(!showMapF);
   };
 
-  const handleToggleMap2 = () => {
-    setShowMap2(!showMap2);
+  const handleWineBarClick = (wineBar) => {
+    // 이미 있는 와인바인지 확인
+    if (filteredWineBars.some((bar) => bar.name === wineBar.name)) {
+      console.log(wineBar);
+      setSelectedWineBar(wineBar);
+      setShowMapF(true);
+    }
   };
 
-  const handleToggleMap3 = () => {
-    setShowMap3(!showMap3);
+  useEffect(() => {
+    console.log(userLocation);
+    const fetchData = async () => {
+      try {
+        const wineBarsData = await fetchNearbyWineStores(
+          userLocation.longitude,
+          userLocation.latitude
+        );
+
+        setFilteredWineBars(wineBarsData);
+      } catch (error) {
+        console.error("Error fetching nearby wine stores:", error);
+      }
+    };
+
+    if (userLocation) {
+      fetchData();
+    }
+  }, [userLocation]);
+
+  const fetchUserLocation = () => {
+    if (!("geolocation" in navigator)) {
+      onError({
+        code: 0,
+        message: "Geolocation not supported",
+      });
+    }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
   };
+
+  useEffect(() => {
+    fetchUserLocation();
+  }, []);
 
   const handleSearchLocation = (e) => {
     setSearchLocation(e.target.value);
   };
-  const kakaoMapApiKey = process.env.VITE_KAKAO_MAP_API_KEY;
 
   return (
     <>
@@ -35,46 +88,38 @@ export default function Search() {
         <div className={styles.searchWrap}>
           <div>
             <label>지역 검색:</label>
-            <input type="text" placeholder="지역을 입력하세요" value={searchLocation} onChange={handleSearchLocation} />
+            <input
+              type="text"
+              placeholder="지역을 입력하세요"
+              value={searchLocation}
+              onChange={handleSearchLocation}
+            />
             <button className={styles.button}>
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
-          <h3 className={styles.title}>주변 와인바 리스트</h3>
-          <ul>
-            <li>
-              와인한잔 <button onClick={handleToggleMap1}>+</button>
-            </li>
-            {showMap1 && (
-              <li>
-                <MyMap kakaoMapApiKey={kakaoMapApiKey} />
-              </li>
-            )}
-            <li>
-              와인두잔 <button onClick={handleToggleMap2}>+</button>
-            </li>
-            {showMap2 && (
-              <li>
-                <div style={{ border: "1px solid black", height: "200px" }}>
-                  {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
-                  카카오맵 지도 표시 영역
-                </div>
-              </li>
-            )}
-            <li>
-              와인세잔 <button onClick={handleToggleMap3}>+</button>
-            </li>
-            {showMap3 && (
-              <li>
-                <div style={{ border: "1px solid black", height: "200px" }}>
-                  {/* 카카오맵 지도를 이곳에 추가하면 됩니다 */}
-                  카카오맵 지도 표시 영역
-                </div>
-              </li>
-            )}
-          </ul>
+          {userLocation && (
+            <>
+              <h3 className={styles.title}>주변 와인바 리스트</h3>
+              <NearbyWineBars
+                userLocation={userLocation}
+                wineBars={filteredWineBars}
+                onWineBarClick={handleWineBarClick}
+              />
+            </>
+          )}
         </div>
       </div>
+      {selectedWineBar && showMapF && (
+        <div className={styles.map}>
+          <MyMap
+            userLocation={userLocation}
+            selectedWineBar={selectedWineBar ? selectedWineBar : {}}
+            wineBars={filteredWineBars}
+          />
+          <button className={styles.writeButton}>글쓰기</button>
+        </div>
+      )}
     </>
   );
 }
