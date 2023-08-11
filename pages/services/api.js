@@ -25,7 +25,9 @@ export const postLogin = async (loginInform) => {
 // 회원 가입 API 호출
 export const postSignup = async (signupInform) => {
   try {
+    console.log(signupInform);
     const response = await instance.post("/signup", signupInform);
+
     return response.data;
   } catch (error) {
     throw new Error("Signup failed");
@@ -34,13 +36,50 @@ export const postSignup = async (signupInform) => {
   }
 };
 
+// 내가 쓴 게시글 API 호출
+export const postMyBoard = async (dataToSend, token) => {
+  console.log(dataToSend, token);
+  try {
+    const response = await instance.post("/boards", dataToSend, {
+      headers: { Authorization: token },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
+// 내가 쓴 게시글 API 요청
+export const getMyBoard = async () => {
+  // console.log(dataToSend);
+  try {
+    const response = await instance.get(
+      "/boards/creator?creator=동욱200",
+      // dataToSend,
+      {
+        // headers: { Authorization: token },
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
 // 와인 컬렉션 API 호출
 export const saveMyCollection = async (dataToSend, token) => {
   console.log(dataToSend, token);
   try {
-    const response = await instance.post("/collections/add/category", dataToSend, {
-      headers: { Authorization: token },
-    });
+    const response = await instance.post(
+      "/collections/add/category",
+      dataToSend,
+      {
+        headers: { Authorization: token },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
@@ -48,44 +87,17 @@ export const saveMyCollection = async (dataToSend, token) => {
   }
 };
 
-//와인 api
-
-// 와인 상세정보 요청
-export const getWineDetail = async (wineId) => {
+// 와인 정보 API 요청
+export const getWine = async (token) => {
   try {
-    const response = await instance.get(`/wines/${wineId}/detail`);
+    const response = await instance.get("/collections/wines", {
+      headers: { Authorization: token },
+    });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
-  }
-};
-
-// 와인 컬랙션에 추가
-export const addWineToFavorite = async (dataToSend, token) => {
-  console.log(dataToSend, token);
-  try {
-    const response = await instance.post("/collections/add/wine", dataToSend, {
-      headers: { Authorization: token },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error sending data to the server:", error);
-    throw error;
-  }
-};
-
-//와인 추천 리스트 조회
-export const getRecommendedWineList = async () => {
-  try {
-    const token = sessionStorage.getItem("userTokenState");
-    const response = await instance.get("/wines/recommendation", {
-      headers: { Authorization: token },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error sending data to the server:", error);
-    throw error;
   }
 };
 

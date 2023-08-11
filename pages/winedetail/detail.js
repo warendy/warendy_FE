@@ -1,53 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./detail.module.css";
+import Image from "next/image";
 import StarRating from "./star-rating";
-import { wineState } from "@/pages/recoil_state";
-import { useRecoilValue } from "recoil";
 
 export default function Detail() {
-  const wine = useRecoilValue(wineState);
-  const [ratings, setRatings] = useState([0, 0, 0]);
-  const [reviewText, setReviewText] = useState(" ");
-  const [wineData, setWineData] = useState(null);
-  const wineId = wine.id;
-  const [body, setBody] = useState(0);
-  const [dry, setDry] = useState(0);
-  const [tannin, setTannin] = useState(0);
-  const [acidity, setAcidity] = useState(0);
-
-  const progressStyles = {
-    body: { width: `${(body / 5) * 100}%` },
-    dry: { width: `${(dry / 5) * 100}%` },
-    tannin: { width: `${(tannin / 5) * 100}%` },
-    acidity: { width: `${(acidity / 5) * 100}%` },
-  };
-
-  function getGeneralRegion(region) {
-    const parts = region.split("/");
-    return parts.slice(0, 2).join(" / ");
-  }
-
-  useEffect(() => {
-    fetch(`https://warendy.shop/wines/${wineId}/detail`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error, status = ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const region = data.region;
-        const generalRegion = getGeneralRegion(region);
-        setBody(data.body);
-        setDry(data.dry);
-        setTannin(data.tannin);
-        setAcidity(data.acidity);
-        setWineData({ ...data, generalRegion });
-      })
-      .catch((error) => console.error(error));
-  }, []);
-
-  const pairingData = wineData?.pairing ? wineData.pairing.split(", ") : [];
+  const [ratings, setRatings] = useState([0, 0, 0]); // Initialize ratings for each review
+  const [reviewText, setReviewText] = useState(""); // State for the review text input
 
   const handleSetRating = (reviewIndex, newRating) => {
     setRatings((prevRatings) => {
@@ -58,12 +16,15 @@ export default function Detail() {
   };
 
   const handleReviewSubmit = (reviewIndex) => {
+    // You can now access the star rating and review text for each review.
     const rating = ratings[reviewIndex];
     const text = reviewText;
-    // You may want to do something with the 'rating' and 'text' variables here
-    setReviewText(" ");
-  };
 
+    // Here you can perform any actions you need to save the review, like sending it to a server or storing it in a state.
+
+    // Clear the review text after submitting.
+    setReviewText("");
+  };
   return (
     <>
       <div className="container">
@@ -73,79 +34,66 @@ export default function Detail() {
           <div className={styles.detailContainer}>
             <div className={styles.wineImage}>
               <div className={styles.img}>
-                <img src={wineData?.picture || "/images/winedetail.svg"} alt="Wine" style={{ width: "50%", height: "100%" }} />
+                <Image src="/images/winedetail.svg" alt="Logo" layout="responsive" width={100} height={100} />
               </div>
             </div>
             <div className={styles.introBox}>
               <div className={styles.introFirst}>
-                <div className={styles.fromBadge}>From</div>
-                <div className={styles.wineRegion}>{wineData?.generalRegion}</div>
-                <div className="heartBadge margin"></div>
+                <div className={styles.typeBadge}>White</div>
+                <div className={styles.wineTitle}>프랑스</div>
+                <div className="heartBadge"></div>
               </div>
-              <div className={styles.introTitle}>{wineData?.wineName}</div>
+              <div className={styles.introTitle}>Domaine Besson, Chablis 1er Cru Vailllons</div>
               <div className={styles.figureBox}>
-                <div className={styles.label}>Light</div>
-                <div className={`${styles.progress} ${styles.bodyProgress}`}>
-                  <div className={styles.progressFill} style={progressStyles.body}></div>
-                </div>
-                <div className={styles.label}>Bold</div>
-              </div>
-              <div className={styles.figureBox}>
-                <div className={styles.label}>Smooth</div>
-                <div className={`${styles.progress} ${styles.dryrogress}`}>
-                  <div className={styles.progressFill} style={progressStyles.dry}></div>
-                </div>
-                <div className={styles.label}>Tannic</div>
-              </div>
-              <div className={styles.figureBox}>
-                <div className={styles.label}>Dry</div>
-                <div className={`${styles.progress} ${styles.tanninProgress}`}>
-                  <div className={styles.progressFill} style={progressStyles.tannin}></div>
-                </div>
+                <div className={styles.label}>Bitter</div>
+                <div className={`${styles.progress} ${styles.sweetnessProgress}`}></div>
                 <div className={styles.label}>Sweet</div>
               </div>
               <div className={styles.figureBox}>
-                <div className={styles.label}>Soft</div>
-                <div className={`${styles.progress} ${styles.acidityProgress}`}>
-                  <div className={styles.progressFill} style={progressStyles.acidity}></div>
-                </div>
-                <div className={styles.label}>Acidic</div>
+                <div className={styles.label}>Light</div>
+                <div className={`${styles.progress} ${styles.bodyProgress}`}></div>
+                <div className={styles.label}>Full Body</div>
+              </div>
+              <div className={styles.figureBox}>
+                <div className={styles.label}>Low</div>
+                <div className={`${styles.progress} ${styles.tanninsProgress}`}></div>
+                <div className={styles.label}>High Tannins</div>
+              </div>
+              <div className={styles.figureBox}>
+                <div className={styles.label}>Low</div>
+                <div className={`${styles.progress} ${styles.acidityProgress}`}></div>
+                <div className={styles.label}>High Acidity</div>
               </div>
 
               <div className={styles.withFood}>
                 <div className={styles.withFoodTitle}>이런 음식과 함께 해요!</div>
                 <div className={styles.foodPairings}>
-                  {pairingData.map((item, index) => (
-                    <div key={index} className={styles.circle}>
-                      {item}
-                    </div>
-                  ))}
+                  <div className={styles.circle}>Beef</div>
+                  <div className={styles.circle}>Lamb</div>
+                  <div className={styles.circle}>Poultry</div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className={styles.detailList}>
-            <div className={styles.detailVintage}>Vintage : {wineData?.vintage}</div>
-            <div className={styles.detailGrapes}>GRAPES : {wineData?.grapes}</div>
-            <div className={styles.detailWinery}>WINERY : {wineData?.winery}</div>
-            <div className={styles.detailPrice}>PRICE : {wineData?.price}</div>
-            <div className={styles.detailRating}>
-              RATING : <StarRating rating={wineData?.rating} isInteractive={false} />
-            </div>
+            <div className={styles.detailRegion}>REGION</div>
+            <div className={styles.detailWinery}>WINERY</div>
+            <div className={styles.detailRating}>RATING</div>
+            <div className={styles.detailPrice}>PRICE</div>
           </div>
 
           <div className={styles.reviewContainer}>
             <div className={styles.reviewBox}>
-              <StarRating rating={ratings[0]} isInteractive={false} setRating={(newRating) => handleSetRating(0, newRating)} />
+              <StarRating rating={ratings[0]} setRating={(newRating) => handleSetRating(0, newRating)} />
               <div className={styles.reviewComment}>가성비가 좋은 와인은 아닌 것 같았어요,, 그냥 딱 가격 정도의 맛</div>
             </div>
             <div className={styles.reviewBox}>
-              <StarRating rating={ratings[1]} isInteractive={false} setRating={(newRating) => handleSetRating(1, newRating)} />
+              <StarRating rating={ratings[1]} setRating={(newRating) => handleSetRating(1, newRating)} />
               <div className={styles.reviewComment}>가족끼리 같이 먹었는데 어른들은 좀 좋아하셨고 20대에겐 좀 무거운 맛</div>
             </div>
             <div className={styles.reviewBox}>
-              <StarRating rating={ratings[2]} isInteractive={false} setRating={(newRating) => handleSetRating(2, newRating)} />
+              <StarRating rating={ratings[2]} setRating={(newRating) => handleSetRating(2, newRating)} />
               <div className={styles.reviewComment}>
                 스위트 와인이라고 되어 있었지만.. 글쎄요. 너무 씁쓸했어요 ㅜㅜ 단 거 엄청 좋아하시는 분은 비추,,,
               </div>

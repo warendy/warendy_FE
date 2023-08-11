@@ -5,7 +5,7 @@ const sessionStorage =
   typeof window !== "undefined" ? window.sessionStorage : undefined;
 
 const { persistAtom } = recoilPersist({
-  key: "sessionStorage",
+  key: "sessionStorage", // 고유한 key 값
   storage: sessionStorage,
 });
 
@@ -14,10 +14,4 @@ export const userTokenState = atom({
   key: "userTokenState",
   default: null,
   effects_UNSTABLE: [persistAtom],
-});
-
-// 와인 리스트 전역 상태 관리
-export const wineListState = atom({
-  key: "wineListState",
-  default: [],
 });

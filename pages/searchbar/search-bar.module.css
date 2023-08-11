@@ -1,51 +1,19 @@
 .searchContainer {
-  height: 40%;
+  width: 66.6%;
+  height: 100%;
   background-color: white;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  transition: all 0.35s;
-  z-index: 9;
-  position: absolute;
-  width: 66.6%;
-  right: 32rem;
-  animation-duration: 1.5s;
-  animation-fill-mode: forwards;
-}
-
-.slidein {
-  animation-name: slidein;
-}
-
-.slideout {
-  animation-name: slideout;
-}
-
-@keyframes slidein {
-  from {
-    top: -60%;
-  }
-
-  to {
-    top: 10%;
-  }
-}
-
-@keyframes slideout {
-  from {
-    top: 10%;
-  }
-
-  to {
-    top: -34%;
-  }
 }
 
 .searchInner {
-  width: 70%;
+  width: 60%;
   display: flex;
   border-bottom: grey solid 1px;
+  transform: translateY(3rem);
   margin-top: 8rem;
   margin-bottom: 5rem;
 }
@@ -71,7 +39,7 @@
 .currentContainer {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   height: 30%;
   background-color: #f5f5f5;
   position: relative;
@@ -82,19 +50,6 @@
 .currentSearch {
   font-size: 1.5rem;
   padding: 2rem 0rem 0rem 2rem;
-}
-
-.closeBtn {
-  position: absolute;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
 }
 
 .currentSearch {

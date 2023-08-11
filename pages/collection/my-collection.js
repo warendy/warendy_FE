@@ -68,10 +68,8 @@ const MyCollection = ({ items = {}, setItems }) => {
     try {
       const response = await saveMyCollection(dataToSend, token);
       console.log("Save Response:", response);
-      // 서버로부터의 응답 처리 작업 수행 (예를 들어, 서버로부터의 응답을 사용자에게 보여주기)
     } catch (error) {
       console.error("Error sending data to the server:", error);
-      // 에러 처리 작업 수행 (예를 들어, 에러 메시지를 사용자에게 보여주기)
     }
   };
 
