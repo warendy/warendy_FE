@@ -28,12 +28,9 @@
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-datepicker": "^4.16.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
-    "styled-components": "^6.0.7",
     "sweetalert2": "^11.7.20"
   },
   "devDependencies": {
