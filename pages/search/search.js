@@ -7,6 +7,7 @@ import axios from "axios";
 import { fetchNearbyWineStores } from "@/services/api";
 import NearbyWineBars from "../map/nearby-winebars";
 import useGeolocation from "@/hooks/useGeolocation";
+import MyMap from "../map/my-map";
 
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
@@ -123,7 +124,7 @@ export default function Search() {
           )}
         </div>
       </div>
-      {/* {selectedWineBar && showMapF && (
+      {selectedWineBar && showMapF && (
         <div className={styles.map}>
           <MyMap
             userLocation={userLocation}
@@ -132,7 +133,7 @@ export default function Search() {
           />
           <button className={styles.writeButton}>글쓰기</button>
         </div>
-      )} */}
+      )}
     </>
   );
 }
