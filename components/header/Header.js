@@ -42,10 +42,7 @@ const Header = () => {
                 마이페이지
               </Link>
               {userToken ? (
-                <button
-                  onClick={handleLogout}
-                  className={styles.link + " resetBtn "}
-                >
+                <button onClick={handleLogout} className="resetBtn">
                   로그아웃
                 </button>
               ) : (
