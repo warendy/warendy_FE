@@ -70,7 +70,10 @@ export default function Search() {
         message: "Geolocation not supported",
       });
     }
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    var options = {
+      enableHighAccuracy: true,
+    };
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
   };
 
   useEffect(() => {
