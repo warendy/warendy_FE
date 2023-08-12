@@ -18,7 +18,7 @@ export default function WineBySituation() {
       try {
         const recommendedWines = await getRecommendedWineList();
         const filteredWines = recommendedWines.filter(
-          (wine) => wine.body >= 2 && wine.dry >= 2
+          (wine) => wine.body >= 2 && wine.dry >= 1
         );
         setWines(filteredWines);
       } catch (error) {
