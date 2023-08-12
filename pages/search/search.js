@@ -63,6 +63,19 @@ export default function Search() {
     }
   }, [userLocation]);
 
+  const fetchUserLocation = () => {
+    if (!("geolocation" in navigator)) {
+      onError({
+        code: 0,
+        message: "Geolocation not supported",
+      });
+    }
+    var options = {
+      enableHighAccuracy: true,
+    };
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+  };
+
   useEffect(() => {
     const fetchUserLocation = () => {
       if (!("geolocation" in navigator)) {
