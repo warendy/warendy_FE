@@ -77,16 +77,43 @@ const CollectionPage = () => {
   // dndFunction
   const onDragEnd = ({ source, destination }) => {
     if (!destination) return;
-
     const sourceKey = source.droppableId;
     const destinationKey = destination.droppableId;
-
-    const updatedTabs = collectionTabs.map((tab) => {
+    const updatedTabs = collectionTabs.map((tab, index) => {
+      console.log(tab);
+      if (destinationKey === "Wine List" && tab.id === sourceKey) {
+        const updatedItems = Array.from(tab.items);
+        const [targetItem] = updatedItems.splice(source.index, 1);
+        bookmarkedItems.splice(destination.index, 0, targetItem);
+        setBookmarkedItems(bookmarkedItems);
+        return {
+          ...tab,
+          items: updatedItems,
+        };
+      }
+      if (sourceKey === destinationKey && tab.id === destinationKey) {
+        const updatedItems = Array.from(tab.items);
+        const [targetItem] = updatedItems.splice(source.index, 1);
+        updatedItems.splice(destination.index, 0, targetItem);
+        return { ...tab, items: updatedItems };
+      }
       if (tab.id === destinationKey) {
         const updatedItems = Array.from(tab.items);
-        const [targetItem] = bookmarkedItems.splice(source.index, 1);
-        updatedItems.splice(destination.index, 0, targetItem);
-
+        if (sourceKey == "Wine List") {
+          const [targetItem] = bookmarkedItems.splice(source.index, 1);
+          updatedItems.splice(destination.index, 0, targetItem);
+        } else {
+          for (let i = 0; i < collectionTabs.length; i++) {
+            if (collectionTabs[i].title === sourceKey) {
+              const [targetItem] = collectionTabs[i].items.splice(
+                source.index,
+                1
+              );
+              updatedItems.splice(destination.index, 0, targetItem);
+              break;
+            }
+          }
+        }
         return {
           ...tab,
           items: updatedItems,
@@ -94,7 +121,6 @@ const CollectionPage = () => {
       }
       return tab;
     });
-
     setCollectionTabs(updatedTabs);
   };
 
@@ -121,6 +147,29 @@ const CollectionPage = () => {
   // if (!enabled) {
   //   return null;
   // }
+
+  // const onDragEnd = ({ source, destination }) => {
+  //   if (!destination) return;
+
+  //   const sourceKey = source.droppableId;
+  //   const destinationKey = destination.droppableId;
+
+  //   const updatedTabs = collectionTabs.map((tab) => {
+  //     if (tab.id === destinationKey) {
+  //       const updatedItems = Array.from(tab.items);
+  //       const [targetItem] = bookmarkedItems.splice(source.index, 1);
+  //       updatedItems.splice(destination.index, 0, targetItem);
+
+  //       return {
+  //         ...tab,
+  //         items: updatedItems,
+  //       };
+  //     }
+  //     return tab;
+  //   });
+
+  //   setCollectionTabs(updatedTabs);
+  // };
 
   // createTab
   const handleCreateTab = (title) => {
