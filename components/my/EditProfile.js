@@ -4,7 +4,7 @@ import styles from "./EditProfile.module.css";
 const ProfileEdit = () => {
   return (
     <>
-      <div className={styles.profile}>
+      <div className={styles.profileEditProfile}>
         <h3 className={styles.title}>프로필 관리</h3>
         <div className={styles.userMembership}>
           <div className={styles.userDetail}>
