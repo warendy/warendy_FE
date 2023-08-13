@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import PostDetailPage from "./PostDetailPage";
+import PostDetailPage from "./[postId]";
 
 const PostDetail = () => {
   const router = useRouter();
