@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRecoilValue } from "recoil";
 import { userTokenState } from "@/recoil/atoms";
 import { getMyReview } from "@/services/api";
@@ -37,7 +36,7 @@ const Review = () => {
     }
   };
 
-  const loadMoreReviews = async () => {
+  const loadMoreReviews = useCallback(async () => {
     if (!hasMoreReviews || isLoading) {
       return;
     }
@@ -61,7 +60,7 @@ const Review = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [hasMoreReviews, isLoading, loadedReviewCount, token]);
 
   const applyFilters = (reviews) => {
     return reviews.filter((review) => {
@@ -107,7 +106,7 @@ const Review = () => {
       return () => observer.disconnect();
     } else {
     }
-  }, [lastReviewRef.current]);
+  }, []);
 
   return (
     <div className={styles.reviewPage}>

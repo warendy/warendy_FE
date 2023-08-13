@@ -67,40 +67,42 @@ const SigninForm = () => {
 
   return (
     <>
-      <Image
-        src="/images/logo.svg"
-        alt="Logo"
-        className={styles.logo}
-        width={150}
-        height={50}
-      />
-      <div className={styles.contentArea}>
-        <InputForm
-          type="signin"
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          isValidEmail={isValidEmail}
-          setIsValidEmail={setIsValidEmail}
-          isValidPassword={isValidPassword}
-          setIsValidPassword={setIsValidPassword}
-          onSubmit={handleLogin}
+      <div className={styles.signinArea}>
+        <Image
+          src="/images/logo.svg"
+          alt="Logo"
+          className={styles.logo}
+          width={150}
+          height={50}
         />
-        {showErrorMessage && <ErrorModal />}
-        <Link href="/sign-up" className={styles.btnSignup}>
-          이메일 가입
-        </Link>
-        <button className={`${styles.btnSocial} ${styles.kakao} + " btn "`}>
-          <Image
-            src="/images/kakao.svg"
-            alt="Logo"
-            className={styles.social}
-            width={30}
-            height={30}
+        <div className={styles.contentArea}>
+          <InputForm
+            type="signin"
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            isValidEmail={isValidEmail}
+            setIsValidEmail={setIsValidEmail}
+            isValidPassword={isValidPassword}
+            setIsValidPassword={setIsValidPassword}
+            onSubmit={handleLogin}
           />
-          카카오톡으로 로그인
-        </button>
+          {showErrorMessage && <ErrorModal />}
+          <Link href="/sign-up" className={styles.btnSignup}>
+            이메일 가입
+          </Link>
+          <button className={`${styles.btnSocial} ${styles.kakao} + " btn "`}>
+            <Image
+              src="/images/kakao.svg"
+              alt="Logo"
+              className={styles.social}
+              width={30}
+              height={30}
+            />
+            카카오톡으로 로그인
+          </button>
+        </div>
       </div>
     </>
   );
