@@ -61,6 +61,34 @@ export const postMyBoard = async (dataToSend, token) => {
   }
 };
 
+export const postCurrentPassword = async (currentPassword) => {
+  const dataToSend = {
+    password: currentPassword,
+  };
+  console.log(dataToSend);
+  try {
+    const response = await instance.post("/members/check", dataToSend);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
+export const patchUserInfo = async (newPassword) => {
+  const dataToSend = {
+    password: newPassword,
+  };
+  console.log(dataToSend);
+  try {
+    const response = await instance.patch("/members", dataToSend);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
 // getMyBoardApi
 export const getMyBoard = async (token) => {
   try {
@@ -91,32 +119,6 @@ export const getMyReview = async (token) => {
   }
 };
 
-// getWineReviewsApi
-export const getWineReviews = async (token) => {
-  try {
-    const response = await instance.get("/reviews/my", {
-      headers: { Authorization: token },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error sending data to the server:", error);
-    throw error;
-  }
-};
-
-// getMyWineListApi
-export const getMyWineList = async (token) => {
-  try {
-    const response = await instance.get("/collections/wines", {
-      headers: { Authorization: token },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
-  }
-};
-
 // getMyCollectionApi
 export const getMyCollection = async (token) => {
   try {
@@ -133,9 +135,13 @@ export const getMyCollection = async (token) => {
 // postMyCollectionApi
 export const saveMyCollection = async (dataToSend, token) => {
   try {
-    const response = await instance.post("/collections/add/wine", dataToSend, {
-      headers: { Authorization: token },
-    });
+    const response = await instance.post(
+      "/collections/update/category",
+      dataToSend,
+      {
+        headers: { Authorization: token },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
