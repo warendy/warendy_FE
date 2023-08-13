@@ -19,8 +19,8 @@ const Review = () => {
   const token = useRecoilValue(userTokenState);
 
   const [loadedReviewCount, setLoadedReviewCount] = useState(3);
-  const [isLoading, setIsLoading] = useState(false); // 로딩 중인지 여부를 나타내는 상태
-  const [hasMoreReviews, setHasMoreReviews] = useState(true); // 더 불러올 리뷰가 있는지 여부를 나타내는 상태
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMoreReviews, setHasMoreReviews] = useState(true);
   const [editingReviewIndex, setEditingReviewIndex] = useState(-1);
 
   useEffect(() => {
@@ -45,17 +45,16 @@ const Review = () => {
     setIsLoading(true);
 
     try {
-      // 새로운 리뷰를 가져와서 추가하는 로직
-      const newReviews = await getMyReview(token, loadedReviewCount, 3); // 예시: 서버에서 3개의 리뷰를 불러옴
+      const newReviews = await getMyReview(token, loadedReviewCount, 3);
 
       if (newReviews && newReviews.content && newReviews.content.length > 0) {
         setWineReviews((prevReviews) => [
           ...prevReviews,
           ...newReviews.content,
         ]);
-        setLoadedReviewCount((prevCount) => prevCount + 3); // 불러온 리뷰 개수 업데이트
+        setLoadedReviewCount((prevCount) => prevCount + 3);
       } else {
-        setHasMoreReviews(false); // 더 이상 불러올 리뷰가 없음
+        setHasMoreReviews(false);
       }
     } catch (error) {
       console.error("Error loading more reviews:", error);
@@ -95,7 +94,7 @@ const Review = () => {
       const observer = new IntersectionObserver(
         async (entries) => {
           if (entries[0].isIntersecting) {
-            await loadMoreReviews(); // 더 많은 리뷰 불러오기 함수를 호출
+            await loadMoreReviews();
           }
         },
         { root: null, rootMargin: "0px", threshold: 1 }
@@ -107,8 +106,6 @@ const Review = () => {
 
       return () => observer.disconnect();
     } else {
-      // IntersectionObserver를 지원하지 않을 경우, 폴백 로직을 추가
-      // 이 부분에 다른 로직을 추가하여 스크롤 시 더 많은 리뷰를 로드하는 방식을 구현할 수 있습니다.
     }
   }, [lastReviewRef.current]);
 
@@ -148,10 +145,7 @@ const Review = () => {
               ) : (
                 <div className={styles.reviewContent}>
                   {post.contents.length > MAX_CONTENT_LENGTH ? (
-                    <>
-                      {post.contents.substring(0, MAX_CONTENT_LENGTH)}
-                      {"..."}
-                    </>
+                    <>{post.contents.substring(0, MAX_CONTENT_LENGTH)}</>
                   ) : (
                     post.contents
                   )}
