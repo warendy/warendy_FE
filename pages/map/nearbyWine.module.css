@@ -1,0 +1,14 @@
+.wineBarItem {
+  font-size: 3.5rem;
+}
+.addButton {
+  border-radius: 10rem;
+  background: none;
+  border: 1px solid;
+}
+.locationIcon {
+  font-size: 1.6rem;
+}
+.distance {
+  font-size: 1.6rem;
+}

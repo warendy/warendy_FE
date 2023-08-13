@@ -7,4 +7,12 @@
 }
 .title {
   padding-top: 6.7rem;
+  font-size: 3rem;
+}
+.onbtn {
+  width: 66.66%;
+  margin: auto;
+  text-align: end;
+  padding-right: 16.5vw;
+  padding-top: 2rem;
 }

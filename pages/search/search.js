@@ -7,6 +7,11 @@ import axios from "axios";
 import { fetchNearbyWineStores } from "@/utlis/api";
 import NearbyWineBars from "../map/nearby-winebars";
 import useGeolocation from "@/hooks/useGeolocation";
+<<<<<<< Updated upstream
+=======
+import MyMap from "../map/my-map";
+import Router from "next/router";
+>>>>>>> Stashed changes
 
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
@@ -37,21 +42,19 @@ export default function Search() {
   const handleWineBarClick = (wineBar) => {
     // 이미 있는 와인바인지 확인
     if (filteredWineBars.some((bar) => bar.name === wineBar.name)) {
-      console.log(wineBar);
       setSelectedWineBar(wineBar);
       setShowMapF(true);
     }
   };
 
   useEffect(() => {
-    console.log(userLocation);
     const fetchData = async () => {
       try {
         const wineBarsData = await fetchNearbyWineStores(
           userLocation.longitude,
           userLocation.latitude
         );
-
+        console.log(wineBarsData);
         setFilteredWineBars(wineBarsData);
       } catch (error) {
         console.error("Error fetching nearby wine stores:", error);
@@ -63,20 +66,22 @@ export default function Search() {
     }
   }, [userLocation]);
 
-  const fetchUserLocation = () => {
-    if (!("geolocation" in navigator)) {
-      onError({
-        code: 0,
-        message: "Geolocation not supported",
-      });
-    }
-    var options = {
-      enableHighAccuracy: true,
-    };
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-  };
-
   useEffect(() => {
+<<<<<<< Updated upstream
+=======
+    const fetchUserLocation = () => {
+      if (!("geolocation" in navigator)) {
+        onError({
+          code: 0,
+          message: "Geolocation not supported",
+        });
+      }
+      var options = {
+        enableHighAccuracy: true,
+      };
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+    };
+>>>>>>> Stashed changes
     fetchUserLocation();
   }, []);
 
@@ -120,7 +125,23 @@ export default function Search() {
             selectedWineBar={selectedWineBar ? selectedWineBar : {}}
             wineBars={filteredWineBars}
           />
-          <button className={styles.writeButton}>글쓰기</button>
+          <div className={styles.onbtn}>
+            <button
+              className={styles.writeButton}
+              onClick={() => {
+                Router.push({
+                  pathname: `/post/post-create`,
+                  query: {
+                    winebarId: selectedWineBar.winebarId,
+                    winebarName: selectedWineBar.name,
+                    winebarAddress: selectedWineBar.address,
+                  },
+                });
+              }}
+            >
+              글쓰기
+            </button>
+          </div>
         </div>
       )}
     </>

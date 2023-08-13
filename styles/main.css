@@ -20,6 +20,7 @@
   border-bottom: 1px solid #cccccc;
   display: flex;
   justify-content: center;
+  font-size: 3rem;
 }
 
 .title {

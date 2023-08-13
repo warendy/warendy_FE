@@ -1,11 +1,14 @@
 .postWrap {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding-top: 13.8rem;
 }
 .select {
   border: none;
+  font-size: 3rem;
+  text-align: center;
+  width: 13.8rem;
 }
 .Input {
   border: none;
@@ -18,9 +21,42 @@
 }
 .myBtn {
   border: none;
+  font-size: 3rem;
+  background: none;
 }
 .list {
   list-style: none;
   padding: 0;
   margin-top: 20px;
+}
+/* post.module.css */
+
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 3rem;
+  cursor: pointer;
+  margin-right: 4.8rem;
+}
+
+.selectIcon {
+  position: absolute;
+  top: 50%;
+  right: 59%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  height: 2rem;
+  color: #d9d9d9;
+}
+.listTitle {
+  margin-top: 11.6rem;
+  display: flex;
+  font-size: 3.2rem;
+  justify-content: space-between;
+  border-bottom: 2px solid #ebebeb;
+  padding-bottom: 1.8rem;
 }

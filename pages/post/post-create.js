@@ -5,25 +5,25 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import { userTokenState } from "@/recoil/atoms";
-import styles from "./post.module.css";
+import styles from "./post-create.module.css";
 
 const locationOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
 
 export default function PostDetail() {
   const router = useRouter();
-  const { winebarId } = router.query;
+  const { winebarId, winebarName, winebarAddress } = router.query;
   const [userToken, setUserToken] = useRecoilState(userTokenState);
   const [winebar, setWinebar] = useState(null);
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
   const [headcount, setHeadcount] = useState("");
-  const [amOrPm, setAmOrPm] = useState("");
+  const [amOrPm, setAmOrPm] = useState("AM");
   const [time, setTime] = useState("");
   const [contents, setContents] = useState("");
 
   const postWinebarData = async () => {
     try {
-      console.log(userToken);
+      console.log(time + amOrPm);
       const res = await axios.post(
         `https://warendy.shop/boards/winebars?winebar-id=${winebarId}`,
         {
@@ -31,7 +31,6 @@ export default function PostDetail() {
           name: name,
           nickname: "이름",
           date: date.toISOString().split("T")[0],
-          wineName: "와인병 이름",
           headcount: headcount,
           contents: "게시물 글",
           time: time + amOrPm,
@@ -43,6 +42,8 @@ export default function PostDetail() {
         }
       );
       console.log(res);
+      // 게시글 작성이 성공하면 페이지 이동
+      // router.push(`/posts/${res.data.boardId}`);
     } catch (error) {
       console.error("Error fetching winebar data:", error);
     }
@@ -70,26 +71,16 @@ export default function PostDetail() {
 
   return (
     <div className={styles.container}>
-      <h2 className="top">와인바 상세 정보</h2>
+      <h2 className="top">게시글 작성</h2>
       <div className="inner">
-        {/* <div>
-          <h1>{winebar.name}</h1>
-          {winebar.description && <p>{winebar.description}</p>}
-        </div> */}
-
+        <div className={styles.storeTitle}>
+          {winebarName}
+          {winebarAddress}
+        </div>
         <div className={styles.formWrap}>
-          {" "}
-          {/* 모듈 CSS 클래스를 적용합니다. */}
           <div className={styles.formRow}>
-            <div className={styles.formColumn}>
-              <label>제목</label>
-              {/* <select>
-            {locationOptions.map((location, index) => (
-              <option key={index} value={location}>
-                {location}
-              </option>
-            ))}
-          </select> */}
+            <div className={styles.flexContainer}>
+              <label className={styles.titleName}>제목</label>
               <input
                 type="text"
                 placeholder="제목을 입력하세요"
@@ -98,18 +89,20 @@ export default function PostDetail() {
                   setName(e.target.value);
                 }}
                 style={{
-                  width: "41rem", // 원하는 너비 값
-                  height: "7.8rem", // 원하는 높이 값
-                  // 추가로 원하는 스타일 속성들을 지정할 수 있습니다.
+                  width: "41rem",
+                  height: "7.8rem",
+                  border: "1px solid",
+                  fontSize: "2.5rem",
+                  paddingLeft: "4rem",
                 }}
               />
             </div>
             <div className={styles.flexContainer}>
-              <label>시간</label>
+              <label className={styles.titleName}>시간</label>
               <div className={styles.timeContainer}>
                 <select
                   value={amOrPm}
-                  onChange={(e) => handleAmPmChange(e.target.value)}
+                  onChange={(e) => setAmOrPm(e.target.value)}
                   className={styles.amPmSelect}
                 >
                   <option value="AM">AM</option>
@@ -126,8 +119,8 @@ export default function PostDetail() {
             </div>
           </div>
           <div className={styles.formRow}>
-            <div className={styles.formColumn}>
-              <label>날짜</label>
+            <div className={styles.flexContainer}>
+              <label className={styles.titleName}>날짜</label>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
@@ -137,14 +130,16 @@ export default function PostDetail() {
                     style={{
                       width: "41rem",
                       height: "7.8rem",
-                      // 원하는 추가 스타일을 여기에 추가할 수 있습니다.
+                      border: "1px solid",
+                      fontSize: "2.5rem",
+                      paddingLeft: "4rem",
                     }}
                   />
                 }
               />
             </div>
-            <div className={styles.formColumn}>
-              <label>인원</label>
+            <div className={styles.flexContainer}>
+              <label className={styles.titleName}>인원</label>
               <input
                 type="number"
                 placeholder="인원수를 입력하세요"
@@ -153,36 +148,41 @@ export default function PostDetail() {
                   setHeadcount(e.target.value);
                 }}
                 style={{
-                  width: "41rem", // 원하는 너비 값
-                  height: "7.8rem", // 원하는 높이 값
-                  // 추가로 원하는 스타일 속성들을 지정할 수 있습니다.
+                  width: "41rem",
+                  height: "7.8rem",
+                  border: "1px solid",
+                  fontSize: "2.5rem",
+                  paddingLeft: "4rem",
                 }}
               />
             </div>
           </div>
           <div className={styles.contentsRow}>
-            <label>모임에 참여하도록 글을 써보세요 !</label>
+            <label className={styles.titleName}>
+              모임에 참여하도록 글을 써보세요 !
+            </label>
             <textarea
-              className={styles.textareaBox} // 클래스명 추가
+              className={styles.textareaBox}
               placeholder="글을 입력하세요"
               value={contents}
               onChange={(e) => setContents(e.target.value)}
             />
           </div>
         </div>
-
-        <button
-          className={styles.button}
-          onClick={() => {
-            if (12 < time || 1 > time) {
-              alert("");
-              return;
-            }
-            postWinebarData();
-          }}
-        >
-          post
-        </button>
+        <div className={styles.btn}>
+          <button
+            className={styles.button}
+            onClick={() => {
+              if (12 < time || 1 > time) {
+                alert("");
+                return;
+              }
+              postWinebarData();
+            }}
+          >
+            글 올리기
+          </button>
+        </div>
       </div>
     </div>
   );
