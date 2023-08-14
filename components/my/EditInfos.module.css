@@ -61,11 +61,19 @@
   gap: 2rem;
 }
 
+.confirmUnit {
+  margin-top: 1.5rem;
+}
+
 .unitTitle {
   font-size: 1.8rem;
   letter-spacing: -0.07px;
   font-weight: 400;
   color: rgba(34, 34, 34, 0.5);
+}
+
+.errorTitle {
+  color: red;
 }
 
 .unitContent {
@@ -94,6 +102,11 @@
   padding: 0.8rem 0;
 }
 
+.editPassword {
+  font-size: 1.6rem;
+  padding: 0.8rem 0;
+}
+
 .nickname {
   min-width: 20rem;
   font: inherit;
@@ -110,4 +123,11 @@
 
 .btnSave {
   margin-top: 5rem;
+}
+
+.error {
+  position: absolute;
+  top: 11rem;
+  width: 45rem;
+  color: red;
 }

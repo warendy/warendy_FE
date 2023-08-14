@@ -105,8 +105,9 @@ const Review = () => {
 
       return () => observer.disconnect();
     } else {
+      // ...
     }
-  }, []);
+  }, [lastReviewRef.current, loadMoreReviews]);
 
   return (
     <div className={styles.reviewPage}>
