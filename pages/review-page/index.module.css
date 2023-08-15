@@ -1,0 +1,82 @@
+.reviewPage {
+  display: flex;
+  min-height: 50rem;
+  padding-top: 2rem;
+  border-top: 1px solid #cccccc;
+  /* display: flex;
+  min-height: 50rem;
+  padding-top: 20rem;
+  padding-left: 34rem; */
+}
+
+.reviewArea {
+  width: 100%;
+  padding: 0 3rem;
+}
+
+.type {
+  font-size: 1.3rem;
+  padding-right: 1rem;
+}
+
+.reviewCard {
+  padding: 5rem 1rem;
+  position: relative;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.img {
+  width: 23rem;
+  height: 25rem;
+  background-color: #b77676eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentArea {
+  position: absolute;
+  top: 6rem;
+  left: 28rem;
+}
+
+.date {
+  color: #c9c9c9;
+}
+
+.wineName {
+  font-size: 1.8rem;
+  margin-top: 2.2rem;
+}
+
+.reviewContent {
+  font-size: 1.8rem;
+  margin-top: 8rem;
+}
+
+.wineRating {
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
+}
+
+.editingArea {
+  padding-top: 5rem;
+}
+
+.btnReview {
+  position: absolute;
+  right: 1rem;
+}
+
+.input {
+  font: inherit;
+  font-size: 1.8rem;
+  margin-top: 7rem;
+  padding: 2rem;
+  border: 1px solid #b77676eb;
+  border-radius: 0.5rem;
+  width: 100%;
+}

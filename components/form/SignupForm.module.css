@@ -1,0 +1,38 @@
+.signupPage {
+  margin: 10rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+.pageTitle {
+  padding-bottom: 5rem;
+}
+
+.contentArea {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.btnArea {
+  padding: 4rem 0;
+}
+
+.btn {
+  font: inherit;
+  font-size: 1.8rem;
+  border-radius: 0.5rem;
+  min-width: 33rem;
+}
+
+.validate {
+  color: #fff;
+  background-color: #9d1617;
+}
+
+.unvalidate {
+  color: #fff;
+  background-color: rgb(209 213 219);
+}

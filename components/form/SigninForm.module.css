@@ -1,0 +1,54 @@
+.signinPage {
+  margin: 10rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+.logo {
+  padding-bottom: 10rem;
+}
+
+.contentArea {
+  display: flex;
+  gap: 4rem;
+  flex-direction: column;
+}
+
+.btnArea {
+  padding-top: 4rem;
+}
+
+.btn {
+  font: inherit;
+  font-size: 1.8rem;
+  border-radius: 0.5rem;
+  min-width: 33rem;
+}
+
+.validate {
+  color: #fff;
+  background-color: #9d1617;
+}
+
+.unvalidate {
+  color: #fff;
+  background-color: rgb(209 213 219);
+}
+
+.btnSignup {
+  font-size: 1.6rem;
+  padding-top: 2rem;
+  margin-left: 20rem;
+}
+
+.btnSocial {
+  font: inherit;
+  border: 1px solid #ebebeb;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  cursor: pointer;
+  min-width: 33rem;
+  padding: 0.5rem;
+}
