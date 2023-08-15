@@ -18,7 +18,10 @@ export default function PostSearch() {
   const [myPostsOnly, setMyPostsOnly] = useState(false);
   const [userToken, setUserToken] = useRecoilState(userTokenState);
   const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0); // totalPages 상태 추가
+  const [totalPages, setTotalPages] = useState(0);
+  const [myPostsButtonActive, setMyPostsButtonActive] = useState(false);
+  const [participantPostsButtonActive, setParticipantPostsButtonActive] =
+    useState(false);
 
   const fetchPosts = async (option, pageNum) => {
     try {
@@ -148,19 +151,27 @@ export default function PostSearch() {
             </select>
 
             <button
-              className={styles.myBtn}
+              className={`${styles.myBtn} ${
+                myPostsButtonActive ? styles.active : ""
+              }`}
               onClick={() => {
                 setMyPostsOnly(!myPostsOnly);
                 fetchPosts("my");
+                setMyPostsButtonActive(!myPostsButtonActive);
+                setParticipantPostsButtonActive(false);
               }}
             >
               내가 쓴 글
             </button>
 
             <button
-              className={styles.myBtn}
+              className={`${styles.myBtn} ${
+                participantPostsButtonActive ? styles.active : ""
+              }`}
               onClick={() => {
                 fetchPosts("participant");
+                setParticipantPostsButtonActive(!participantPostsButtonActive);
+                setMyPostsButtonActive(false);
               }}
             >
               참여중인 동행
