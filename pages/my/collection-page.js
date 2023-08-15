@@ -21,6 +21,14 @@ const CollectionPage = () => {
     })),
   });
 
+<<<<<<< Updated upstream
+  return (
+    <Layout>
+      <h1 className={styles.pageTitle + " title "}>나만의 와인 컬렉션</h1>
+      <MyCollection items={items} setItems={setItems} />
+    </Layout>
+  );
+=======
   const token = useRecoilValue(userTokenState);
 
   useEffect(() => {
@@ -176,6 +184,7 @@ const CollectionPage = () => {
       </>
     );
   }
+>>>>>>> Stashed changes
 };
 
 export default CollectionPage;

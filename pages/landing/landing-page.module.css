@@ -110,14 +110,16 @@
   height: 50%;
 }
 
+
 .resultTitle {
   font-size: 3rem;
-}
+
 .resultTitle,
 .suggetionTitle {
   font-size: 3rem;
   text-align: center;
   line-height: 5rem;
+
 }
 
 .resultTitleOne {
@@ -156,6 +158,7 @@
   width: 100%;
   height: 100%;
 }
+
 
 .shareContainer {
   position: absolute;
@@ -223,6 +226,7 @@
   background-color: #9d1617;
   color: white;
 }
+
 
 @media screen and (max-width: 768px) {
   .content {
