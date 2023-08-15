@@ -33,7 +33,8 @@
 .myPostArea {
   background-color: #f4f4f4;
   border-radius: 1rem;
-  padding: 2rem 1rem;
+  padding: 3rem 2rem 2rem;
+  min-height: 15rem;
 }
 
 .myBoardTitle {
@@ -119,4 +120,20 @@
 
 .myPostInfo .date {
   min-width: 20rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  gap: 1rem;
+}
+
+.btnSelect {
+  font-size: 1.4rem;
+}
+
+.activePage {
+  color: #9d1617;
+  font-weight: 600;
 }
