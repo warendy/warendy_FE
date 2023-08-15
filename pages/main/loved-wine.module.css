@@ -1,5 +1,5 @@
 .lovedWineContainer {
-  height: 60vh;
+  min-height: 50vh;
   margin-top: 5rem;
   margin-bottom: 5rem;
   border-bottom: grey solid 1px;
@@ -25,10 +25,20 @@
   list-style: none;
   padding: 0;
   justify-content: center;
+  margin-top: 4rem;
 }
 
 .lovedWineItem {
-  width: 19%;
+  width: 20%;
   height: auto;
   text-align: center;
+}
+
+.lovedWineItem a p {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.lovedWineItem:nth-child(n + 6) {
+  margin-top: 8rem;
 }
