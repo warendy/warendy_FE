@@ -1,0 +1,114 @@
+.container {
+  max-width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+}
+.top {
+  margin-top: 14rem;
+  padding-bottom: 7rem;
+  padding-top: 7.8rem;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+}
+.h2title {
+  font-size: 3rem;
+}
+.titleName {
+  font-size: 3rem;
+  padding-right: 4rem;
+}
+.storeTitle {
+  font-size: 2.4rem;
+  text-align: center;
+  padding-top: 6rem;
+  padding-bottom: 4.4rem;
+}
+.formWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+.timeContainer {
+  display: flex;
+  width: 41rem;
+  height: 7.8rem;
+  border: 1px solid;
+  padding-left: 4rem;
+}
+.amPmSelect {
+  font-size: 2.5rem;
+  margin-right: 0.5rem;
+  border: none;
+}
+
+.timeInput {
+  width: 99%;
+  border: none;
+  font-size: 2.5rem;
+}
+
+.contentsRow {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding-top: 4.8rem;
+}
+
+.textareaBox {
+  width: 100%;
+  height: 81rem;
+  padding: 0.5rem;
+  border: 1px solid #afafaf;
+  border-radius: 5px;
+  resize: none;
+  font-size: 3rem;
+  margin-top: 2rem;
+}
+
+/* 수정된 부분 */
+.formColumn label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.inputBox {
+  width: 41rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.btn {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6rem;
+}
+.button {
+  width: 22.5rem;
+  height: 7.5rem;
+  font-size: 3rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #afafaf;
+  background: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.react-datepicker__input-container input {
+  width: 41rem;
+  height: 7.8rem;
+}
