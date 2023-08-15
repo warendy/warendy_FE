@@ -2,11 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useRecoilValue } from "recoil";
 import { userTokenState } from "../../recoil/atoms";
 import { getUserInfo, getMyReview, getMyBoard } from "../../services/api";
-import Layout from "../../components/Layout";
-import MyHome from "../../components/my/MyHome";
-import Snb from "../../components/my/Snb";
-import Profile from "./profile";
-import ProfileEdit from "./profile-edit";
+import Layout from "@/components/Layout";
+import MyHome from "@/components/my/MyHome";
+import Snb from "@/components/my/Snb";
+import EditInfo from "@/components/my/EditInfo";
+import EditProfile from "@/components/my/EditProfile";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState([]);
@@ -23,17 +23,19 @@ const MyPage = () => {
   const getUserDataFromServer = async (token) => {
     try {
       const userInfos = await getUserInfo(token);
-      const reviews = await getMyReview(token);
-      const boards = await getMyBoard(token);
+      if (userInfos.status === "success") {
+        const reviews = await getMyReview(token);
+        const boards = await getMyBoard(token);
 
-      const userInfoData = userInfos.data;
-      const reviewsArray = Object.values(reviews.content);
-      const boardsArray = Object.values(boards.content);
+        const userInfoData = userInfos.data;
+        const reviewsArray = Object.values(reviews.content);
+        console.log(reviewsArray);
+        const boardsArray = Object.values(boards.content);
 
-      setUserInfo(userInfoData);
-      setMyReviews(reviewsArray);
-
-      setMyBoards(boardsArray);
+        setUserInfo(userInfoData);
+        setMyReviews(reviewsArray);
+        setMyBoards(boardsArray);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -50,11 +52,11 @@ const MyPage = () => {
       {selectedPage === "myHome" && (
         <MyHome userInfo={userInfo} myReviews={myReviews} myBoards={myBoards} />
       )}
-      {selectedPage === "profile" && (
-        <Profile userInfo={userInfo} token={token} />
+      {selectedPage === "editInfo" && (
+        <EditInfo userInfo={userInfo} token={token} />
       )}
-      {selectedPage === "profile-edit" && (
-        <ProfileEdit userInfo={userInfo} token={token} />
+      {selectedPage === "editProfile" && (
+        <EditProfile userInfo={userInfo} token={token} />
       )}
     </Layout>
   );

@@ -1,7 +1,6 @@
 .myHomeContainer {
-  position: absolute;
-  min-width: 110rem;
-  left: 50rem;
+  width: 100%;
+  padding-top: 5rem;
 }
 
 .userMembership {
@@ -55,7 +54,7 @@
 
 .myPostContainer {
   position: absolute;
-  top: 37rem;
+  top: 43rem;
   left: 50rem;
   max-width: 110rem;
 }
