@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import styles from "./search-bar.module.css";
-import { searchBarState, slideState } from "../recoil_state";
+import { searchBarState, slideState } from "@/services/searchbar";
 import { useRecoilState } from "recoil";
 
 const SearchBar = () => {

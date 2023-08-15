@@ -39,11 +39,12 @@ const ReviewPage = () => {
     const filtered = reviews.filter((review) => {
       const wineTypeCondition =
         !filterOptions.wineType ||
-        review.wineType.includes(filterOptions.wineType);
+        (review.wineType && review.wineType.includes(filterOptions.wineType));
 
       const winePairingCondition =
         !filterOptions.winePairing ||
-        review.winePairing.includes(filterOptions.winePairing);
+        (review.winePairing &&
+          review.winePairing.includes(filterOptions.winePairing));
 
       const wineRatingCondition =
         !filterOptions.wineRating ||
