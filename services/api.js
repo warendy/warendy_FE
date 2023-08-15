@@ -7,17 +7,15 @@ const instance = axios.create({
   },
 });
 
-// instance.interceptors.request.use(function (config) {
-//   const accessToken = sessionStorage.getItem("userStateToken");
-//   config.headers.common["Authorization"] = accessToken;
-//   return config;
-// });
-
 // postSigninApi
-export const postLogin = async (loginInform) => {
+export const postLogin = async (loginInform, token) => {
   try {
-    const response = await instance.post("/signin", loginInform);
-    return response.headers.authorization;
+    const response = await instance.post("/signin", loginInform, {
+      headers: { Authorization: token },
+    });
+    if (response.data.status === "success") {
+      return response.headers.authorization;
+    }
   } catch (error) {
     throw new Error("Signin failed");
     console.error("Error fetching data:", error);
@@ -31,10 +29,14 @@ export const getUserInfo = async (token) => {
     const response = await instance.get("/members", {
       headers: { Authorization: token },
     });
-    return response;
+    if (response.data.status === "success") {
+      return response.data;
+    } else {
+      throw new Error("API request failed");
+    }
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw new Error("getUserInfo failed");
+    console.error("Error fetching user info:", error);
+    throw error;
   }
 };
 
@@ -51,7 +53,7 @@ export const postSignup = async (signupInform) => {
 };
 
 // postMyBoardApi
-export const postMyBoard = async (dataToSend, token) => {
+export const postMyBoard = async (token, dataToSend) => {
   try {
     const response = await instance.post("/boards", dataToSend);
     return response.data;
@@ -61,16 +63,43 @@ export const postMyBoard = async (dataToSend, token) => {
   }
 };
 
+export const postCurrentPassword = async (token, currentPassword) => {
+  const dataToSend = {
+    password: currentPassword,
+  };
+  try {
+    const response = await instance.post("/members/check", dataToSend, {
+      headers: { Authorization: token },
+    });
+    if (response.data.status === "success") {
+      return response.data;
+    }
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
+export const patchUserInfo = async (token, dataToUpdate) => {
+  try {
+    const response = await instance.patch("/members", dataToUpdate, {
+      headers: { Authorization: token },
+    });
+    if (response.data.status === "success") {
+      return response.data;
+    }
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
 // getMyBoardApi
 export const getMyBoard = async (token) => {
   try {
-    const response = await instance.get(
-      "/boards",
-      // dataToSend,
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const response = await instance.get("/boards", {
+      headers: { Authorization: token },
+    });
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
@@ -84,6 +113,9 @@ export const getMyReview = async (token) => {
     const response = await instance.get("/reviews/my", {
       headers: { Authorization: token },
     });
+    // if (response.data.status !== "success") {
+    //   throw new Error("Review update failed");
+    // }
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
@@ -91,29 +123,45 @@ export const getMyReview = async (token) => {
   }
 };
 
-// getWineReviewsApi
-export const getWineReviews = async (token) => {
+export const updateMyReview = async (
+  reviewId,
+  newContents,
+  updatedRating,
+  token
+) => {
+  console.log(reviewId);
+  console.log(newContents);
+  console.log(updatedRating);
+  const updatedData = {
+    contents: newContents,
+    rating: updatedRating,
+  };
   try {
-    const response = await instance.get("/reviews/my", {
-      headers: { Authorization: token },
+    const response = await instance.put(`/reviews/${reviewId}`, updatedData, {
+      headers: {
+        Authorization: token,
+      },
     });
+
     return response.data;
   } catch (error) {
-    console.error("Error sending data to the server:", error);
-    throw error;
+    console.error("Error updating review:", error);
+    throw new Error("Review update failed");
   }
 };
 
-// getMyWineListApi
-export const getMyWineList = async (token) => {
+export const deleteMyReview = async (reviewId, token) => {
   try {
-    const response = await instance.get("/collections/wines", {
-      headers: { Authorization: token },
+    const response = await instance.delete(`/reviews/${reviewId}`, {
+      headers: {
+        Authorization: token,
+      },
     });
+
     return response.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
+    console.error("Error deleting review:", error);
+    throw new Error("Review deletion failed");
   }
 };
 
@@ -133,9 +181,13 @@ export const getMyCollection = async (token) => {
 // postMyCollectionApi
 export const saveMyCollection = async (dataToSend, token) => {
   try {
-    const response = await instance.post("/collections/add/wine", dataToSend, {
-      headers: { Authorization: token },
-    });
+    const response = await instance.post(
+      "/collections/update/category",
+      dataToSend,
+      {
+        headers: { Authorization: token },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
