@@ -7,7 +7,7 @@ import { userTokenState } from "../../recoil/atoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
-import styles from "./header.module.css";
+import styles from "./Header.module.css";
 import { LogoutModal } from "../Modal";
 
 const Header = () => {
@@ -42,10 +42,7 @@ const Header = () => {
                 마이페이지
               </Link>
               {userToken ? (
-                <button
-                  onClick={handleLogout}
-                  className={styles.link + " resetBtn "}
-                >
+                <button onClick={handleLogout} className="resetBtn">
                   로그아웃
                 </button>
               ) : (

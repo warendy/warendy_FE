@@ -23,9 +23,9 @@ const CollectionTab = ({ title, items }) => {
               <div className={styles.draggingItemArea}>
                 {items.map((item, index) => (
                   <Draggable
-                    key={item.wine_id}
-                    draggableId={item.wine_id}
                     index={index}
+                    key={item.wine_id}
+                    draggableId={item.wine_id.toString()}
                   >
                     {(provided, snapshot) => (
                       <div

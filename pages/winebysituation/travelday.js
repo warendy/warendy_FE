@@ -1,6 +1,11 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./winebysituation.module.css";
-import { addWineToFavorite, getWineDetail, getRecommendedWineList } from "../services/api";
+import {
+  addWineToFavorite,
+  getWineDetail,
+  getRecommendedWineList,
+} from "@/services/api";
 import { wineListState } from "@/recoil/atoms";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
@@ -12,7 +17,9 @@ export default function WineBySituation() {
     const fetchWines = async () => {
       try {
         const recommendedWines = await getRecommendedWineList();
-        const filteredWines = recommendedWines.filter((wine) => wine.alcohol <= 12 && wine.acidity >= 2);
+        const filteredWines = recommendedWines.filter(
+          (와인) => wines.alcohol <= 12 && wines.acidity >= 2
+        );
         setWines(filteredWines);
       } catch (error) {
         console.error("와인 정보를 가져오는 데 실패했습니다:", error);
@@ -41,9 +48,14 @@ export default function WineBySituation() {
       </div>
       <div className={styles.lovedWines}>
         <ul className={styles.lovedWineList}>
-          {wines.map((wine) => (
-            <li key={wine.id} className={styles.lovedWineItem}>
-              <img src={wine.picture} alt={`Wine ${wine.id}`} width={100} height={250} />
+          {wines.map((와인) => (
+            <li key={wines.id} className={styles.lovedWineItem}>
+              <Image
+                src={wines.picture}
+                alt={`Wine ${wines.id}`}
+                width={100}
+                height={250}
+              />
             </li>
           ))}
         </ul>

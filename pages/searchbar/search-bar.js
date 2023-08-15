@@ -18,10 +18,17 @@ const SearchBar = () => {
       <>
         <div className="container">
           <div className="inner">
-            <div className={`${styles.searchContainer} ${styles[animationClass]}`}>
+            <div
+              className={`${styles.searchContainer} ${styles[animationClass]}`}
+            >
               <form className={styles.searchInner}>
                 <FontAwesomeIcon icon={faSearch} className={styles.icon} />
-                <input type="search" placeholder="어떤 와인이 궁금하신가요?" required className={styles.searchBar} />
+                <input
+                  type="search"
+                  placeholder="어떤 와인이 궁금하신가요?"
+                  required
+                  className={styles.searchBar}
+                />
               </form>
               <div className={styles.currentContainer}>
                 <h1 className={styles.currentSearchTitle}>최근검색어</h1>
@@ -29,7 +36,9 @@ const SearchBar = () => {
                   <FontAwesomeIcon icon={faXmark} onClick={closeSearchBar} />
                 </div>
                 <ul className={styles.currentSearch}>
-                  <li className={styles.currentSearchItem}>프리미티보 디 만두리아</li>
+                  <li className={styles.currentSearchItem}>
+                    프리미티보 디 만두리아
+                  </li>
                   <li className={styles.currentSearchItem}>루이자도 샤블리</li>
                 </ul>
               </div>
