@@ -113,7 +113,6 @@ const SignupForm = () => {
           isValid={isValidPassword}
           onBlur={() => setIsAppropriate(true)}
           errorMessage="영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)"
-          // onClear={() => setPassword("")}
         />
         <InputForm
           label="비밀번호 확인"
@@ -123,7 +122,6 @@ const SignupForm = () => {
           isValid={password === passwordConfirm}
           onBlur={() => setIsAppropriate(true)}
           errorMessage="비밀번호가 일치하지 않습니다."
-          // onClear={() => setPasswordConfirm("")}
         />
         <InputForm
           label="닉네임"
@@ -133,7 +131,6 @@ const SignupForm = () => {
           isValid={isValidNickname}
           onBlur={() => setIsAppropriate(true)}
           errorMessage="필수 입력 항목입니다. (3자 이상)"
-          // onClear={() => setNickname("")}
         />
         {showErrorMessage && <ErrorModal />}
       </div>

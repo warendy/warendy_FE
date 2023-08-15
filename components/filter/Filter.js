@@ -10,23 +10,7 @@ const Filter = ({ onFilterChange }) => {
   const [showWineRatingOptions, setShowWineRatingOptions] = useState(false);
 
   const handleFilterClick = (filter, filterType) => {
-    setSelectedFilters((prevSelectedFilters) => {
-      if (!prevSelectedFilters.includes(filter)) {
-        if (filterType === "wineType") {
-          return [filter];
-        } else if (filterType === "winePairing") {
-          return [filter];
-        } else if (filterType === "wineRating") {
-          return [filter];
-        } else {
-          return [...prevSelectedFilters, filter];
-        }
-      } else {
-        return prevSelectedFilters.filter(
-          (selectedFilter) => selectedFilter !== filter
-        );
-      }
-    });
+    setSelectedFilters([filter]);
 
     onFilterChange((prevFilterOptions) => {
       if (filterType === "wineRating") {
