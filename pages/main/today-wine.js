@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./today-wine.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Link from "next/link";
+import { getWineDetail } from "@/services/api";
 
 export default function TodayWine() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,8 +13,7 @@ export default function TodayWine() {
 
   const handleNext = () => {
     setActiveIndex((prevActiveIndex) => {
-      let newIndex = prevActiveIndex + 4;
-      if (newIndex >= 12) newIndex = 0;
+      const newIndex = (prevActiveIndex + 4) % 12;
       return newIndex;
     });
   };
@@ -20,40 +21,47 @@ export default function TodayWine() {
   const handlePrevious = () => {
     setActiveIndex((prevActiveIndex) => {
       let newIndex = prevActiveIndex - 4;
-      if (newIndex < 0) newIndex = 8;
+      if (newIndex < 0) newIndex += 12;
       return newIndex;
     });
   };
 
-  const fetchWineDetails = useCallback(async (wineId) => {
-    const response = await axios.get(
-      `https://warendy.shop/wines/${wineId}/detail`
-    );
-    return response.data.picture;
+  useEffect(() => {
+    getRecommendedWineList()
+      .then((data) => {
+        console.log("Received wine data:", data);
+        setWineImages(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching recommended wines:", error);
+      });
   }, []);
 
-  const fetchAllWineDetails = useCallback(async () => {
-    const wineIds = [...Array(30).keys()].map((i) => i + 1); // 와인 ID가 1부터 30까지라고 가정
-    const winePictures = [];
-    for (let i = 0; i < wineIds.length; i++) {
-      const winePicture = await fetchWineDetails(wineIds[i]);
-      winePictures.push(winePicture);
-    }
-    return winePictures;
-  }, [fetchWineDetails]);
-
-  useEffect(() => {
-    fetchAllWineDetails().then(setWineImages);
-  }, [fetchAllWineDetails]);
-
   const renderWines = () => {
-    return wineImages.slice(activeIndex, activeIndex + 4).map((wine, index) => (
-      <li key={index} className={styles.recommended}>
-        <Image src={wine} alt="recommended wine" width={30} height={120} />
+    return wineImages.slice(activeIndex, activeIndex + 4).map((wine) => (
+      <li key={wine.id} className={styles.recommended}>
+        <Link href={`/detail/${wine.id}`} legacyBehavior>
+          <a>
+            <Image src={wine.picture} alt={`Wine ${wine.id}`} width={30} height={120} />
+          </a>
+        </Link>
       </li>
     ));
   };
 
+  async function getRecommendedWineList() {
+    try {
+      const wineDetails = await Promise.all([...Array(20).keys()].map((i) => getWineDetail(i + 1)));
+      return wineDetails.filter((wine) => wine !== null && wine !== undefined);
+
+      wineDetails.sort(() => Math.random() - 0.5);
+
+      return wineDetails;
+    } catch (error) {
+      console.error("와인 상세 정보 가져오기 오류:", error);
+      throw error;
+    }
+  }
   return (
     <>
       <div className={styles.todayWinesContainer + " padding "}>
