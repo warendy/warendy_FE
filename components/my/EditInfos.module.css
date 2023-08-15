@@ -1,0 +1,133 @@
+.editArea {
+  position: absolute;
+  min-width: 110rem;
+  left: 50rem;
+  margin-top: 3rem;
+}
+
+.title {
+  font-size: 2.2rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.36px;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #000;
+}
+
+.userMembership {
+  display: flex;
+  align-items: center;
+  margin: 2.3rem;
+  min-height: 15rem;
+  background-color: #fff;
+}
+
+.profileInfo {
+  margin-left: 2.5rem;
+  padding-top: 2.3rem;
+}
+
+.infoBox {
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.name {
+  display: flex;
+  line-height: 2.1rem;
+  font-size: 1.8rem;
+  letter-spacing: -0.27px;
+  font-weight: 600;
+}
+
+.btn {
+  margin-right: 1rem;
+}
+
+.groupTitle {
+  font-size: 2rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.27px;
+  padding-top: 2rem;
+  max-width: 10rem;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+  position: relative;
+  border-bottom: 1px solid #ebebeb;
+  max-width: 30rem;
+  gap: 2rem;
+}
+
+.confirmUnit {
+  margin-top: 1.5rem;
+}
+
+.unitTitle {
+  font-size: 1.8rem;
+  letter-spacing: -0.07px;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.errorTitle {
+  color: red;
+}
+
+.unitContent {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.2rem;
+  padding-bottom: 1rem;
+}
+
+.content {
+  flex: 1;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editTarget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  padding: 0.8rem 0;
+}
+
+.editPassword {
+  font-size: 1.6rem;
+  padding: 0.8rem 0;
+}
+
+.nickname {
+  min-width: 20rem;
+  font: inherit;
+}
+
+.password {
+  min-width: 25rem;
+  font: inherit;
+}
+
+.btnModify {
+  background-color: #fff;
+}
+
+.btnSave {
+  margin-top: 5rem;
+}
+
+.error {
+  position: absolute;
+  top: 11rem;
+  width: 45rem;
+  color: red;
+}

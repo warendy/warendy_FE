@@ -1,5 +1,3 @@
-// Darkscreen.js
-
 import React from "react";
 import styles from "./darkscreen.module.css";
 

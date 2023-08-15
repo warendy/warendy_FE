@@ -20,7 +20,6 @@
   border-bottom: 1px solid #cccccc;
   display: flex;
   justify-content: center;
-  font-size: 3rem;
 }
 
 .title {
@@ -93,7 +92,7 @@
   width: 2.08rem;
   height: 3.2rem;
   border-radius: 2.6rem 2.6rem 0 0;
-  background-color: whitesmoke;
+  background-color: wheat;
 }
 
 .heartBadge::before {

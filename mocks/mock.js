@@ -7,7 +7,6 @@ const dummyPosts = [
   { id: 1, title: "게시글 1", location: "강남구" },
   { id: 2, title: "게시글 2", location: "동작구" },
   { id: 3, title: "게시글 3", location: "서초구" },
-  // ... 추가 게시글 데이터
 ];
 
 export const handlers = [
@@ -15,7 +14,6 @@ export const handlers = [
     const location = req.url.searchParams.get("location");
     const searchInput = req.url.searchParams.get("searchInput");
 
-    // 지역에 따라 게시글 필터링
     let filteredPosts = [];
     if (location === "서울") {
       filteredPosts = dummyPosts.filter((post) =>
@@ -29,7 +27,6 @@ export const handlers = [
       filteredPosts = dummyPosts;
     }
 
-    // 검색어에 따라 게시글 필터링
     if (searchInput) {
       filteredPosts = filteredPosts.filter((post) =>
         post.title.includes(searchInput)

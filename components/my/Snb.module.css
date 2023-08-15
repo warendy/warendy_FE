@@ -1,0 +1,45 @@
+.snbArea {
+  float: left;
+  min-width: 17rem;
+  padding-top: 5rem;
+}
+
+.mainTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 2.9rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 3rem 0;
+}
+
+.snb {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.6rem;
+}
+
+.snbTitle {
+  line-height: 2.2rem;
+  vertical-align: top;
+  font-size: 1.8rem;
+  letter-spacing: -0.27px;
+  font-weight: 700;
+}
+
+.menuItem {
+  line-height: 1.8rem;
+  font-size: 1.6rem;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.menuItem:nth-child(n + 2) {
+  margin-top: 1.2rem;
+}
+
+.contentArea {
+  overflow: hidden;
+  min-height: 38rem;
+}

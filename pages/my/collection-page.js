@@ -1,34 +1,19 @@
-import React, { useState } from "react";
-import styles from "./collection-page";
-import Layout from "../../components/layout/layout";
-import MyCollection from "../collection/my-collection";
+import React, { useState, useEffect } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import { useRecoilValue } from "recoil";
+import { userTokenState } from "../../recoil/atoms";
+import { getMyCollection, saveMyCollection } from "@/services/api";
+import styles from "./collection-page.module.css";
 
-export const TItemStatus = {
-  SELECT: "Wine List",
-  // CREATING: "친구랑 마실 와인",
-};
-
-export const TItems = {
-  [TItemStatus.SELECT]: [],
-};
+import Layout from "../../components/Layout";
+import BookmarkedTab from "../../components/collection/BookmarkedTab";
+import CollectionTab from "../../components/collection/CollectionTab";
+import CreateTabButton from "../../components/collection/CreateTabButton";
 
 const CollectionPage = () => {
-  const [items, setItems] = useState({
-    [TItemStatus.SELECT]: [...Array(5)].map((_, i) => ({
-      id: `${i}`,
-      title: `레드 ${i + 1}000`,
-      status: TItemStatus.SELECT,
-    })),
-  });
+  const [bookmarkedItems, setBookmarkedItems] = useState([]);
+  const [collectionTabs, setCollectionTabs] = useState([]);
 
-<<<<<<< Updated upstream
-  return (
-    <Layout>
-      <h1 className={styles.pageTitle + " title "}>나만의 와인 컬렉션</h1>
-      <MyCollection items={items} setItems={setItems} />
-    </Layout>
-  );
-=======
   const token = useRecoilValue(userTokenState);
 
   useEffect(() => {
@@ -36,10 +21,9 @@ const CollectionPage = () => {
     getMyCollectionFromServer(token);
   }, [token]);
 
-  // getMyWineListApi
   const getMyWineListFromServer = async (token) => {
     try {
-      const wines = await getMyWineList(token);
+      const wines = await getMyCollection(token);
       const winesArray = Object.values(wines.list);
       setBookmarkedItems(winesArray);
     } catch (error) {
@@ -47,13 +31,12 @@ const CollectionPage = () => {
     }
   };
 
-  // getMyCollectionApi
   const getMyCollectionFromServer = async (token) => {
     try {
       const response = await getMyCollection(token);
       const categories = response.categoryList;
       const tabsData = categories.map((category) => ({
-        id: category.name, // 사용자가 입력한 고유한 값으로 수정해야 할 수 있음
+        id: category.name,
         title: category.name,
         items: category.wines,
       }));
@@ -64,19 +47,15 @@ const CollectionPage = () => {
   };
 
   // postMyCollectionApi
-  const handleSaveCollection = async (token) => {
-    const dataToSend = collectionTabs.map((tab) => ({
-      name: tab.title,
-      wines: tab.items.map((item) => ({
-        wine_id: item.wine_id,
+  const handleSaveCollection = async () => {
+    const dataToSend = {
+      list: collectionTabs.map((item) => ({
+        name: item.id,
+        wineIds: item.items.map((wine) => wine.wine_id).join(","),
       })),
-    }));
-
+    };
     try {
-      const response = await saveMyCollection(
-        { categoryList: dataToSend },
-        token
-      );
+      const response = await saveMyCollection(dataToSend, token);
       console.log("Collection saved successfully:", response);
     } catch (error) {
       console.error("Error saving collection:", error);
@@ -184,7 +163,6 @@ const CollectionPage = () => {
       </>
     );
   }
->>>>>>> Stashed changes
 };
 
 export default CollectionPage;

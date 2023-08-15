@@ -5,56 +5,7 @@
   align-items: center;
   padding-top: 13.8rem;
 }
-.wineBarListwrap {
-  width: 80%;
-  padding-bottom: 12rem;
-}
-.wineBarList {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 3rem;
-}
-.wineBarList + .wineBarList {
-  padding-top: 5rem;
-}
+
 .title {
   padding-top: 6.7rem;
-  font-size: 3rem;
-  padding-bottom: 6.5rem;
-}
-.onbtn {
-  width: 66.66%;
-  margin: auto;
-  text-align: end;
-  padding-right: 16.5vw;
-  padding-top: 2rem;
-}
-.wineBarInfo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.subtitle {
-  font-size: 2rem;
-}
-.addressname {
-  font-size: 1.6rem;
-  padding-top: 2rem;
-}
-.toggleMapButton {
-  border: none;
-}
-
-.mapContainer {
-  padding-top: 4rem;
-}
-.writeButtonwrap {
-  display: flex;
-  justify-content: center;
-  padding-top: 2rem;
-}
-.writeButton {
-  border: 1px solid #ccc;
-  border-radius: 0.2rem;
-  font-size: 2rem;
-  background: none;
 }

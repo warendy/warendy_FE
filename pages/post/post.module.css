@@ -1,123 +1,26 @@
 .postWrap {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding-top: 13.8rem;
 }
 .select {
   border: none;
-  font-size: 3rem;
-  text-align: center;
-  width: 13.8rem;
 }
 .Input {
   border: none;
-  border-bottom: 1px solid #ccc; /* 인풋 박스 바닥에 1px 선 추가 (선택사항) */
-  outline: none; /* 포커스 시 생기는 외곽선 제거 (선택사하) */
+  border-bottom: 1px solid #ccc;
+  outline: none;
 }
 .button {
   background: none;
   border: none;
 }
 .myBtn {
-  font-size: 3rem;
-  background: none;
-  border: 1px solid #222;
-  border-radius: 0.3rem;
-}
-.myBtn + .myBtn {
-  margin-left: 1.5rem;
+  border: none;
 }
 .list {
   list-style: none;
   padding: 0;
   margin-top: 20px;
-}
-/* post.module.css */
-
-.selectWrapper {
-  position: relative;
-}
-
-.select {
-  appearance: none;
-  border-bottom: 1px solid #d9d9d9;
-  font-size: 3rem;
-  cursor: pointer;
-  margin-right: 4.8rem;
-}
-
-.selectIcon {
-  position: absolute;
-  top: 50%;
-  right: 74%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  height: 2rem;
-  color: #d9d9d9;
-}
-.listTitle {
-  margin-top: 11.6rem;
-  display: flex;
-  font-size: 3.2rem;
-  justify-content: space-between;
-  border-bottom: 2px solid #ebebeb;
-  padding-bottom: 1.8rem;
-}
-.liststyle {
-  font-size: 3.2rem;
-}
-.listbox {
-  display: flex;
-  justify-content: space-between;
-}
-.listbox div:nth-child(1) {
-  width: 10%;
-}
-.listbox div:nth-child(2) {
-  width: 30%;
-}
-.listbox div:nth-child(3) {
-  width: 13%;
-}
-.listbox div:nth-child(4) {
-  width: 8%;
-}
-.listbox div:nth-child(5) {
-  width: 15%;
-}
-.listbox div:first-child {
-  padding-top: 7.2rem;
-}
-.listbox div + div {
-  padding-top: 7.2rem;
-}
-.nopost {
-  font-size: 2.5rem;
-  text-align: center;
-}
-
-.iconButton {
-  background: none;
-  border: none;
-}
-.pagination {
-  padding-top: 15rem;
-  padding-bottom: 20rem;
-  text-align: center;
-}
-.pageButton {
-  background: none;
-  color: #909090;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
-  font-size: 3rem;
-}
-
-.pageButton:hover {
-  background: none;
-  color: #222222;
-  font-weight: bold;
 }
