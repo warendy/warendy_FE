@@ -20,7 +20,6 @@ const SignupForm = () => {
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isValidNickname, setIsValidNickname] = useState(true);
   const [isFormValid, setIsFormValid] = useState(false);
-  console.log(isFormValid);
   const [isAppropriate, setIsAppropriate] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const router = useRouter();
