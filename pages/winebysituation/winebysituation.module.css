@@ -12,6 +12,7 @@
   justify-content: center;
   align-items: center;
   border-bottom: 1px grey solid;
+  margin-top: 10rem;
 }
 
 .wineExplainContainer {
@@ -20,7 +21,7 @@
   margin: auto;
   display: flex;
   border-bottom: 1px gray solid;
-  background-color: pink;
+  background-color: antiquewhite;
 }
 
 .wineExplainContents {
@@ -38,6 +39,7 @@
   padding-bottom: 1.5rem;
   display: flex;
   margin-left: 10rem;
+  color: darkred;
 }
 
 .wineSub {
