@@ -55,20 +55,20 @@
 .lovedWineList {
   height: 20vh;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Add this to wrap the li elements if they exceed the width */
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   width: 66.6%;
-  list-style: none;
-  padding: 0;
+  list-style: none; /* Remove the default bullet points */
+  padding: 0; /* Remove default padding for the list */
 }
 
 .lovedWineItem {
-  width: 25%;
-  height: 50%;
-  background-color: #ebebeb;
-  margin: 2.5%;
+  width: 25%; /* Set the desired width of each li to 18% of the container to accommodate the arrows */
+  height: 50%; /* Set the desired height of each li to 70% of the container */
+  background-color: #ebebeb; /* Set the background color to gray */
+  margin: 2.5%; /* Add some spacing between each li (2.5% of the container width) */
 }
 
 .pageContainer {

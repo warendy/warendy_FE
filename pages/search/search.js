@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import styles from "../search/search.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-// import MyMap from "../map/my-map";
+import MyMap from "../map/my-map";
 import axios from "axios";
-import { fetchNearbyWineStores } from "@/services/api";
+import { fetchNearbyWineStores } from "@/utlis/api";
 import NearbyWineBars from "../map/nearby-winebars";
 import useGeolocation from "@/hooks/useGeolocation";
-import MyMap from "../map/my-map";
+import Router from "next/router";
 
 export default function Search() {
   const [showMapF, setShowMapF] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [searchLocation, setSearchLocation] = useState("");
   const [filteredWineBars, setFilteredWineBars] = useState([]);
-  const [selectedWineBar, setSelectedWineBar] = useState(null);
+  const [selectedWineBar, setSelectedWineBar] = useState(null); // 변경된 상태 추가
   const [displayedWineBars, setDisplayedWineBars] = useState([]);
 
   // 성공에 대한 로직
@@ -31,28 +31,26 @@ export default function Search() {
       error,
     });
   };
-
   const handleToggleMap1 = () => {
     setShowMapF(!showMapF);
   };
 
   const handleWineBarClick = (wineBar) => {
+    // 이미 있는 와인바인지 확인
     if (filteredWineBars.some((bar) => bar.name === wineBar.name)) {
-      console.log(wineBar);
       setSelectedWineBar(wineBar);
       setShowMapF(true);
     }
   };
 
   useEffect(() => {
-    console.log(userLocation);
     const fetchData = async () => {
       try {
         const wineBarsData = await fetchNearbyWineStores(
           userLocation.longitude,
           userLocation.latitude
         );
-
+        console.log(wineBarsData);
         setFilteredWineBars(wineBarsData);
       } catch (error) {
         console.error("Error fetching nearby wine stores:", error);
@@ -64,19 +62,6 @@ export default function Search() {
     }
   }, [userLocation]);
 
-  const fetchUserLocation = () => {
-    if (!("geolocation" in navigator)) {
-      onError({
-        code: 0,
-        message: "Geolocation not supported",
-      });
-    }
-    var options = {
-      enableHighAccuracy: true,
-    };
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-  };
-
   useEffect(() => {
     const fetchUserLocation = () => {
       if (!("geolocation" in navigator)) {
@@ -85,14 +70,35 @@ export default function Search() {
           message: "Geolocation not supported",
         });
       }
-      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      var options = {
+        enableHighAccuracy: true,
+      };
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
     };
-
     fetchUserLocation();
   }, []);
 
   const handleSearchLocation = (e) => {
     setSearchLocation(e.target.value);
+  };
+  const handleToggleMapForWineBar = (wineBar) => {
+    if (selectedWineBar === wineBar) {
+      setSelectedWineBar(null);
+    } else {
+      setSelectedWineBar(wineBar);
+    }
+  };
+
+  const handleWritePostForWineBar = (wineBar) => {
+    Router.push({
+      pathname: `/post/post-create`,
+      query: {
+        winebarId: wineBar.winebarId,
+        winebarName: wineBar.name,
+        winebarAddress: wineBar.address,
+        region: wineBar.region,
+      },
+    });
   };
 
   return (
@@ -100,40 +106,55 @@ export default function Search() {
       <h2 className="top">주변 와인가게 찾기</h2>
       <div className="inner">
         <div className={styles.searchWrap}>
-          <div>
-            <label>지역 검색:</label>
-            <input
-              type="text"
-              placeholder="지역을 입력하세요"
-              value={searchLocation}
-              onChange={handleSearchLocation}
-            />
-            <button className={styles.button}>
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
-          </div>
           {userLocation && (
             <>
               <h3 className={styles.title}>주변 와인바 리스트</h3>
-              <NearbyWineBars
-                userLocation={userLocation}
-                wineBars={filteredWineBars}
-                onWineBarClick={handleWineBarClick}
-              />
+              <ul className={styles.wineBarListwrap}>
+                {filteredWineBars &&
+                  filteredWineBars.map((wineBar) => (
+                    <li key={wineBar.winebarId} className={styles.wineBarList}>
+                      <div>
+                        <h4 className={styles.subtitle}>{wineBar.name}</h4>
+                      </div>
+                      <div className={styles.wineBarInfo}>
+                        <p className={styles.addressname}>{wineBar.address}</p>
+                        <button
+                          className={styles.toggleMapButton}
+                          onClick={() => handleToggleMapForWineBar(wineBar)}
+                        >
+                          {selectedWineBar === wineBar ? "-" : "+"}
+                        </button>
+                      </div>
+                      <div className={styles.buttonsContainer}>
+                        {selectedWineBar === wineBar && (
+                          <div className={styles.mapContainer}>
+                            <MyMap
+                              userLocation={userLocation}
+                              selectedWineBar={
+                                selectedWineBar ? selectedWineBar : {}
+                              }
+                              wineBars={filteredWineBars}
+                            />
+                          </div>
+                        )}
+                        <div className={styles.writeButtonwrap}>
+                          {selectedWineBar === wineBar && (
+                            <button
+                              className={styles.writeButton}
+                              onClick={() => handleWritePostForWineBar(wineBar)}
+                            >
+                              글쓰기
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
             </>
           )}
         </div>
       </div>
-      {selectedWineBar && showMapF && (
-        <div className={styles.map}>
-          <MyMap
-            userLocation={userLocation}
-            selectedWineBar={selectedWineBar ? selectedWineBar : {}}
-            wineBars={filteredWineBars}
-          />
-          <button className={styles.writeButton}>글쓰기</button>
-        </div>
-      )}
     </>
   );
 }

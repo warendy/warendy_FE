@@ -7,20 +7,20 @@
 }
 
 .todayMoodList {
-  width: 60%;
+  width: 60%; /* Set the desired width of the list */
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; /* Distribute the items evenly along the row */
   margin: 0 auto;
 }
 
 .todayMoodItem {
-  width: 30%;
+  width: 30%; /* Set the desired width of each li to 30% of the list */
   height: 7vh;
   background-color: #9d1617;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Add some vertical spacing between each row */
   border-radius: 25px;
 }
 
@@ -32,11 +32,11 @@
   text-decoration: none;
   color: white;
   font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  text-align: center;
+  display: flex; /* Add display flex to center the content vertically */
+  justify-content: center; /* Add justify-content center to center the content horizontally */
+  align-items: center; /* Add align-items center to center the content vertically */
+  height: 100%; /* Set the anchor tag's height to fill the entire .todayMoodItem box */
+  text-align: center; /* Horizontally center the text within the anchor tag */
 }
 
 .todayMoodContainer {

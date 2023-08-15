@@ -1,0 +1,107 @@
+.title {
+  font-size: 2.2rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.36px;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #000;
+}
+
+.userMembership {
+  display: flex;
+  padding: 2.3rem 0 2.3rem 0;
+  background-color: #fff;
+}
+
+.userDetail {
+  display: flex;
+  align-items: center;
+}
+
+.userThumb {
+  position: relative;
+  margin-right: 1.2rem;
+  margin-left: 1.2rem;
+  border-radius: 100%;
+  flex-shrink: 0;
+}
+
+.name {
+  display: flex;
+  line-height: 2.1rem;
+  font-size: 1.8rem;
+  letter-spacing: -0.27px;
+  font-weight: 600;
+  color: #000;
+}
+
+.email {
+  line-height: 2rem;
+  font-size: 1.4rem;
+  letter-spacing: -0.05px;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.delete {
+  margin-left: 7px;
+}
+
+.profileInfo {
+  padding-top: 2.5rem;
+  max-width: 48rem;
+}
+
+.profileGroup {
+  padding-top: 0;
+}
+
+.profileInfo > .profileGroup:nth-child(n + 2) {
+  padding-top: 2rem;
+}
+
+.groupTitle {
+  font-size: 1.8rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.27px;
+  padding-top: 2rem;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  position: relative;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.unitTitle {
+  font-size: 1.3rem;
+  letter-spacing: -0.07px;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.unitContent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.2rem;
+  padding-bottom: 1rem;
+}
+
+.content {
+  flex: 1;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btnModify {
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+}

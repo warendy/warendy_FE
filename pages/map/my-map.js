@@ -42,7 +42,7 @@ const MapComponent = ({ userLocation, selectedWineBar, wineBars }) => {
     console.log(wineBarData);
     wineBarData.forEach((wineBar) => {
       const marker = new window.kakao.maps.Marker({
-        position: new window.kakao.maps.LatLng(wineBar.lat, wineBar.lng),
+        position: new window.kakao.maps.LatLng(wineBar.lat, wineBar.lnt),
         map: map,
         title: wineBar.name,
       });
@@ -53,23 +53,12 @@ const MapComponent = ({ userLocation, selectedWineBar, wineBars }) => {
 
   return (
     <div>
-      <h2>MyMap Component</h2>
       {userLocation && (
         <div>
-          {/* 각 버튼을 눌렀을 때 해당 지도 데이터를 설정하는 함수 호출 */}
-          {/* <button onClick={() => handleMapSelection(null)}>전체 지도</button> */}
-          {/* {wineBars.map((wineBar) => (
-            <button
-              key={wineBar.winebarId}
-              onClick={() => handleMapSelection(wineBar)}
-            >
-              {wineBar.name} 지도
-            </button>
-          ))} */}
-          {/* 선택한 지도 데이터가 있을 때만 해당 지도를 표시 */}
-          {/* {selectedMapData && ( */}
-          <div id="map" style={{ width: "100%", height: "400px" }} />
-          {/* )} */}
+          <div
+            id="map"
+            style={{ width: "50%", height: "400px", margin: "0 auto" }}
+          />
         </div>
       )}
     </div>

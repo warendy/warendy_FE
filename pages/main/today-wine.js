@@ -1,69 +1,50 @@
-import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import styles from "./today-wine.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 
 export default function TodayWine() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [wineImages, setWineImages] = useState([]);
-
-  const handleNext = () => {
-    setActiveIndex((prevActiveIndex) => {
-      let newIndex = prevActiveIndex + 4;
-      if (newIndex >= 12) newIndex = 0;
-      return newIndex;
-    });
-  };
-
-  const handlePrevious = () => {
-    setActiveIndex((prevActiveIndex) => {
-      let newIndex = prevActiveIndex - 4;
-      if (newIndex < 0) newIndex = 8;
-      return newIndex;
-    });
-  };
-
-  const fetchWineDetails = useCallback(async (wineId) => {
-    const response = await axios.get(
-      `https://warendy.shop/wines/${wineId}/detail`
-    );
-    return response.data.picture;
-  }, []);
-
-  const fetchAllWineDetails = useCallback(async () => {
-    const wineIds = [...Array(30).keys()].map((i) => i + 1); // 와인 ID가 1부터 30까지라고 가정
-    const winePictures = [];
-    for (let i = 0; i < wineIds.length; i++) {
-      const winePicture = await fetchWineDetails(wineIds[i]);
-      winePictures.push(winePicture);
-    }
-    return winePictures;
-  }, [fetchWineDetails]);
-
-  useEffect(() => {
-    fetchAllWineDetails().then(setWineImages);
-  }, [fetchAllWineDetails]);
-
-  const renderWines = () => {
-    return wineImages.slice(activeIndex, activeIndex + 4).map((wine, index) => (
-      <li key={index} className={styles.recommended}>
-        <Image src={wine} alt="recommended wine" width={30} height={120} />
-      </li>
-    ));
-  };
-
   return (
     <>
       <div className={styles.todayWinesContainer + " padding "}>
         <h3 className="title">오늘의 와인</h3>
         <ul className={styles.todayWineList}>
-          <button className="resetBtn btn" onClick={handlePrevious}>
+          <button className="resetBtn btn">
             <FontAwesomeIcon icon={faCaretLeft} className={styles.icon} />
           </button>
-          {renderWines()}
-          <button className="resetBtn btn" onClick={handleNext}>
+          <li className={styles.recommended}>
+            <Image
+              src="/images/wine.png"
+              alt="recommended wine"
+              width={30}
+              height={120}
+            />
+          </li>
+          <li className={styles.recommended}>
+            <Image
+              src="/images/wine.png"
+              alt="recommended wine"
+              width={30}
+              height={120}
+            />
+          </li>
+          <li className={styles.recommended}>
+            <Image
+              src="/images/wine.png"
+              alt="recommended wine"
+              width={30}
+              height={120}
+            />
+          </li>
+          <li className={styles.recommended}>
+            <Image
+              src="/images/wine.png"
+              alt="recommended wine"
+              width={30}
+              height={120}
+            />
+          </li>
+          <button className="resetBtn btn">
             <FontAwesomeIcon icon={faCaretRight} className={styles.icon} />
           </button>
         </ul>
