@@ -46,11 +46,12 @@ export default function Search() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          `https://warendy.shop/winebars/around?lnt=${userLocation.longitude}&lat=${userLocation.latitude}`
+        const wineBarsData = await fetchNearbyWineStores(
+          userLocation.longitude,
+          userLocation.latitude
         );
-        console.log(data);
-        setFilteredWineBars(data);
+        console.log(wineBarsData);
+        setFilteredWineBars(wineBarsData);
       } catch (error) {
         console.error("Error fetching nearby wine stores:", error);
       }
