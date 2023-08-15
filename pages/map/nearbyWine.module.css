@@ -1,0 +1,29 @@
+.winelist {
+  width: 80%;
+  padding-bottom: 20rem;
+}
+.wineBarItem {
+  font-size: 3.5rem;
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2rem;
+}
+
+.wineBarItem + .wineBarItem {
+  padding-top: 5rem;
+}
+.addButton {
+  border-radius: 10rem;
+  background: none;
+  border: 1px solid;
+  position: absolute;
+  right: 0;
+}
+.locationIcon {
+  font-size: 1.6rem;
+}
+.distance {
+  font-size: 1.6rem;
+  padding-left: 2rem;
+}
