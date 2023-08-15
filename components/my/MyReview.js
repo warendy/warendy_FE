@@ -1,9 +1,24 @@
+import React, { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import Pagination from "../Pagination";
 import styles from "./MyPost.module.css";
 
+const ITEMS_PER_PAGE = 3;
+
 const MyReview = ({ myReviews }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(myReviews.length / ITEMS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentReviews = myReviews.slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <>
       <div className={styles.myPostHeader}>
@@ -20,14 +35,19 @@ const MyReview = ({ myReviews }) => {
           <p className={styles.rating}>별점</p>
           <p className={styles.date}>작성일</p>
         </div>
-        {myReviews.map((post, index) => (
+        {currentReviews.map((post, index) => (
           <div key={index} className={styles.myPostInfo}>
-            <p className={styles.index}>{index + 1}</p>
+            <p className={styles.index}>{startIndex + index + 1}</p>
             <p className={styles.name}>{post.wineName}</p>
             <p className={styles.rating}>{post.rating}</p>
             <p className={styles.date}>{post.createdAt}</p>
           </div>
         ))}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </>
   );

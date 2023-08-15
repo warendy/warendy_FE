@@ -1,0 +1,46 @@
+.filterArea {
+  border-right: 1px solid #ccc;
+  padding-top: 5rem;
+  min-width: 23rem;
+}
+
+.filterName {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+  padding-bottom: 2rem;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.3rem;
+  gap: 1.5rem;
+}
+
+.filterGroup:not(:first-child) {
+  padding-bottom: 2rem;
+}
+
+.filterType {
+  font-size: 1.6rem;
+  padding-bottom: 1rem;
+}
+
+.filterCheckboxLabel {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  align-items: center;
+  padding-bottom: 0.4rem;
+  color: #333;
+}
+
+.filterCheckboxLabel.selected {
+  color: #007bff;
+}
+
+.icon {
+  padding-left: 1rem;
+}

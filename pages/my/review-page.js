@@ -1,5 +1,5 @@
-import Layout from "../../components/Layout";
-import Review from "../../components/pages/Review";
+import Layout from "@/components/Layout";
+import Review from "@/components/pages/Review";
 
 const ReviewPage = () => {
   return (
