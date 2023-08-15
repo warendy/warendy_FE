@@ -127,7 +127,7 @@ const SigninForm = () => {
             isFormValid ? styles.validate : styles.unvalidate
           } btn outline`}
         >
-          로그인하기
+          <p calssName={styles.text}>로그인하기</p>
         </button>
       </div>
       <Link href="/sign-up" className={styles.btnSignup}>
