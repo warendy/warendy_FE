@@ -1,0 +1,57 @@
+.formWrap {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 18rem;
+}
+.top {
+  margin-top: 14rem;
+  padding-bottom: 7rem;
+  padding-top: 7.8rem;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+}
+.flexContainer {
+  display: flex;
+}
+.flexContainer + .flexContainer {
+  padding-top: 3rem;
+}
+.titleName {
+  font-size: 3rem;
+  padding-right: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.textareaBox {
+  margin-top: 10.3rem;
+  font-size: 3rem;
+  border: 1px solid;
+  width: 100%;
+  height: 88rem;
+  border-radius: 1rem;
+  padding: 3rem 0 0 3rem;
+}
+.storeTitle {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10rem;
+}
+.button {
+  margin-top: 7.1rem;
+  background: none;
+  font-size: 3rem;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+.button + .button {
+  margin-left: 3rem;
+}
+.btn {
+  display: flex;
+  justify-content: flex-end;
+}
