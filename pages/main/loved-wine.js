@@ -2,8 +2,6 @@ import Image from "next/image";
 import styles from "./loved-wine.module.css";
 
 export default function LovedWine({ List }) {
-  console.log(List);
-
   return (
     <div className={styles.lovedWineContainer}>
       <div className={styles.lovedWines}>
