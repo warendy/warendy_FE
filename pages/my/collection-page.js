@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useRecoilValue } from "recoil";
 import { userTokenState } from "../../recoil/atoms";
-import { getMyCollection, saveMyCollection } from "@/services/api";
+import {
+  getMyWineList,
+  getMyCollection,
+  saveMyCollection,
+} from "@/services/api";
 import styles from "./collection-page.module.css";
 
 import Layout from "../../components/Layout";
@@ -11,7 +15,9 @@ import CollectionTab from "../../components/collection/CollectionTab";
 import CreateTabButton from "../../components/collection/CreateTabButton";
 
 const CollectionPage = () => {
+  const [tab, setTab] = useState([]);
   const [bookmarkedItems, setBookmarkedItems] = useState([]);
+  const [enabled, setEnabled] = useState(true);
   const [collectionTabs, setCollectionTabs] = useState([]);
 
   const token = useRecoilValue(userTokenState);
@@ -21,9 +27,10 @@ const CollectionPage = () => {
     getMyCollectionFromServer(token);
   }, [token]);
 
+  // getMyWineListApi
   const getMyWineListFromServer = async (token) => {
     try {
-      const wines = await getMyCollection(token);
+      const wines = await getMyWineList(token);
       const winesArray = Object.values(wines.list);
       setBookmarkedItems(winesArray);
     } catch (error) {
@@ -31,12 +38,13 @@ const CollectionPage = () => {
     }
   };
 
+  // getMyCollectionApi
   const getMyCollectionFromServer = async (token) => {
     try {
       const response = await getMyCollection(token);
       const categories = response.categoryList;
       const tabsData = categories.map((category) => ({
-        id: category.name,
+        id: category.name, // 사용자가 입력한 고유한 값으로 수정해야 할 수 있음
         title: category.name,
         items: category.wines,
       }));
@@ -47,15 +55,19 @@ const CollectionPage = () => {
   };
 
   // postMyCollectionApi
-  const handleSaveCollection = async () => {
-    const dataToSend = {
-      list: collectionTabs.map((item) => ({
-        name: item.id,
-        wineIds: item.items.map((wine) => wine.wine_id).join(","),
+  const handleSaveCollection = async (token) => {
+    const dataToSend = collectionTabs.map((tab) => ({
+      name: tab.title,
+      wines: tab.items.map((item) => ({
+        wine_id: item.wine_id,
       })),
-    };
+    }));
+
     try {
-      const response = await saveMyCollection(dataToSend, token);
+      const response = await saveMyCollection(
+        { categoryList: dataToSend },
+        token
+      );
       console.log("Collection saved successfully:", response);
     } catch (error) {
       console.error("Error saving collection:", error);
@@ -111,6 +123,53 @@ const CollectionPage = () => {
     });
     setCollectionTabs(updatedTabs);
   };
+
+  // const onDragEnd = async ({ source, destination }) => {
+  //   if (!destination) return;
+
+  //   const sourceKey = source.droppableId;
+  //   const destinationKey = destination.droppableId;
+  //   const _items = JSON.parse(JSON.stringify(items));
+  //   const [targetItem] = _items[sourceKey].splice(source.index, 1);
+  //   _items[destinationKey].splice(destination.index, 0, targetItem);
+  //   setItems(_items);
+  // };
+
+  // useEffect(() => {
+  //   const animation = requestAnimationFrame(() => setEnabled(true));
+
+  //   return () => {
+  //     cancelAnimationFrame(animation);
+  //     setEnabled(false);
+  //   };
+  // }, []);
+
+  // if (!enabled) {
+  //   return null;
+  // }
+
+  // const onDragEnd = ({ source, destination }) => {
+  //   if (!destination) return;
+
+  //   const sourceKey = source.droppableId;
+  //   const destinationKey = destination.droppableId;
+
+  //   const updatedTabs = collectionTabs.map((tab) => {
+  //     if (tab.id === destinationKey) {
+  //       const updatedItems = Array.from(tab.items);
+  //       const [targetItem] = bookmarkedItems.splice(source.index, 1);
+  //       updatedItems.splice(destination.index, 0, targetItem);
+
+  //       return {
+  //         ...tab,
+  //         items: updatedItems,
+  //       };
+  //     }
+  //     return tab;
+  //   });
+
+  //   setCollectionTabs(updatedTabs);
+  // };
 
   // createTab
   const handleCreateTab = (title) => {

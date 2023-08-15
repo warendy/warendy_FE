@@ -1,34 +1,23 @@
+import Link from "next/link";
 import Image from "next/image";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { userTokenState } from "@/recoil/atoms";
-import { getMyReview } from "@/services/api";
-import Filter from "../filter/Filter";
+import { userTokenState } from "../../recoil/atoms";
 import styles from "./Review.module.css";
-
-const MAX_CONTENT_LENGTH = 20;
+import { getWineReviews } from "../../services/api";
 
 const Review = () => {
   const [wineReviews, setWineReviews] = useState([]);
-  const [filterOptions, setFilterOptions] = useState({
-    wineType: "",
-    winePairing: "",
-    wineRating: "",
-  });
+  console.log(wineReviews);
   const token = useRecoilValue(userTokenState);
-
-  const [loadedReviewCount, setLoadedReviewCount] = useState(3);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasMoreReviews, setHasMoreReviews] = useState(true);
-  const [editingReviewIndex, setEditingReviewIndex] = useState(-1);
-
+  console.log(token);
   useEffect(() => {
     getWineReviewsFromServer(token);
   }, [token]);
 
   const getWineReviewsFromServer = async (token) => {
     try {
-      const wineReviews = await getMyReview(token);
+      const wineReviews = await getWineReviews(token);
       const wineReviewsArray = Object.values(wineReviews.content);
       setWineReviews(wineReviewsArray);
     } catch (error) {
@@ -36,148 +25,54 @@ const Review = () => {
     }
   };
 
-  const loadMoreReviews = useCallback(async () => {
-    if (!hasMoreReviews || isLoading) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const newReviews = await getMyReview(token, loadedReviewCount, 3);
-
-      if (newReviews && newReviews.content && newReviews.content.length > 0) {
-        setWineReviews((prevReviews) => [
-          ...prevReviews,
-          ...newReviews.content,
-        ]);
-        setLoadedReviewCount((prevCount) => prevCount + 3);
-      } else {
-        setHasMoreReviews(false);
-      }
-    } catch (error) {
-      console.error("Error loading more reviews:", error);
-    }
-
-    setIsLoading(false);
-  }, [hasMoreReviews, isLoading, loadedReviewCount, token]);
-
-  const applyFilters = (reviews) => {
-    return reviews.filter((review) => {
-      const wineTypeCondition =
-        !filterOptions.wineType ||
-        review.wineType.includes(filterOptions.wineType);
-
-      const winePairingCondition =
-        !filterOptions.winePairing ||
-        review.winePairing.includes(filterOptions.winePairing);
-
-      const wineRatingCondition =
-        !filterOptions.wineRating ||
-        (review.wineRating >= filterOptions.wineRating.min &&
-          review.wineRating <= filterOptions.wineRating.max);
-
-      return wineTypeCondition && winePairingCondition && wineRatingCondition;
-    });
-  };
-
-  const filteredWineReviews = applyFilters(wineReviews).slice(
-    0,
-    loadedReviewCount
-  );
-
-  const lastReviewRef = useRef();
-
-  useEffect(() => {
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        async (entries) => {
-          if (entries[0].isIntersecting) {
-            await loadMoreReviews();
-          }
-        },
-        { root: null, rootMargin: "0px", threshold: 1 }
-      );
-
-      if (lastReviewRef.current) {
-        observer.observe(lastReviewRef.current);
-      }
-
-      return () => observer.disconnect();
-    } else {
-      // ...
-    }
-  }, [lastReviewRef.current, loadMoreReviews]);
-
   return (
     <div className={styles.reviewPage}>
-      <Filter
-        onFilterChange={(newFilterOptions) => {
-          setFilterOptions(newFilterOptions);
-        }}
-      />
-      <div className={styles.reviewArea}>
-        {filteredWineReviews.map((post, index) => (
-          <div className={styles.reviewCard} key={index}>
+      <div className={styles.filter}>
+        <h3 className={styles.filterName}>필터</h3>
+        <div className={styles.filterMain}>
+          <div className={styles.filterType}>와인 종류</div>
+          <label className={styles.type}>
+            <input type="checkbox" className={styles.input} />
+            화이트와인
+          </label>
+          <label className={styles.type}>
+            <input type="checkbox" className={styles.input} />
+            레드와인
+          </label>
+          <label className={styles.type}>
+            <input type="checkbox" className={styles.input} />
+            스파클링와인
+          </label>
+        </div>
+      </div>
+      {wineReviews.map((post, index) => (
+        <div className={styles.contentArea} key={index}>
+          <div className={styles.reviewCard}>
             <div className={styles.img}>
               <Image
                 src={post.winePicture}
                 alt="Wine"
-                width={55}
-                height={210}
+                width={35}
+                height={140}
               />
             </div>
-            <div className={styles.contentArea}>
-              <div className={styles.date}>작성일{post.createdAt}</div>
-              <div className={styles.wineName}>{post.wineName}</div>
-              <div className={styles.wineRating}>{post.wineRating}/5.0</div>
-              {editingReviewIndex === index ? (
-                <input
-                  type="text"
-                  value={post.contents}
-                  onChange={(e) => {
-                    const newWineReviews = [...wineReviews];
-                    newWineReviews[index].contents = e.target.value;
-                    setWineReviews(newWineReviews);
-                  }}
-                  className={styles.input + " input "}
-                />
-              ) : (
-                <div className={styles.reviewContent}>
-                  {post.contents.length > MAX_CONTENT_LENGTH ? (
-                    <>{post.contents.substring(0, MAX_CONTENT_LENGTH)}</>
-                  ) : (
-                    post.contents
-                  )}
-                </div>
-              )}
+            <div className={styles.review}>
+              <div className={styles.reviewArea}>
+                <div className={styles.date}>작성일{post.createdAt}</div>
+                <div className={styles.wineName}>{post.wineName}</div>
+                <div className={styles.reviewContent}>{post.contents}</div>
+              </div>
+              <Link
+                href="/my/review-page"
+                className={styles.btnReview + " btn outline "}
+                type="button"
+              >
+                리뷰보기
+              </Link>
             </div>
-            {editingReviewIndex === index ? (
-              <button
-                className={styles.btnReview + " btn outline "}
-                type="button"
-                onClick={() => {
-                  setEditingReviewIndex(-1);
-                }}
-              >
-                저장하기
-              </button>
-            ) : (
-              <button
-                className={styles.btnReview + " btn outline "}
-                type="button"
-                onClick={() => {
-                  setEditingReviewIndex(index);
-                }}
-              >
-                수정하기
-              </button>
-            )}
           </div>
-        ))}
-        {isLoading && <div>Loading...</div>}
-        {hasMoreReviews && <div ref={lastReviewRef}></div>}{" "}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };

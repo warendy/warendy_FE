@@ -1,5 +1,7 @@
 .myHomeContainer {
-  width: 100%;
+  position: absolute;
+  min-width: 110rem;
+  left: 50rem;
 }
 
 .userMembership {
