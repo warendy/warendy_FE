@@ -141,7 +141,7 @@ export default function PostDetail() {
 
   return (
     <div className={styles.container}>
-      <h2 className="top">{postId ? "게시글 수정" : "게시글 작성"}</h2>
+      <h2 className={styles.top}>{postId ? "게시글 수정" : "게시글 작성"}</h2>
       <div className="inner">
         <div className={styles.storeTitle}>
           {winebarName ? winebarName : newWinebarName}

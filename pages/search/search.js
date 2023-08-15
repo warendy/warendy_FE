@@ -99,7 +99,7 @@ export default function Search() {
 
   return (
     <>
-      <h2 className="top">주변 와인가게 찾기</h2>
+      <h2 className={styles.top}>주변 와인가게 찾기</h2>
       <div className="inner">
         <div className={styles.searchWrap}>
           {userLocation && (

@@ -128,7 +128,7 @@ const PostId = () => {
 
   return (
     <div className={styles.contents}>
-      <h2 className="top">동행 게시글</h2>
+      <h2 className={styles.top}>동행 게시글</h2>
       <div className="inner">
         <div className={styles.storeTitle}>
           {post.winebarName}

@@ -47,8 +47,8 @@ export default function PostSearch() {
   };
 
   useEffect(() => {
-    fetchPosts("all", page); // 페이지 값을 사용하여 API 요청
-  }, [page]); // 페이지 변경 시에도 데이터 불러오도록 업데이트
+    fetchPosts("all", page);
+  }, [page]);
 
   useEffect(() => {
     const getNickname = async () => {
@@ -84,7 +84,6 @@ export default function PostSearch() {
 
   useEffect(() => {
     if (selectedPost) {
-      // 게시글 불러오는 API 호출
       fetch(`https://example-api.com/posts/${selectedPost}`)
         .then((response) => response.json())
         .then((data) => {
@@ -121,7 +120,7 @@ export default function PostSearch() {
   };
   return (
     <>
-      <h2 className="top">동행 게시글</h2>
+      <h2 className={styles.top}>동행 게시글</h2>
       <div className="inner">
         <div className={styles.postWrap}>
           <div className={styles.selectWrapper}>

@@ -4,6 +4,15 @@
   align-items: center;
   padding-top: 13.8rem;
 }
+.top {
+  margin-top: 14rem;
+  padding-bottom: 7rem;
+  padding-top: 7.8rem;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+}
 .select {
   border: none;
   font-size: 3rem;
