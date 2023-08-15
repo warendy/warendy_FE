@@ -2,33 +2,65 @@ import React, { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import Image from "next/image";
 import StarRating from "./star-rating";
-import { addWineToFavorite, getWineDetail } from "@/services/api";
+import { addWineToFavorite, getWineDetail, postWineReview } from "@/services/api";
 import { useRouter } from "next/router";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { userTokenState, wineReviewListState } from "@/recoil/atoms";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const WineDetail = () => {
   const router = useRouter();
   const { id } = router.query;
   const [WineDetail, setWineDetail] = useState({});
-  const [ratings, setRatings] = useState([0, 0, 0]);
+  const [ratings, setRatings] = useState(0);
+  const [contents, setContents] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [body, setBody] = useState(0);
   const [dry, setDry] = useState(0);
   const [tannin, setTannin] = useState(0);
   const [acidity, setAcidity] = useState(0);
+  const token = useRecoilValue(userTokenState);
+  const [reviews, setReviews] = useRecoilState(wineReviewListState);
 
-  const handleSetRating = (reviewIndex, newRating) => {
-    setRatings((prevRatings) => {
-      const updatedRatings = [...prevRatings];
-      updatedRatings[reviewIndex] = newRating;
-      return updatedRatings;
-    });
+  const sendReviewData = async () => {
+    const data = {
+      nickname: "경진190",
+      contents: contents,
+      rating: parseFloat(ratings),
+      wineId: id,
+    };
+    setReviews((prevReviews) => [...prevReviews, data]);
+    try {
+      const response = await postWineReview(data, token);
+      if (response.status === 200) {
+        // assuming the response has the saved review, you can adjust as needed
+        const savedReview = response.data;
+
+        // Update wineDetail state
+        setWineDetail((prevDetail) => ({
+          ...prevDetail,
+          reviewList: [...prevDetail.reviewList, savedReview],
+        }));
+        // Update reviews recoil state
+
+        setContents("");
+        setRatings(0);
+      }
+    } catch (error) {
+      console.error("Error posting review:", error);
+    }
+  };
+
+  const handleRating = (e) => {
+    setRatings(e);
   };
 
   const progressStyles = {
-    body: { width: `${(body / 5) * 100}%` },
-    dry: { width: `${(dry / 5) * 100}%` },
-    tannin: { width: `${(tannin / 5) * 100}%` },
-    acidity: { width: `${(acidity / 5) * 100}%` },
+    body: { width: `${((body || 0.5) / 5) * 100}%` },
+    dry: { width: `${((dry || 0.5) / 5) * 100}%` },
+    tannin: { width: `${((tannin || 0.5) / 5) * 100}%` },
+    acidity: { width: `${((acidity || 0.5) / 5) * 100}%` },
   };
 
   function getGeneralRegion(region) {
@@ -36,11 +68,12 @@ const WineDetail = () => {
     return parts.slice(0, 2).join(" / ");
   }
 
-  const addToFavorite = (wineId) => {
+  const addToFavorite = (id) => {
     const data = {
-      wineId: id,
+      wineId: Number(id),
     };
-    addWineToFavorite(data);
+    const token = sessionStorage.getItem("userTokenState");
+    addWineToFavorite(data, token);
   };
 
   const WineAttributeBox = ({ leftLabel, rightLabel, style }) => {
@@ -55,7 +88,14 @@ const WineDetail = () => {
     );
   };
 
-  const pairingData = WineDetail?.pairing ? WineDetail.pairing.split(", ") : [];
+  const pairingData =
+    WineDetail?.pairing && WineDetail.pairing !== ""
+      ? WineDetail.pairing
+          .replace(/\s*\([^)]*\)/g, "")
+          .replace(/^\"|\"$/g, "")
+          .split("/")
+          .filter(Boolean)
+      : [];
 
   const handleReviewSubmit = (reviewIndex) => {
     const rating = ratings[reviewIndex];
@@ -65,6 +105,7 @@ const WineDetail = () => {
 
   useEffect(() => {
     const getWineDetailData = async () => {
+      const { id } = router.query;
       try {
         const data = await getWineDetail(id);
         const region = data.region;
@@ -75,14 +116,18 @@ const WineDetail = () => {
         setTannin(data.tannin);
         setAcidity(data.acidity);
         setWineDetail(data);
+        setReviews(data.reviewList);
       } catch (error) {
         console.error(error);
       }
     };
+    if (id != undefined) {
+      getWineDetailData();
+    }
+  }, [id]);
+  console.log(reviews);
 
-    getWineDetailData();
-  }, [id, router.query]);
-
+  console.log(`WinDetail-----------------`, WineDetail);
   if (WineDetail?.hasOwnProperty("wineName")) {
     return (
       <>
@@ -93,127 +138,73 @@ const WineDetail = () => {
             <div className={styles.detailContainer}>
               <div className={styles.wineImage}>
                 <div className={styles.img}>
-                  <Image
-                    src={WineDetail?.picture || "/images/winedetail.svg"}
-                    alt="Wine"
-                    style={{ width: "50%", height: "100%" }}
-                  />
+                  <Image src={WineDetail?.picture || "/images/winedetail.svg"} alt="Wine" width={120} height={180} />
                 </div>
               </div>
               <div className={styles.introBox}>
                 <div className={styles.introFirst}>
                   <div className={styles.fromBadge}>From</div>
-                  <div className={styles.wineRegion}>
-                    {WineDetail.generalRegion}
-                  </div>
-                  <div
-                    className="heartBadge"
-                    onClick={() => addToFavorite(wineId)}
-                  ></div>
+                  <div className={styles.wineRegion}>{WineDetail.generalRegion}</div>
+                  <div className="heartBadge" onClick={() => addToFavorite(id)}></div>
                 </div>
                 <div className={styles.introTitle}>{WineDetail.wineName}</div>
-                <WineAttributeBox
-                  leftLabel="Light"
-                  rightLabel="Bold"
-                  style={progressStyles.body}
-                />
-                <WineAttributeBox
-                  leftLabel="Tannic"
-                  rightLabel="Smooth"
-                  style={progressStyles.dry}
-                />
-                <WineAttributeBox
-                  leftLabel="Dry"
-                  rightLabel="Sweet"
-                  style={progressStyles.tannin}
-                />
-                <WineAttributeBox
-                  leftLabel="Soft"
-                  rightLabel="Acidic"
-                  style={progressStyles.acidity}
-                />
+                <WineAttributeBox leftLabel="Light" rightLabel="Bold" style={progressStyles.body} />
+
+                <WineAttributeBox leftLabel="Tannic" rightLabel="Smooth" style={progressStyles.dry} />
+
+                <WineAttributeBox leftLabel="Dry" rightLabel="Sweet" style={progressStyles.tannin} />
+
+                <WineAttributeBox leftLabel="Soft" rightLabel="Acidic" style={progressStyles.acidity} />
 
                 <div className={styles.withFood}>
-                  <div className={styles.withFoodTitle}>
-                    이런 음식과 함께 해요!
-                  </div>
+                  <div className={styles.withFoodTitle}>이런 음식과 함께 해요!</div>
                   <div className={styles.foodPairings}>
-                    {pairingData.map((item, index) => (
-                      <div key={index} className={styles.circle}>
-                        {item}
-                      </div>
-                    ))}
+                    {pairingData.length === 0 || pairingData.every((item) => item.trim() === "" || item === '""') ? (
+                      <div className={styles.noData}>페어링 종류 데이터가 없습니다.</div>
+                    ) : (
+                      pairingData.slice(0, 3).map(
+                        (item, index) =>
+                          item.trim() !== "" &&
+                          item !== '""' && (
+                            <div key={index} className={styles.circle}>
+                              {item}
+                            </div>
+                          )
+                      )
+                    )}
                   </div>
                 </div>
               </div>
             </div>
 
             <div className={styles.detailList}>
-              <div className={styles.detailVintage}>
-                Vintage : {WineDetail?.vintage}
-              </div>
-              <div className={styles.detailGrapes}>
-                Grape : {WineDetail?.grapes}
-              </div>
-              <div className={styles.detailWinery}>
-                WINERY : {WineDetail?.winery}
-              </div>
-              <div className={styles.detailPrice}>
-                PRICE : {WineDetail?.price}
-              </div>
+              <div className={styles.detailVintage}>Vintage : {WineDetail?.vintage}</div>
+              <div className={styles.detailGrapes}>Grape : {WineDetail?.grapes}</div>
+              <div className={styles.detailWinery}>WINERY : {WineDetail?.winery}</div>
+              <div className={styles.detailPrice}>PRICE : {WineDetail?.price}</div>
+              <div className={styles.detailAlcohol}>alcohol : {WineDetail?.alcohol}</div>
               <div className={styles.detailRating}>
-                RATING :{" "}
-                <StarRating rating={WineDetail?.rating} isInteractive={false} />
+                RATING : <StarRating rating={WineDetail?.rating} isInteractive={false} />
               </div>
             </div>
 
             <div className={styles.reviewContainer}>
-              <div className={styles.reviewBox}>
-                <StarRating
-                  rating={ratings[0]}
-                  isInteractive={false}
-                  setRating={(newRating) => handleSetRating(0, newRating)}
-                />
-                <div className={styles.reviewComment}>
-                  가성비가 좋은 와인은 아닌 것 같았어요,, 그냥 딱 가격 정도의 맛
+              {reviews.map((review, index) => (
+                <div key={index} className={styles.reviewBox}>
+                  <StarRating rating={review.rating} isInteractive={false} setRating={(newRating) => handleSetRating(0, newRating)} />
+                  <div className={styles.reviewComment}>{review.contents}</div>
+                  <div className={styles.reviewWriter}>
+                    <FontAwesomeIcon icon={faUser} className={styles.icon} />
+                    {review.nickname}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.reviewBox}>
-                <StarRating
-                  rating={ratings[1]}
-                  isInteractive={false}
-                  setRating={(newRating) => handleSetRating(1, newRating)}
-                />
-                <div className={styles.reviewComment}>
-                  가족끼리 같이 먹었는데 어른들은 좀 좋아하셨고 20대에겐 좀
-                  무거운 맛
-                </div>
-              </div>
-              <div className={styles.reviewBox}>
-                <StarRating
-                  rating={ratings[2]}
-                  isInteractive={false}
-                  setRating={(newRating) => handleSetRating(2, newRating)}
-                />
-                <div className={styles.reviewComment}>
-                  스위트 와인이라고 되어 있었지만.. 글쎄요. 너무 씁쓸했어요 ㅜㅜ
-                  단 거 엄청 좋아하시는 분은 비추요.
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className={styles.reviewSubmit}>
-              <StarRating
-                rating={ratings[3]}
-                setRating={(newRating) => handleSetRating(3, newRating)}
-              />
-              <input
-                type="text"
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                placeholder="한줄리뷰를 작성해주세요."
-              />
-              <button onClick={() => handleReviewSubmit(2)}>등록</button>
+              <StarRating rating={ratings} setRating={(newRating) => handleRating(newRating)} />
+              <input type="text" value={contents} onChange={(e) => setContents(e.target.value)} placeholder="한줄리뷰를 작성해주세요." />
+              <button onClick={() => sendReviewData()}>등록</button>
             </div>
           </div>
         </div>
