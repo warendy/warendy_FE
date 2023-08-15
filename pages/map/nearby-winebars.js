@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styles from "./nearbyWine.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const MAX_DISTANCE = 120; // 보여줄 최대 거리 (단위: km)
+const MAX_DISTANCE = 10; // 보여줄 최대 거리 (단위: km)
 
 const getDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371; // 지구 반지름 (단위: km)
@@ -31,29 +34,32 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
 const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
   // 주변 와인바 정보가 없을 경우 빈 배열로 초기화
   const nearbyWineBars = wineBars || [];
+  const [filteredWineBars, setFilteredWineBars] = useState([]);
+  useEffect(() => {
+    setFilteredWineBars(
+      nearbyWineBars
+        .map((wineBar) => {
+          const distance = getDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            wineBar.lat,
+            wineBar.lnt
+          );
+          const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
+            wineBar.lat
+          }`;
 
-  const filteredWineBars = nearbyWineBars
-    .map((wineBar) => {
-      const distance = getDistance(
-        userLocation.latitude,
-        userLocation.longitude,
-        wineBar.lat,
-        wineBar.lnt
-      );
-      const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
-        wineBar.lat
-      }`;
-
-      return {
-        ...wineBar,
-        distance: distance,
-        key: key,
-      };
-    })
-    .filter((wineBar) => {
-      return wineBar.distance <= MAX_DISTANCE;
-    });
-
+          return {
+            ...wineBar,
+            distance: distance,
+            key: key,
+          };
+        })
+        .filter((wineBar) => {
+          return wineBar.distance <= MAX_DISTANCE;
+        })
+    );
+  }, [nearbyWineBars, userLocation]);
   const generatedKeys = filteredWineBars.map((wineBar) => {
     const key = `${wineBar.address.replace(/\s/g, "_")}_${wineBar.lnt}_${
       wineBar.lat
@@ -64,12 +70,26 @@ const NearbyWineBars = ({ userLocation, wineBars, onWineBarClick }) => {
   const hasDuplicates = new Set(generatedKeys).size !== generatedKeys.length;
 
   return (
-    <div>
+    <div className={styles.winelist}>
       <ul>
         {filteredWineBars.map((wineBar) => (
-          <li key={wineBar.key}>
-            {wineBar.name} - 거리: {wineBar.distance.toFixed(2)} km
-            <button onClick={() => onWineBarClick(wineBar)}>+</button>
+          <li key={wineBar.key} className={styles.wineBarItem}>
+            {wineBar.name}
+            <button
+              className={styles.addButton}
+              onClick={() => onWineBarClick(wineBar)}
+            >
+              +
+            </button>
+            <br />
+            <FontAwesomeIcon
+              icon={faLocationDot}
+              className={styles.locationIcon}
+            />
+
+            <span className={styles.distance}>
+              {wineBar.distance.toFixed(2)} km
+            </span>
           </li>
         ))}
       </ul>
