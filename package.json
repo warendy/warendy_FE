@@ -31,7 +31,8 @@
     "react-dom": "18.2.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
-    "sweetalert2": "^11.7.20"
+    "sweetalert2": "^11.7.20",
+    "sass": "^1.65.1"
   },
   "devDependencies": {
     "msw": "^1.2.3"
