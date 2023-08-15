@@ -1,17 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import styles from "../posts/postld.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// 가상의 묵시적 게시글 데이터
 const dummyPosts = [
   { id: 1, title: "게시글 1", content: "이것은 게시글 1의 내용입니다." },
   { id: 2, title: "게시글 2", content: "이것은 게시글 2의 내용입니다." },
   { id: 3, title: "게시글 3", content: "이것은 게시글 3의 내용입니다." },
-  // ... 추가 게시글 데이터
 ];
+
 const locationOptions = ["강남구", "동작구", "서초구", "관악구", "강북구"];
 
 export default function PostDetail() {
@@ -20,7 +18,6 @@ export default function PostDetail() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    // postId를 사용하여 해당 게시글 데이터를 가져오는 로직
     const selectedPost = dummyPosts.find(
       (post) => post.id === parseInt(postId)
     );
@@ -28,16 +25,13 @@ export default function PostDetail() {
   }, [postId]);
 
   const handleDateChange = (date) => {
-    // TODO: Handle the selected date
     console.log("Selected date:", date);
   };
 
-  // 게시글 데이터가 로딩 중일 때
   if (!post) {
     return <div>Loading...</div>;
   }
 
-  // 게시글 데이터가 있을 때
   return (
     <div>
       <h2 className="top">동행 게시글</h2>

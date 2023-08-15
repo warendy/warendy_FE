@@ -38,7 +38,9 @@ export default function TodayWine() {
   };
 
   async function fetchWineDetails(wineId) {
-    const response = await axios.get(`https://warendy.shop/wines/${wineId}/detail`);
+    const response = await axios.get(
+      `https://warendy.shop/wines/${wineId}/detail`
+    );
     return response.data.picture;
   }
 

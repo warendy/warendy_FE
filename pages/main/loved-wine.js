@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./loved-wine.module.css";
 
 export default function LovedWine({ List }) {
@@ -11,7 +12,12 @@ export default function LovedWine({ List }) {
           {List &&
             List.map((el, idx) => (
               <li key={idx} className={styles.lovedWineItem}>
-                <img src={el.picture} alt={el.wineName} width={100} height={230} />
+                <Image
+                  src={el.picture}
+                  alt={el.wineName}
+                  width={100}
+                  height={230}
+                />
                 <p>{el.wineName}</p>
               </li>
             ))}
