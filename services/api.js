@@ -197,15 +197,30 @@ export const saveMyCollection = async (dataToSend, token) => {
 };
 
 // deleteMyCollectionApi
-export const deleteMyCollection = async (dataToSend, token) => {
+// export const deleteMyCollection = async (wineId, token) => {
+//   try {
+//     const response = await instance.delete(`/collections/delete/wine`, {
+//       params: { wineId }, // Pass wineId as a query parameter
+//       headers: { Authorization: token },
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error sending data to the server:", error);
+//     throw error;
+//   }
+// };
+
+export const deleteMyCollection = async (wineId, token) => {
   try {
-    const response = await instance.delete(
-      "/collections/delete/wine",
-      dataToSend,
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const dataToSend = {
+      wineId: wineId,
+    };
+
+    const response = await instance.delete(`/collections/delete/wine`, {
+      data: dataToSend,
+      headers: { Authorization: token },
+    });
+
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);

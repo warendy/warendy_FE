@@ -1,10 +1,10 @@
 import React from "react";
-import Main from "./main/main";
+import NewLanding from "./landing/new-landing";
 
 export default function Index() {
   return (
     <>
-      <Main />
+      <NewLanding />
     </>
   );
 }

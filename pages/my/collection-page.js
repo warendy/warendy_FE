@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
   faSquareCheck,
-  faCircleXmark,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
@@ -100,8 +99,9 @@ const CollectionPage = () => {
     const updatedTabs = collectionTabs.map((tab) => {
       if (tab.id === tabId) {
         const updatedItems = tab.items.filter(
-          (item) => item.wine_id !== wineId
+          (items) => items.wine_id !== wineId
         );
+        console.log(updatedItems);
         return { ...tab, items: updatedItems };
       }
       console.log(tab);
@@ -109,7 +109,7 @@ const CollectionPage = () => {
     });
     setCollectionTabs(updatedTabs);
     try {
-      await deleteMyCollection(wineId, token); // token을 deleteMyCollection 함수에 전달
+      await deleteMyCollection(wineId, token);
       console.log("Item deleted successfully");
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -117,7 +117,7 @@ const CollectionPage = () => {
   };
 
   const handleMoveToBookmark = (item) => {
-    setBookmarkedItems((prevItems) => [...prevItems, item]); // 북마크 아이템 목록에 추가
+    setBookmarkedItems((prevItems) => [...prevItems, item]);
     const updatedTabs = collectionTabs.map((tab) => {
       const updatedItems = tab.items.filter(
         (existingItem) => existingItem.wine_id !== item.wine_id
