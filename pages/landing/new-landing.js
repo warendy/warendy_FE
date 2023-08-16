@@ -28,7 +28,15 @@ export default function NewLanding() {
 
   console.log("바디= " + body, "드라이= " + dry, "탄닌= " + tannin, "산미= " + acidity);
   const handleSkipClick = () => {
-    router.push("/");
+    router.push("/main/main");
+  };
+
+  const handleMemberLoginClick = () => {
+    router.push("/sign-in");
+  };
+
+  const handleNonMemberSignUpClick = () => {
+    router.push("/sign-up");
   };
 
   const texts = [
@@ -260,8 +268,12 @@ export default function NewLanding() {
               <br /> 더 알고 싶지 않으세요?
             </h2>
             <div className={styles.buttonContainer}>
-              <button className={`btn outline ${styles.memberLogin}`}>회원 로그인</button>
-              <button className={`btn outline ${styles.nonMemberLogin}`}>비회원 회원가입</button>
+              <button className={`btn outline ${styles.memberLogin}`} onClick={handleMemberLoginClick}>
+                회원 로그인
+              </button>
+              <button className={`btn outline ${styles.nonMemberLogin}`} onClick={handleNonMemberSignUpClick}>
+                비회원 회원가입
+              </button>
             </div>
           </div>
         </div>
