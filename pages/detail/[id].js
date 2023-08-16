@@ -177,7 +177,7 @@ const WineDetail = () => {
                 <div className={styles.introFirst}>
                   <div className={styles.fromBadge}>From</div>
                   <div className={styles.wineRegion}>{WineDetail.generalRegion}</div>
-                  <div className={`heartBadge ${isFavorited ? "favorited" : ""}`} onClick={() => addToFavorite(id)}></div>
+                  <div className={`heartBadge ${!isFavorited ? "favorited" : ""}`} onClick={() => addToFavorite(id)}></div>
                 </div>
                 <div className={styles.introTitle}>{WineDetail.wineName}</div>
                 <WineAttributeBox leftLabel="Light" rightLabel="Bold" style={progressStyles.body} />
