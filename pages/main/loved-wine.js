@@ -14,12 +14,7 @@ export default function LovedWine({ List }) {
                 <li key={idx} className={styles.lovedWineItem}>
                   <Link href={`/detail/${el.id}`} legacyBehavior>
                     <a>
-                      <Image
-                        src={el.picture}
-                        alt={el.wineName}
-                        width={100}
-                        height={230}
-                      />
+                      <Image src={el.picture} alt={el.wineName} width={100} height={230} />
                       <p>{el.wineName}</p>
                     </a>
                   </Link>
