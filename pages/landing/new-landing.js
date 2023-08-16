@@ -266,7 +266,9 @@ export default function NewLanding() {
           </div>
         </div>
         <div className={styles.skipContainer} style={{ display: buttonClickCount >= 4 ? "none" : "block" }}>
-          <button onClick={handleSkipClick}>SKIP</button>
+          <div className={styles.skipContent} onClick={handleSkipClick}>
+            SKIP
+          </div>
         </div>
       </div>
     </div>
