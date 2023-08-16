@@ -22,7 +22,7 @@ const MyBoard = ({ myBoards }) => {
   return (
     <>
       <div className={styles.myPostHeader}>
-        <h3 className={styles.headerTitle}>내가 쓴 게시글</h3>
+        <h3 className={styles.headerTitle}>내가 작성한 게시글</h3>
         <Link href="/post/post" className={styles.btnAll}>
           <span className={styles.text}>전체보기</span>
           <FontAwesomeIcon icon={faAngleRight} className={styles.arrowRight} />

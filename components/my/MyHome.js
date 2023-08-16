@@ -38,16 +38,16 @@ const MyHome = ({ userInfo, myReviews, myBoards }) => {
               >
                 나만의 와인 컬렉션
               </Link>
-              <Link
+              {/* <Link
                 href="/my/collection-page"
                 className="btn outline"
                 type="button"
               >
-                와인 취향
-              </Link>
+                참여중인 동행
+              </Link> */}
             </div>
           </div>
-          <div className={styles.userType}>그래프</div>
+          {/* <div className={styles.userType}>그래프</div> */}
         </div>
       </div>
       <div className={styles.myPostContainer}>

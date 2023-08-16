@@ -140,3 +140,23 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+textarea,
+select {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 1rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  /* outline: none; */
+  border: 1px solid #ebebeb;
+  border-radius: 1.5rem;
+  resize: none;
+  overflow: auto;
+}
+
+select {
+  border-radius: 0.5rem;
+}

@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faSquareCheck,
+  faCircleXmark,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import styles from "../index.module.css";
 
@@ -66,7 +73,12 @@ const ReviewCard = ({
       </div>
       <div className={styles.contentArea}>
         <div className={styles.date}>작성일: {post.createdAt}</div>
-        <button onClick={handleDeleteClick}>Delete</button>
+        <button
+          onClick={handleDeleteClick}
+          className={styles.deleteBtn + " resetBtn "}
+        >
+          <FontAwesomeIcon icon={faTrash} className={styles.icon} />
+        </button>
         <div className={styles.wineName}>{post.wineName}</div>
         <div className={styles.wineRating}>
           전문가 평점: {post.wineRating}/5.0
@@ -76,37 +88,45 @@ const ReviewCard = ({
             <textarea
               value={updatedContent}
               onChange={(e) => setUpdatedContent(e.target.value)}
-              placeholder="리뷰를 작성해주세요..."
+              placeholder="리뷰를 남겨주세요"
+              className={styles.textArea}
             />
-            <select value={updatedRating} onChange={handleRatingChange}>
+            <select
+              value={updatedRating}
+              onChange={handleRatingChange}
+              className={styles.ratingArea}
+            >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <div>
+            <div className={styles.editingBtn}>
               <button
                 onClick={handleSaveClick}
-                className={styles.saveBtn + " btn outline "}
+                className={styles.saveBtn + " resetBtn "}
               >
-                Save
+                <FontAwesomeIcon icon={faSquareCheck} className={styles.icon} />
               </button>
               <button
                 onClick={handleCancelClick}
-                className={styles.saveBtn + " btn outline "}
+                className={styles.cancelBtn + " resetBtn"}
               >
-                Cancel
+                <FontAwesomeIcon icon={faCircleXmark} className={styles.icon} />
               </button>
             </div>
           </div>
         ) : (
           <div className={styles.editingArea}>
-            <p>{updatedContent}</p>
-            <p>별점: {updatedRating}/5.0</p>
-            <div>
-              <button onClick={handleEditClick}>Edit</button>
-            </div>
+            <p className={styles.contents}>{updatedContent}</p>
+            <p className={styles.rating}>별점: {updatedRating}/5.0</p>
+            <button
+              onClick={handleEditClick}
+              className={styles.editBtn + " resetBtn "}
+            >
+              <FontAwesomeIcon icon={faPenToSquare} className={styles.icon} />
+            </button>
           </div>
         )}
       </div>
