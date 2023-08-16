@@ -4,4 +4,9 @@ export const userIdState = atom({
   key: "userIdState",
   default: null,
 });
-console.log(userIdState);
+
+export const userIdState = atom({
+  key: "userIdState",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});
