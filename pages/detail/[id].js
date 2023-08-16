@@ -250,20 +250,19 @@ const WineDetail = () => {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className={styles.reviewSubmit}>
-              <StarRating
-                rating={ratings}
-                setRating={(newRating) => handleRating(newRating)}
-              />
-              <input
-                type="text"
-                value={contents}
-                onChange={(e) => setContents(e.target.value)}
-                placeholder="한줄리뷰를 작성해주세요."
-              />
-              <button onClick={() => sendReviewData()}>등록</button>
+              <div className={styles.reviewSubmit}>
+                <StarRating
+                  rating={ratings}
+                  setRating={(newRating) => handleRating(newRating)}
+                />
+                <input
+                  type="text"
+                  value={contents}
+                  onChange={(e) => setContents(e.target.value)}
+                  placeholder="한줄리뷰를 작성해주세요."
+                />
+                <button onClick={() => sendReviewData()}>등록</button>
+              </div>
             </div>
           </div>
         </div>
