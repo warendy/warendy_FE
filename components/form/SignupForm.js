@@ -91,7 +91,7 @@ const SignupForm = () => {
 
   return (
     <div className={styles.signupPage}>
-      <h3 className={styles.pageTitle + " title "}>회원가입</h3>
+      <h3 className={styles.pageTitle + " padding title "}>회원가입</h3>
       <div className={styles.contentArea}>
         <InputForm
           label="이메일 주소"
