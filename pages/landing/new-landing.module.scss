@@ -600,12 +600,13 @@ $spine-color-inside: #a7efe3;
   align-items: center;
   justify-content: center;
   border-radius: 3rem;
+}
 
-  > button {
-    background-color: wheat;
-    border: none;
-    font-size: 1.5rem;
-    padding: 0;
-    margin: 0;
-  }
+.skipContent {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
 }
