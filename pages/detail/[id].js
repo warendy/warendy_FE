@@ -24,6 +24,8 @@ const WineDetail = () => {
   const token = useRecoilValue(userTokenState);
   const [reviews, setReviews] = useRecoilState(wineReviewListState);
   const memberId = useRecoilValue(userIdState);
+  const [isFavorited, setIsFavorited] = useState(false);
+
   const sendReviewData = async () => {
     const data = {
       contents: contents,
@@ -75,6 +77,7 @@ const WineDetail = () => {
     };
     const token = sessionStorage.getItem("userTokenState");
     addWineToFavorite(data, token);
+    setIsFavorited((prevFav) => !prevFav); // toggle the favorite state
   };
 
   const WineAttributeBox = ({ leftLabel, rightLabel, style }) => {
@@ -174,7 +177,7 @@ const WineDetail = () => {
                 <div className={styles.introFirst}>
                   <div className={styles.fromBadge}>From</div>
                   <div className={styles.wineRegion}>{WineDetail.generalRegion}</div>
-                  <div className="heartBadge" onClick={() => addToFavorite(id)}></div>
+                  <div className={`heartBadge ${isFavorited ? "favorited" : ""}`} onClick={() => addToFavorite(id)}></div>
                 </div>
                 <div className={styles.introTitle}>{WineDetail.wineName}</div>
                 <WineAttributeBox leftLabel="Light" rightLabel="Bold" style={progressStyles.body} />
