@@ -7,7 +7,6 @@
 }
 
 .todayMoodList {
-  width: 60%;
   list-style: none;
   padding: 0;
   display: flex;
@@ -15,10 +14,15 @@
   justify-content: space-between;
   margin: 0 auto;
 }
-
+.todayMoodList li {
+  margin-top: 4.5rem;
+}
+.todayMoodList li + li {
+  margin-top: 4.5rem;
+}
 .todayMoodItem {
-  width: 30%;
-  height: 7vh;
+  width: 25rem;
+  height: 13rem;
   background-color: #9d1617;
   margin-bottom: 10px;
   border-radius: 25px;
@@ -40,10 +44,9 @@
 }
 
 .todayMoodContainer {
-  height: 20vh;
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-  border-bottom: grey solid 1px;
+  padding-top: 5.5rem;
+  padding-bottom: 10rem;
+  border-bottom: #ccc solid 1px;
 }
