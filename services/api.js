@@ -254,12 +254,10 @@ export const addWineToFavorite = async (dataToSend, token) => {
 };
 
 //와인 추천 리스트 조회
-export const getRecommendedWineList = async () => {
+export const getRecommendedWineList = async (params) => {
+  console.log(params);
   try {
-    const token = sessionStorage.getItem("userTokenState");
-    const response = await instance.get("/wines/recommendation", {
-      headers: { Authorization: token },
-    });
+    const response = await instance.post("/wines/recommendations", params);
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
