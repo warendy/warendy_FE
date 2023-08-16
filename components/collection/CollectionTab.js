@@ -60,10 +60,6 @@ const CollectionTab = ({
                               }
                             >
                               삭제하기
-                              {/* <FontAwesomeIcon
-                                icon={faTrash}
-                                className={styles.icon}
-                              /> */}
                             </button>
                             <button
                               onClick={() => onMoveToBookmark(item)} // Call onMoveToBookmark with item

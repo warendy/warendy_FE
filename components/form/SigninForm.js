@@ -8,7 +8,7 @@ import { useSetRecoilState } from "recoil";
 import { userTokenState } from "@/recoil/atoms";
 import { postLogin, getUserInfo } from "../../services/api";
 import InputForm from "./InputForm";
-import { ErrorModal } from "../Modal";
+import { ErrorModal, SuccessModal } from "../Modal";
 import { validateEmail, validatePassword } from "./FormValidation";
 
 const SigninForm = () => {
@@ -20,6 +20,7 @@ const SigninForm = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAppropriate, setIsAppropriate] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const router = useRouter();
 
   const setUserToken = useSetRecoilState(userTokenState);
@@ -40,13 +41,12 @@ const SigninForm = () => {
       }
 
       const token = await postLogin(loginInfo);
-      console.log(token);
+
       if (token) {
         setUserToken(token);
         sessionStorage.setItem("userTokenState", token);
 
         const userInfoResponse = await getUserInfo(token);
-        console.log(userInfoResponse);
 
         if (
           userInfoResponse &&
@@ -58,6 +58,7 @@ const SigninForm = () => {
         sessionStorage.setItem("usernickname", userInfoResponse.data.nickname);
         sessionStorage.setItem("userIdState", userInfoResponse.data.id);
 
+        setShowSuccessMessage(true);
         router.push("/main/main");
       }
     } catch (error) {
@@ -83,8 +84,10 @@ const SigninForm = () => {
     let timer;
     if (!isAppropriate) {
       setShowErrorMessage(true);
+      setShowSuccessMessage(true);
       timer = setTimeout(() => {
         setShowErrorMessage(false);
+        setShowSuccessMessage(false);
       }, 5000);
     }
     return () => {
@@ -127,6 +130,7 @@ const SigninForm = () => {
           onClear={() => setPassword("")}
         />
         {showErrorMessage && <ErrorModal />}
+        {showSuccessMessage && <SuccessModal />}
       </div>
       <div className={styles.btnArea}>
         <button

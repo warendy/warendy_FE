@@ -3,12 +3,14 @@ import { useRouter } from "next/router";
 import { patchUserInfo } from "@/services/api";
 import styles from "./EditInfos.module.css";
 import { validatePassword } from "../form/FormValidation";
+import { PasswordUpdateModal } from "../Modal";
 
 const EditInfo = ({ userInfo, token }) => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState(""); // New state for confirmation error
+  const [showPasswordUpdate, setShowPasswordUpdate] = useState(false);
 
   const router = useRouter;
 
@@ -47,12 +49,11 @@ const EditInfo = ({ userInfo, token }) => {
       });
 
       if (updateResponse.status === "success") {
-        const closeAlert = alert(
-          "비밀번호 업데이트가 완료되었습니다. 누르면 페이지가 이동됩니다."
-        );
-        if (closeAlert) {
-          router.push("/sign-in");
-        }
+        setShowPasswordUpdate(true);
+        setTimeout(() => {
+          setShowPasswordUpdate(false);
+        }, 5000);
+        router.push("/main/main");
       } else {
         alert("비밀번호 업데이트 실패");
       }
@@ -119,6 +120,7 @@ const EditInfo = ({ userInfo, token }) => {
         >
           저장
         </button>
+        {showPasswordUpdate && <PasswordUpdateModal />}
       </div>
     </div>
   );
