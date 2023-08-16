@@ -1,6 +1,7 @@
 .myHomeContainer {
   position: absolute;
   min-width: 110rem;
+  top: 23rem;
   left: 50rem;
 }
 
@@ -55,7 +56,7 @@
 
 .myPostContainer {
   position: absolute;
-  top: 37rem;
+  top: 45rem;
   left: 50rem;
   max-width: 110rem;
 }

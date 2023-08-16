@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { userTokenState } from "@/recoil/atoms";
@@ -94,7 +93,7 @@ const ReviewPage = () => {
 
   return (
     <Layout>
-      <h3 className="title">내가 쓴 리뷰</h3>
+      <h3 className={styles.title + " title "}>내가 쓴 리뷰</h3>
       <div className={styles.reviewPage}>
         <Filter
           onFilterChange={(newFilterOptions) => {

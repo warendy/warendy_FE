@@ -86,8 +86,18 @@ const ReviewCard = ({
               <option value="5">5</option>
             </select>
             <div>
-              <button onClick={handleSaveClick}>Save</button>
-              <button onClick={handleCancelClick}>Cancel</button>
+              <button
+                onClick={handleSaveClick}
+                className={styles.saveBtn + " btn outline "}
+              >
+                Save
+              </button>
+              <button
+                onClick={handleCancelClick}
+                className={styles.saveBtn + " btn outline "}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         ) : (

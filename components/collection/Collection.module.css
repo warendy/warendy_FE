@@ -1,11 +1,21 @@
 /* 북마크 된 와인리스트 */
 .bookmarkedTab {
   position: fixed;
-  top: 25rem;
-  border-right: 1px solid #efefef;
+  top: 32rem;
+  right: 32rem;
   z-index: 90;
-  max-height: 85rem;
+  max-height: 80rem;
   overflow-y: hidden;
+}
+
+.bookMarkedTabContent {
+  gap: 1rem;
+  border-radius: 3rem;
+  background-color: #f4f4f4;
+  padding: 3rem;
+  border: 2px solid #b77676eb;
+  transition: box-shadow 0.2s;
+  min-width: 10rem;
 }
 
 .bookmarkedTab:hover {
@@ -29,15 +39,13 @@
 }
 
 .bookmarkedTitle {
-  font-size: 1.8rem;
-  font-weight: 500;
-  padding-bottom: 1rem;
+  font-size: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .fixedContent {
   display: flex;
   flex-direction: column;
-  margin-right: 3rem;
   min-height: 85rem;
 }
 
@@ -51,6 +59,17 @@
 
 .fixedContent.shadow {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.wineName {
+  padding-top: inherit;
+  font-size: 1.6rem;
+  max-width: 8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  color: #ebebeb;
 }
 
 /* 나만의 와인컬렉션 */
@@ -71,8 +90,7 @@
 }
 
 .collectionTitle {
-  font-size: 1.8rem;
-  font-weight: 500;
+  font-size: 2rem;
 }
 
 .draggingItemArea {
@@ -82,41 +100,35 @@
   gap: 1rem;
 }
 
-/* 탭 공통 스타일 */
 .tabContent {
-  gap: 1rem;
-  border-radius: 0.5rem;
-  background-color: #f7eded;
-  padding: 1.5rem;
-  border: 1px solid #ebe5e5;
+  gap: 3rem;
+  border-radius: 3rem;
+  padding: 2rem 0;
+  background-color: #f4f4f4;
   transition: box-shadow 0.2s;
-  min-width: 10rem;
+  min-width: 48rem;
 }
 
-.tabContent.dark {
-  background-color: #000000;
-}
-
+/* 탭 공통 스타일 */
 .tabContent.draggingOver {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .tabContent.shadow {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* 아이템 이동 */
 .draggingItem {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 0.5rem;
-  background-color: #ffffff;
-  padding: 1rem;
+  background-color: #b77676eb;
+  padding: 2rem 0;
   transition: box-shadow 0.2s;
-  min-height: 15rem;
-  min-width: 10rem;
+  min-height: 18rem;
+  min-width: 18rem;
 }
 
 .draggingItem.dark {
