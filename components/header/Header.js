@@ -12,7 +12,6 @@ import { searchBarState, slideState } from "@/recoil/searchbar";
 
 const Header = () => {
   const [userToken, setUserToken] = useRecoilState(userTokenState);
-  console.log(userToken);
   const [mounted, setMounted] = useState(false);
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
