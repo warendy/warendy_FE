@@ -48,17 +48,13 @@ const SigninForm = () => {
         const userInfoResponse = await getUserInfo(token);
         console.log(userInfoResponse);
 
-        if (
-          userInfoResponse &&
-          userInfoResponse.data &&
-          userInfoResponse.data.id
-        ) {
+        if (userInfoResponse && userInfoResponse.data && userInfoResponse.data.id) {
           setUserId(userInfoResponse.data.id);
         }
+        sessionStorage.setItem("usernickname", userInfoResponse.data.nickname);
+        sessionStorage.setItem("userIdState", userInfoResponse.data.id);
 
-        sessionStorage.setItem("userTokenState", token);
-
-        router.push("/");
+        router.push("/main/main");
       }
     } catch (error) {
       setIsAppropriate(false);
@@ -98,13 +94,7 @@ const SigninForm = () => {
 
   return (
     <div className={styles.signinPage}>
-      <Image
-        src="/images/logo.svg"
-        alt="Logo"
-        className={styles.logo}
-        width={150}
-        height={50}
-      />
+      <Image src="/images/logo.svg" alt="Logo" className={styles.logo} width={150} height={50} />
       <div className={styles.contentArea}>
         <InputForm
           label="이메일 주소"
@@ -133,9 +123,7 @@ const SigninForm = () => {
           type="submit"
           disabled={!isFormValid}
           onClick={handleLogin}
-          className={`${styles.btn} ${
-            isFormValid ? styles.validate : styles.unvalidate
-          } btn outline`}
+          className={`${styles.btn} ${isFormValid ? styles.validate : styles.unvalidate} btn outline`}
         >
           로그인하기
         </button>
