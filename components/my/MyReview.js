@@ -22,7 +22,7 @@ const MyReview = ({ myReviews }) => {
   return (
     <>
       <div className={styles.myPostHeader}>
-        <h3 className={styles.headerTitle}>내가 쓴 리뷰</h3>
+        <h3 className={styles.headerTitle}>내가 작성한 리뷰</h3>
         <Link href="/review-page" className={styles.btnAll}>
           <span className={styles.text}>전체보기</span>
           <FontAwesomeIcon icon={faAngleRight} className={styles.arrowRight} />

@@ -180,6 +180,7 @@ export const getMyCollection = async (token) => {
 
 // postMyCollectionApi
 export const saveMyCollection = async (dataToSend, token) => {
+  console.log(dataToSend);
   try {
     const response = await instance.post(
       "/collections/update/category",

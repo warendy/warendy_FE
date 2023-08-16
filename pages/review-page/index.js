@@ -93,7 +93,7 @@ const ReviewPage = () => {
 
   return (
     <Layout>
-      <h3 className={styles.title + " title "}>내가 쓴 리뷰</h3>
+      <h3 className={styles.title + " title "}>내가 작성한 리뷰</h3>
       <div className={styles.reviewPage}>
         <Filter
           onFilterChange={(newFilterOptions) => {

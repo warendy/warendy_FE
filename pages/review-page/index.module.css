@@ -11,7 +11,7 @@
 
 .reviewArea {
   width: 100%;
-  padding: 0 3rem;
+  padding: 0 5rem;
 }
 
 .type {
@@ -41,6 +41,7 @@
   position: absolute;
   top: 6rem;
   left: 28rem;
+  min-width: 60rem;
 }
 
 .date {
@@ -64,6 +65,10 @@
 
 .editingArea {
   padding-top: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  justify-content: space-between;
 }
 
 .btnReview {
@@ -79,4 +84,44 @@
   border: 1px solid #b77676eb;
   border-radius: 0.5rem;
   width: 100%;
+}
+
+.icon {
+  font-size: 1.8rem;
+}
+
+.deleteBtn {
+  font-size: 1.8rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.textArea {
+  min-height: 6rem;
+}
+
+.contents {
+  min-width: 20rem;
+  max-width: 20rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.8rem;
+}
+
+.editBtn {
+  padding-left: 21rem;
+}
+
+.editingBtn {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+}
+
+.ratingArea {
+  position: absolute;
+  top: 15rem;
+  left: 23rem;
 }

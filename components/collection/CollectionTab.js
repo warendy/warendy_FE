@@ -1,5 +1,12 @@
 import Image from "next/image";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faSquareCheck,
+  faCircleXmark,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./Collection.module.css";
 
 const CollectionTab = ({
@@ -59,7 +66,11 @@ const CollectionTab = ({
                                 styles.deleteItemButton + " btn outline "
                               }
                             >
-                              삭제
+                              삭제하기
+                              {/* <FontAwesomeIcon
+                                icon={faTrash}
+                                className={styles.icon}
+                              /> */}
                             </button>
                             <button
                               onClick={() => onMoveToBookmark(item)} // Call onMoveToBookmark with item

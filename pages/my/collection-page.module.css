@@ -29,3 +29,17 @@
   top: 1rem;
   right: 1rem;
 }
+
+.icon {
+  font-size: 1.8rem;
+}
+
+.tabOutline {
+  position: relative;
+}
+
+.deleteTabButton {
+  position: absolute;
+  right: 3rem;
+  top: 2rem;
+}

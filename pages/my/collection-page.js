@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faSquareCheck,
+  faCircleXmark,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
 import { userTokenState } from "../../recoil/atoms";
 import {
@@ -65,11 +72,19 @@ const CollectionPage = () => {
 
   // postMyCollectionApi
   const handleSaveCollection = async () => {
+    const bookmarkedWineIds = bookmarkedItems
+      .map((wine) => wine.wine_id)
+      .join(",");
     const dataToSend = {
-      list: collectionTabs.map((item) => ({
-        name: item.id,
-        wineIds: item.items.map((wine) => wine.wine_id).join(","),
-      })),
+      list: [
+        {
+          wineIds: bookmarkedWineIds,
+        },
+        ...collectionTabs.map((item) => ({
+          name: item.id,
+          wineIds: item.items.map((wine) => wine.wine_id).join(","),
+        })),
+      ],
     };
     try {
       const response = await saveMyCollection(dataToSend, token);
@@ -94,7 +109,7 @@ const CollectionPage = () => {
     });
     setCollectionTabs(updatedTabs);
     try {
-      await deleteMyCollection(wineId.toString(), token); // token을 deleteMyCollection 함수에 전달
+      await deleteMyCollection(wineId, token); // token을 deleteMyCollection 함수에 전달
       console.log("Item deleted successfully");
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -199,18 +214,24 @@ const CollectionPage = () => {
               {isEditMode ? (
                 <button
                   onClick={handleSaveCollection}
-                  className={styles.saveButton + " btn outline"}
+                  className={styles.saveButton + " resetBtn "}
                 >
-                  저장하기
+                  <FontAwesomeIcon
+                    icon={faSquareCheck}
+                    className={styles.icon}
+                  />
                 </button>
               ) : (
                 <button
                   onClick={() => {
                     setIsEditMode(true);
                   }}
-                  className={styles.editModeButton + " btn outline "}
+                  className={styles.editModeButton + " resetBtn "}
                 >
-                  수정하기
+                  <FontAwesomeIcon
+                    icon={faPenToSquare}
+                    className={styles.icon}
+                  />
                 </button>
               )}
               <div className={styles.collectionContainer}>
@@ -218,18 +239,17 @@ const CollectionPage = () => {
                 <div className={styles.collectionTabContainer}>
                   <div className={styles.collectionTabs}>
                     {collectionTabs.map((tab) => (
-                      <div key={tab.id} className={styles.tab}>
+                      <div key={tab.id} className={styles.tabOutline}>
                         {isEditMode && (
-                          <>
-                            <button
-                              onClick={() => handleDeleteTab(tab.id)}
-                              className={
-                                styles.deleteTabButton + " btn outline "
-                              }
-                            >
-                              삭제
-                            </button>
-                          </>
+                          <button
+                            onClick={() => handleDeleteTab(tab.id)}
+                            className={styles.deleteTabButton + " resetBtn "}
+                          >
+                            <FontAwesomeIcon
+                              icon={faTrash}
+                              className={styles.icon}
+                            />
+                          </button>
                         )}
                         <CollectionTab
                           title={tab.title}
