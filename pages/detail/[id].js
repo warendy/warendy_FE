@@ -8,6 +8,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { userTokenState, wineReviewListState } from "@/recoil/atoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { userIdState } from "@/recoil/userState";
 
 const WineDetail = () => {
   const router = useRouter();
@@ -22,13 +23,14 @@ const WineDetail = () => {
   const [acidity, setAcidity] = useState(0);
   const token = useRecoilValue(userTokenState);
   const [reviews, setReviews] = useRecoilState(wineReviewListState);
-
+  const memberId = useRecoilValue(userIdState);
   const sendReviewData = async () => {
     const data = {
       contents: contents,
       rating: parseFloat(ratings),
       wineId: id,
-      memberId: 7,
+      memberId: memberId,
+      nickname: sessionStorage.getItem("usernickname"),
     };
     setReviews((prevReviews) => {
       const updatedReviews = [data, ...prevReviews];
@@ -228,7 +230,7 @@ const WineDetail = () => {
                       {review.nickname}
                     </div>
 
-                    {review.memberId === 7 && (
+                    {review.memberId === memberId && (
                       <div className={styles.buttonsContainer}>
                         <button className={styles.button} onClick={() => handleEditReview(index)}>
                           수정하기
