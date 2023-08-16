@@ -9,12 +9,19 @@ import { getRecommendedWineList } from "@/services/api";
 import { wineListState } from "@/recoil/atoms";
 import { useRecoilState } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Main = () => {
   const [wineList, setWineList] = useRecoilState(wineListState);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ["/images/mainbg.svg", "/images/mainbg2.svg", "/images/mainbg3.svg"];
+  const images = [
+    "/images/mainbg.svg",
+    "/images/mainbg2.svg",
+    "/images/mainbg3.svg",
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,7 +32,9 @@ const Main = () => {
   }, [images.length]);
 
   const handlePrevClick = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
+    );
   };
 
   const handleNextClick = () => {
@@ -48,22 +57,37 @@ const Main = () => {
   return (
     <>
       <div className="container">
-        <div className="inner">
-          <div className={styles.mainCarousel}>
-            <button className="resetBtn btn" onClick={handlePrevClick}>
-              <FontAwesomeIcon icon={faChevronLeft} className={styles.carouselIcon} />
-            </button>
-            <Image src={images[currentImageIndex]} alt="main Carousel" width={850} height={450} />
+        <div className={styles.mainCarousel}>
+          <button className="resetBtn btn" onClick={handlePrevClick}>
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              className={styles.carouselIcon}
+            />
+          </button>
+          <Image
+            src={images[currentImageIndex]}
+            alt="main Carousel"
+            width={930}
+            height={450}
+          />
 
-            <button onClick={handleNextClick}>
-              <FontAwesomeIcon icon={faChevronRight} className={styles.carouselIcon} />
-            </button>
-          </div>
+          <button onClick={handleNextClick}>
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              className={styles.carouselIcon}
+            />
+          </button>
+        </div>
+        <div className="inner">
           <SearchBar />
           <div className={styles.contentArea}>
             <TodayWine />
             <TodayMood wines={wineList} />
-            {wineList ? <LovedWine List={wineList} /> : <p>와인 리스트가 없습니다.</p>}
+            {wineList ? (
+              <LovedWine List={wineList} />
+            ) : (
+              <p>와인 리스트가 없습니다.</p>
+            )}
           </div>
         </div>
       </div>

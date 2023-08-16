@@ -1,9 +1,6 @@
 .headerBg {
-  position: relative;
   width: 100%;
-  height: 20vh;
 }
-
 .bgInner {
   width: 66.6%;
   height: 100%;
@@ -16,14 +13,15 @@
 }
 
 .wineExplainContainer {
-  width: 66.6%;
-  height: 10vh;
-  margin: auto;
   display: flex;
-  border-bottom: 1px gray solid;
   background-color: antiquewhite;
 }
-
+.subtitle {
+  font-size: 3rem;
+  padding-top: 13rem;
+  margin-left: 10rem;
+  padding-bottom: 4.1rem;
+}
 .wineExplainContents {
   display: flex;
   flex-direction: column;
@@ -33,20 +31,20 @@
 }
 
 .wineName {
-  font-size: 3.5rem;
+  font-size: 4rem;
   line-height: 2.9rem;
   letter-spacing: -0.36px;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.9rem;
   display: flex;
   margin-left: 10rem;
   color: darkred;
 }
 
 .wineSub {
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 2rem;
   margin-left: 10rem;
-  margin-bottom: 1rem;
+  margin-bottom: 4.3rem;
 }
 
 .contentArea {

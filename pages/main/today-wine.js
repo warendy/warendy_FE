@@ -42,7 +42,12 @@ export default function TodayWine() {
       <li key={wine.id} className={styles.recommended}>
         <Link href={`/detail/${wine.id}`} legacyBehavior>
           <a>
-            <Image src={wine.picture} alt={`Wine ${wine.id}`} width={30} height={120} />
+            <Image
+              src={wine.picture}
+              alt={`Wine ${wine.id}`}
+              width={30}
+              height={120}
+            />
           </a>
         </Link>
       </li>
@@ -51,7 +56,9 @@ export default function TodayWine() {
 
   async function getRecommendedWineList() {
     try {
-      const wineDetails = await Promise.all([...Array(20).keys()].map((i) => getWineDetail(i + 1)));
+      const wineDetails = await Promise.all(
+        [...Array(20).keys()].map((i) => getWineDetail(i + 1))
+      );
       return wineDetails.filter((wine) => wine !== null && wine !== undefined);
 
       wineDetails.sort(() => Math.random() - 0.5);
@@ -65,7 +72,7 @@ export default function TodayWine() {
   return (
     <>
       <div className={styles.todayWinesContainer + " padding "}>
-        <h3 className="title">오늘의 와인</h3>
+        <h3 className="maintitle">오늘의 와인</h3>
         <ul className={styles.todayWineList}>
           <button className="resetBtn btn" onClick={handlePrevious}>
             <FontAwesomeIcon icon={faCaretLeft} className={styles.icon} />

@@ -136,9 +136,8 @@ const WineDetail = () => {
     return (
       <>
         <div className="container">
+          <h3 className={styles.subtitle}>와인 상세 페이지</h3>
           <div className="inner padding">
-            <h3 className="title">와인 상세 페이지</h3>
-
             <div className={styles.detailContainer}>
               <div className={styles.wineImage}>
                 <div className={styles.img}>
