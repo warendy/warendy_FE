@@ -12,7 +12,7 @@ export default function WineBySituation() {
       try {
         const recommendedWines = await getRecommendedWineList();
         console.log("Recommended Wines:", recommendedWines);
-        const filteredWines = recommendedWines.filter((wine) => wine.tannin <= 2 && wine.alcohol >= 13);
+        const filteredWines = recommendedWines.filter((wine) => wine.tannin <= 2);
         console.log(filteredWines);
         setWines(filteredWines);
       } catch (error) {

@@ -12,7 +12,9 @@ const BookmarkedTab = ({ items }) => {
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className={`${styles.fixedContent} ${styles.tabContent} ${
+              className={`${styles.fixedContent} ${
+                styles.bookMarkedTabContent
+              } ${
                 snapshot.isDraggingOver
                   ? `${styles.draggingOver}`
                   : `${styles.shadow}`
@@ -41,6 +43,7 @@ const BookmarkedTab = ({ items }) => {
                         width={35}
                         height={140}
                       />
+                      <div className={styles.wineName}>{item.wine_name}</div>
                     </div>
                   )}
                 </Draggable>

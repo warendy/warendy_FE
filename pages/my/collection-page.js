@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useRecoilValue } from "recoil";
 import { userTokenState } from "../../recoil/atoms";
-import { getMyCollection, saveMyCollection } from "@/services/api";
+import {
+  getUserInfo,
+  getMyCollection,
+  saveMyCollection,
+  deleteMyCollection,
+} from "@/services/api";
 import styles from "./collection-page.module.css";
 
 import Layout from "../../components/Layout";
@@ -13,13 +18,25 @@ import CreateTabButton from "../../components/collection/CreateTabButton";
 const CollectionPage = () => {
   const [bookmarkedItems, setBookmarkedItems] = useState([]);
   const [collectionTabs, setCollectionTabs] = useState([]);
+  const [userNickname, setUserNickname] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const token = useRecoilValue(userTokenState);
 
   useEffect(() => {
     getMyWineListFromServer(token);
     getMyCollectionFromServer(token);
+    getUserNickname(token);
   }, [token]);
+
+  const getUserNickname = async (token) => {
+    try {
+      const userInfo = await getUserInfo(token);
+      setUserNickname(userInfo.data.nickname);
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+    }
+  };
 
   const getMyWineListFromServer = async (token) => {
     try {
@@ -62,13 +79,52 @@ const CollectionPage = () => {
     }
   };
 
+  const handleDeleteItem = async (tabId, wineId) => {
+    console.log(tabId);
+    console.log(wineId);
+    const updatedTabs = collectionTabs.map((tab) => {
+      if (tab.id === tabId) {
+        const updatedItems = tab.items.filter(
+          (item) => item.wine_id !== wineId
+        );
+        return { ...tab, items: updatedItems };
+      }
+      console.log(tab);
+      return tab;
+    });
+    setCollectionTabs(updatedTabs);
+    try {
+      await deleteMyCollection(wineId.toString(), token); // token을 deleteMyCollection 함수에 전달
+      console.log("Item deleted successfully");
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
+  const handleMoveToBookmark = (item) => {
+    setBookmarkedItems((prevItems) => [...prevItems, item]); // 북마크 아이템 목록에 추가
+    const updatedTabs = collectionTabs.map((tab) => {
+      const updatedItems = tab.items.filter(
+        (existingItem) => existingItem.wine_id !== item.wine_id
+      );
+      return { ...tab, items: updatedItems };
+    });
+    setCollectionTabs(updatedTabs);
+  };
+
   // dndFunction
-  const onDragEnd = ({ source, destination }) => {
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (isEditMode) {
+      return;
+    }
     if (!destination) return;
+
     const sourceKey = source.droppableId;
     const destinationKey = destination.droppableId;
+    const draggableId = result.draggableId;
+
     const updatedTabs = collectionTabs.map((tab, index) => {
-      console.log(tab);
       if (destinationKey === "Wine List" && tab.id === sourceKey) {
         const updatedItems = Array.from(tab.items);
         const [targetItem] = updatedItems.splice(source.index, 1);
@@ -79,14 +135,17 @@ const CollectionPage = () => {
           items: updatedItems,
         };
       }
+
       if (sourceKey === destinationKey && tab.id === destinationKey) {
         const updatedItems = Array.from(tab.items);
         const [targetItem] = updatedItems.splice(source.index, 1);
         updatedItems.splice(destination.index, 0, targetItem);
         return { ...tab, items: updatedItems };
       }
+
       if (tab.id === destinationKey) {
         const updatedItems = Array.from(tab.items);
+
         if (sourceKey == "Wine List") {
           const [targetItem] = bookmarkedItems.splice(source.index, 1);
           updatedItems.splice(destination.index, 0, targetItem);
@@ -102,6 +161,7 @@ const CollectionPage = () => {
             }
           }
         }
+
         return {
           ...tab,
           items: updatedItems,
@@ -123,32 +183,69 @@ const CollectionPage = () => {
     }
   };
 
+  const handleDeleteTab = (tabId) => {
+    setCollectionTabs((prevTabs) => prevTabs.filter((tab) => tab.id !== tabId));
+  };
+
   if (bookmarkedItems.length > 0) {
     return (
       <>
         <Layout>
-          <h1 className="title">나만의 와인 컬렉션</h1>
+          <h1 className={styles.title + " title "}>
+            {userNickname}의 와인 컬렉션
+          </h1>
           <div className={styles.collectionPage}>
             <DragDropContext onDragEnd={onDragEnd}>
-              <button
-                onClick={handleSaveCollection}
-                className={styles.saveBtn + " btn outline "}
-              >
-                저장하기
-              </button>
+              {isEditMode ? (
+                <button
+                  onClick={handleSaveCollection}
+                  className={styles.saveButton + " btn outline"}
+                >
+                  저장하기
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsEditMode(true);
+                  }}
+                  className={styles.editModeButton + " btn outline "}
+                >
+                  수정하기
+                </button>
+              )}
               <div className={styles.collectionContainer}>
                 <BookmarkedTab items={bookmarkedItems} />
                 <div className={styles.collectionTabContainer}>
                   <div className={styles.collectionTabs}>
                     {collectionTabs.map((tab) => (
-                      <CollectionTab
-                        key={tab.id}
-                        title={tab.title}
-                        items={tab.items}
-                      />
+                      <div key={tab.id} className={styles.tab}>
+                        {isEditMode && (
+                          <>
+                            <button
+                              onClick={() => handleDeleteTab(tab.id)}
+                              className={
+                                styles.deleteTabButton + " btn outline "
+                              }
+                            >
+                              삭제
+                            </button>
+                          </>
+                        )}
+                        <CollectionTab
+                          title={tab.title}
+                          items={tab.items}
+                          onDeleteItem={(wineId) =>
+                            handleDeleteItem(tab.id, wineId)
+                          }
+                          onMoveToBookmark={handleMoveToBookmark}
+                          isEditMode={isEditMode}
+                        />
+                      </div>
                     ))}
                   </div>
-                  <CreateTabButton onCreateTab={handleCreateTab} />
+                  {isEditMode && (
+                    <CreateTabButton onCreateTab={handleCreateTab} />
+                  )}
                 </div>
               </div>
             </DragDropContext>

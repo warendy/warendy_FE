@@ -595,7 +595,7 @@ $spine-color-inside: #a7efe3;
   background-color: wheat;
   position: absolute;
   right: 47%;
-  top: 80%;
+  top: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -605,5 +605,7 @@ $spine-color-inside: #a7efe3;
     background-color: wheat;
     border: none;
     font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
   }
 }

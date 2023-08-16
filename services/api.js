@@ -195,6 +195,23 @@ export const saveMyCollection = async (dataToSend, token) => {
   }
 };
 
+// deleteMyCollectionApi
+export const deleteMyCollection = async (dataToSend, token) => {
+  try {
+    const response = await instance.delete(
+      "/collections/delete/wine",
+      dataToSend,
+      {
+        headers: { Authorization: token },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
+  }
+};
+
 // 와인 상세정보 요청
 export const getWineDetail = async (wineId) => {
   try {
