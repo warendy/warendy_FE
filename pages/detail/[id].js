@@ -25,10 +25,10 @@ const WineDetail = () => {
 
   const sendReviewData = async () => {
     const data = {
-      nickname: "경진190",
       contents: contents,
       rating: parseFloat(ratings),
       wineId: id,
+      memberId: 7,
     };
     setReviews((prevReviews) => {
       const updatedReviews = [data, ...prevReviews];
@@ -142,9 +142,10 @@ const WineDetail = () => {
         setAcidity(data.acidity);
         setWineDetail(data);
 
-        const localReviews = JSON.parse(localStorage.getItem("reviews")) || [];
-        combinedReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-        setReviews([...localReviews, ...data.reviewList]);
+        // const localReviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        // combinedReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // setReviews([...localReviews, ...data.reviewList]);
+        setReviews(data.reviewList);
       } catch (error) {
         console.error(error);
       }
@@ -155,7 +156,6 @@ const WineDetail = () => {
   }, [id]);
   console.log(reviews);
 
-  console.log(`WinDetail-----------------`, WineDetail);
   if (WineDetail?.hasOwnProperty("wineName")) {
     return (
       <>
@@ -228,7 +228,7 @@ const WineDetail = () => {
                       {review.nickname}
                     </div>
 
-                    {review.nickname === "경진190" && (
+                    {review.memberId === 7 && (
                       <div className={styles.buttonsContainer}>
                         <button className={styles.button} onClick={() => handleEditReview(index)}>
                           수정하기
