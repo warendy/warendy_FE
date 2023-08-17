@@ -1,0 +1,260 @@
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  position: relative;
+  display: flex;
+  justify-content: center; /* Add this line */
+  align-items: center;
+  width: 66.6%;
+  height: 100vh;
+}
+
+.book {
+  position: relative;
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 6px;
+  height: 30rem;
+  width: 800rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.leftPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  background: #f9f9f9;
+  transform-origin: right;
+  transform-style: preserve-3d;
+  z-index: 1;
+  border-top-right-radius: 8px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: flipLeft 3s infinite;
+}
+
+.rightPage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background: #f9f9f9;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  z-index: 1;
+  border-top-left-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: flipRight 2s infinite;
+}
+
+.spine {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 2px;
+  background: rgba(217, 217, 217, 0.5);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.content {
+  /* Add new styles */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.contentTwo,
+.contentThree {
+  /* Add new styles */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  text-align: center;
+  display: none;
+}
+
+.resultCotnainer {
+  position: absolute;
+  width: 60%;
+  height: 50%;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  display: none;
+}
+
+.resultAnimal {
+  width: 50%;
+  height: 50%;
+}
+
+
+.resultTitle {
+  font-size: 3rem;
+
+.resultTitle,
+.suggetionTitle {
+  font-size: 3rem;
+  text-align: center;
+  line-height: 5rem;
+
+}
+
+.resultTitleOne {
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+.resultTitleTwo {
+  margin-top: 7rem;
+  font-size: 3rem;
+}
+
+.resultContent {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  justify-content: center;
+
+  display: none;
+}
+
+.resultWine {
+  display: flex;
+  width: 30%;
+  height: 100%;
+}
+
+.resultExplain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
+
+
+.shareContainer {
+  position: absolute;
+  width: 100%;
+  height: 15%;
+  bottom: -25%;
+  background-color: #9d1617;
+  border-radius: 5rem;
+  display: none;
+}
+
+.share {
+  height: 100%;
+  font-size: 2.5rem;
+  line-height: 2.9rem;
+  letter-spacing: -0.36px;
+  margin: auto;
+  padding-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  align-items: center;
+}
+
+.shareIcon {
+  background-color: white;
+  margin-left: 2rem;
+}
+
+.suggestionCotnainer {
+  position: absolute;
+  width: 50%;
+  height: 35%;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.suggetionTitle {
+  top: 20%;
+  position: relative;
+}
+.buttonContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.memberLogin {
+  width: 40%;
+  height: 15%;
+  background-color: #b86566;
+  color: white;
+}
+
+.nonMemberLogin {
+  width: 40%;
+  height: 15%;
+  background-color: #9d1617;
+  color: white;
+}
+
+
+@media screen and (max-width: 768px) {
+  .content {
+    width: 50%;
+    font-size: 14px;
+  }
+}
+
+@keyframes flipLeft {
+  0% {
+    transform: perspective(600px) rotateY(-10deg);
+  }
+  50% {
+    transform: perspective(600px) rotateY(10deg);
+  }
+  100% {
+    transform: perspective(600px) rotateY(-10deg);
+  }
+}
+
+@keyframes flipRight {
+  0% {
+    transform: perspective(600px) rotateY(10deg);
+  }
+  70% {
+    transform: perspective(600px) rotateY(180deg);
+  }
+  100% {
+    transform: perspective(600px) rotateY(10deg);
+  }
+}
