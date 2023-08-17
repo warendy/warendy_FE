@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
   faSquareCheck,
-  faCircleXmark,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
@@ -15,6 +14,7 @@ import {
   saveMyCollection,
   deleteMyCollection,
 } from "@/services/api";
+import { CollectionUpdateModal } from "../../components/Modal";
 import styles from "./collection-page.module.css";
 
 import Layout from "../../components/Layout";
@@ -27,6 +27,8 @@ const CollectionPage = () => {
   const [collectionTabs, setCollectionTabs] = useState([]);
   const [userNickname, setUserNickname] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const token = useRecoilValue(userTokenState);
 
@@ -89,19 +91,22 @@ const CollectionPage = () => {
     try {
       const response = await saveMyCollection(dataToSend, token);
       console.log("Collection saved successfully:", response);
+
+      setIsEditMode(false);
+      setShowSuccessModal(true);
     } catch (error) {
       console.error("Error saving collection:", error);
+      alert("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
   const handleDeleteItem = async (tabId, wineId) => {
-    console.log(tabId);
-    console.log(wineId);
     const updatedTabs = collectionTabs.map((tab) => {
       if (tab.id === tabId) {
         const updatedItems = tab.items.filter(
-          (item) => item.wine_id !== wineId
+          (items) => items.wine_id !== wineId
         );
+        console.log(updatedItems);
         return { ...tab, items: updatedItems };
       }
       console.log(tab);
@@ -109,15 +114,17 @@ const CollectionPage = () => {
     });
     setCollectionTabs(updatedTabs);
     try {
-      await deleteMyCollection(wineId, token); // token을 deleteMyCollection 함수에 전달
+      await deleteMyCollection(wineId, token);
       console.log("Item deleted successfully");
+      alert("아이템이 성공적으로 삭제되었습니다.");
     } catch (error) {
       console.error("Error deleting item:", error);
+      alert("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
   const handleMoveToBookmark = (item) => {
-    setBookmarkedItems((prevItems) => [...prevItems, item]); // 북마크 아이템 목록에 추가
+    setBookmarkedItems((prevItems) => [...prevItems, item]);
     const updatedTabs = collectionTabs.map((tab) => {
       const updatedItems = tab.items.filter(
         (existingItem) => existingItem.wine_id !== item.wine_id
@@ -270,6 +277,7 @@ const CollectionPage = () => {
               </div>
             </DragDropContext>
           </div>
+          {showSuccessModal && <CollectionUpdateModal />}
         </Layout>
       </>
     );

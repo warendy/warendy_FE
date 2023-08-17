@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import Image from "next/image";
 import StarRating from "./star-rating";
-import {
-  addWineToFavorite,
-  getWineDetail,
-  postWineReview,
-} from "@/services/api";
+import { addWineToFavorite, getWineDetail, postWineReview } from "@/services/api";
 import { useRouter } from "next/router";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { userTokenState, wineReviewListState } from "@/recoil/atoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { userIdState } from "@/recoil/userState";
 
 const WineDetail = () => {
   const router = useRouter();
@@ -26,28 +23,30 @@ const WineDetail = () => {
   const [acidity, setAcidity] = useState(0);
   const token = useRecoilValue(userTokenState);
   const [reviews, setReviews] = useRecoilState(wineReviewListState);
+  const memberId = useRecoilValue(userIdState);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const sendReviewData = async () => {
     const data = {
-      nickname: "경진190",
       contents: contents,
       rating: parseFloat(ratings),
       wineId: id,
+      memberId: memberId,
+      nickname: sessionStorage.getItem("usernickname"),
     };
-    setReviews((prevReviews) => [...prevReviews, data]);
+    setReviews((prevReviews) => {
+      const updatedReviews = [data, ...prevReviews];
+      localStorage.setItem("reviews", JSON.stringify(updatedReviews));
+      return updatedReviews;
+    });
     try {
       const response = await postWineReview(data, token);
       if (response.status === 200) {
-        // assuming the response has the saved review, you can adjust as needed
         const savedReview = response.data;
-
-        // Update wineDetail state
         setWineDetail((prevDetail) => ({
           ...prevDetail,
           reviewList: [...prevDetail.reviewList, savedReview],
         }));
-        // Update reviews recoil state
-
         setContents("");
         setRatings(0);
       }
@@ -78,6 +77,7 @@ const WineDetail = () => {
     };
     const token = sessionStorage.getItem("userTokenState");
     addWineToFavorite(data, token);
+    setIsFavorited((prevFav) => !prevFav); // toggle the favorite state
   };
 
   const WineAttributeBox = ({ leftLabel, rightLabel, style }) => {
@@ -107,6 +107,32 @@ const WineDetail = () => {
     setReviewText("");
   };
 
+  const handleEditReview = (index) => {
+    const updatedReviewText = prompt("수정하실 리뷰를 적어주세요", reviews[index].contents);
+    if (updatedReviewText !== null) {
+      setReviews((prevReviews) => {
+        const updatedReview = {
+          ...prevReviews[index],
+          contents: updatedReviewText,
+        };
+        const newReviews = [...prevReviews.slice(0, index), updatedReview, ...prevReviews.slice(index + 1)];
+        localStorage.setItem("reviews", JSON.stringify(newReviews));
+        return newReviews;
+      });
+    }
+  };
+
+  const handleDeleteReview = (index) => {
+    if (window.confirm("Are you sure you want to delete this review?")) {
+      setReviews((prevReviews) => {
+        const newReviews = [...prevReviews];
+        newReviews.splice(index, 1);
+        localStorage.setItem("reviews", JSON.stringify(newReviews));
+        return newReviews;
+      });
+    }
+  };
+
   useEffect(() => {
     const getWineDetailData = async () => {
       const { id } = router.query;
@@ -120,6 +146,10 @@ const WineDetail = () => {
         setTannin(data.tannin);
         setAcidity(data.acidity);
         setWineDetail(data);
+
+        // const localReviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        // combinedReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // setReviews([...localReviews, ...data.reviewList]);
         setReviews(data.reviewList);
       } catch (error) {
         console.error(error);
@@ -131,7 +161,6 @@ const WineDetail = () => {
   }, [id]);
   console.log(reviews);
 
-  console.log(`WinDetail-----------------`, WineDetail);
   if (WineDetail?.hasOwnProperty("wineName")) {
     return (
       <>
@@ -141,62 +170,29 @@ const WineDetail = () => {
             <div className={styles.detailContainer}>
               <div className={styles.wineImage}>
                 <div className={styles.img}>
-                  <Image
-                    src={WineDetail?.picture || "/images/winedetail.svg"}
-                    alt="Wine"
-                    width={120}
-                    height={180}
-                  />
+                  <Image src={WineDetail?.picture || "/images/winedetail.svg"} alt="Wine" width={70} height={200} />
                 </div>
               </div>
               <div className={styles.introBox}>
                 <div className={styles.introFirst}>
                   <div className={styles.fromBadge}>From</div>
-                  <div className={styles.wineRegion}>
-                    {WineDetail.generalRegion}
-                  </div>
-                  <div
-                    className="heartBadge"
-                    onClick={() => addToFavorite(id)}
-                  ></div>
+                  <div className={styles.wineRegion}>{WineDetail.generalRegion}</div>
+                  <div className={`heartBadge ${!isFavorited ? "favorited" : ""}`} onClick={() => addToFavorite(id)}></div>
                 </div>
                 <div className={styles.introTitle}>{WineDetail.wineName}</div>
-                <WineAttributeBox
-                  leftLabel="Light"
-                  rightLabel="Bold"
-                  style={progressStyles.body}
-                />
+                <WineAttributeBox leftLabel="Light" rightLabel="Bold" style={progressStyles.body} />
 
-                <WineAttributeBox
-                  leftLabel="Tannic"
-                  rightLabel="Smooth"
-                  style={progressStyles.dry}
-                />
+                <WineAttributeBox leftLabel="Tannic" rightLabel="Smooth" style={progressStyles.dry} />
 
-                <WineAttributeBox
-                  leftLabel="Dry"
-                  rightLabel="Sweet"
-                  style={progressStyles.tannin}
-                />
+                <WineAttributeBox leftLabel="Dry" rightLabel="Sweet" style={progressStyles.tannin} />
 
-                <WineAttributeBox
-                  leftLabel="Soft"
-                  rightLabel="Acidic"
-                  style={progressStyles.acidity}
-                />
+                <WineAttributeBox leftLabel="Soft" rightLabel="Acidic" style={progressStyles.acidity} />
 
                 <div className={styles.withFood}>
-                  <div className={styles.withFoodTitle}>
-                    이런 음식과 함께 해요!
-                  </div>
+                  <div className={styles.withFoodTitle}>이런 음식과 함께 해요!</div>
                   <div className={styles.foodPairings}>
-                    {pairingData.length === 0 ||
-                    pairingData.every(
-                      (item) => item.trim() === "" || item === '""'
-                    ) ? (
-                      <div className={styles.noData}>
-                        페어링 종류 데이터가 없습니다.
-                      </div>
+                    {pairingData.length === 0 || pairingData.every((item) => item.trim() === "" || item === '""') ? (
+                      <div className={styles.noData}>페어링 종류 데이터가 없습니다.</div>
                     ) : (
                       pairingData.slice(0, 3).map(
                         (item, index) =>
@@ -214,55 +210,48 @@ const WineDetail = () => {
             </div>
 
             <div className={styles.detailList}>
-              <div className={styles.detailVintage}>
-                Vintage : {WineDetail?.vintage}
-              </div>
-              <div className={styles.detailGrapes}>
-                Grape : {WineDetail?.grapes}
-              </div>
-              <div className={styles.detailWinery}>
-                WINERY : {WineDetail?.winery}
-              </div>
-              <div className={styles.detailPrice}>
-                PRICE : {WineDetail?.price}
-              </div>
-              <div className={styles.detailAlcohol}>
-                alcohol : {WineDetail?.alcohol}
-              </div>
+              <div className={styles.detailVintage}>Vintage : {WineDetail?.vintage}</div>
+              <div className={styles.detailGrapes}>Grape : {WineDetail?.grapes}</div>
+              <div className={styles.detailWinery}>WINERY : {WineDetail?.winery}</div>
+              <div className={styles.detailPrice}>PRICE : {WineDetail?.price}</div>
+              <div className={styles.detailAlcohol}>alcohol : {WineDetail?.alcohol}</div>
               <div className={styles.detailRating}>
-                RATING :{" "}
-                <StarRating rating={WineDetail?.rating} isInteractive={false} />
+                RATING : <StarRating rating={WineDetail?.rating} isInteractive={false} />
               </div>
             </div>
 
             <div className={styles.reviewContainer}>
-              {reviews.map((review, index) => (
+              {reviews.slice(0, 6).map((review, index) => (
                 <div key={index} className={styles.reviewBox}>
-                  <StarRating
-                    rating={review.rating}
-                    isInteractive={false}
-                    setRating={(newRating) => handleSetRating(0, newRating)}
-                  />
-                  <div className={styles.reviewComment}>{review.contents}</div>
-                  <div className={styles.reviewWriter}>
-                    <FontAwesomeIcon icon={faUser} className={styles.icon} />
-                    {review.nickname}
+                  <StarRating rating={review.rating} isInteractive={false} setRating={(newRating) => handleSetRating(0, newRating)} />
+
+                  <div className={styles.reviewContent}>
+                    <div className={styles.reviewComment}>{review.contents}</div>
+
+                    <div className={styles.reviewWriter}>
+                      <FontAwesomeIcon icon={faUser} className={styles.icon} />
+                      {review.nickname}
+                    </div>
+
+                    {review.memberId === memberId && (
+                      <div className={styles.buttonsContainer}>
+                        <button className={styles.button} onClick={() => handleEditReview(index)}>
+                          수정하기
+                        </button>
+                        <button className={styles.button} onClick={() => handleDeleteReview(index)}>
+                          삭제하기
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
-              <div className={styles.reviewSubmit}>
-                <StarRating
-                  rating={ratings}
-                  setRating={(newRating) => handleRating(newRating)}
-                />
-                <input
-                  type="text"
-                  value={contents}
-                  onChange={(e) => setContents(e.target.value)}
-                  placeholder="한줄리뷰를 작성해주세요."
-                />
-                <button onClick={() => sendReviewData()}>등록</button>
-              </div>
+            </div>
+
+            <div className={styles.reviewSubmit}>
+              <StarRating rating={ratings} setRating={(newRating) => handleRating(newRating)} />
+              <input type="text" value={contents} onChange={(e) => setContents(e.target.value)} placeholder="한줄리뷰를 작성해주세요." />
+              <button onClick={() => sendReviewData()}>등록</button>
             </div>
           </div>
         </div>

@@ -3,31 +3,28 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./SigninForm.module.css";
-import { userTokenState } from "../../recoil/atoms";
-import { postLogin } from "../../services/api";
+import { userIdState } from "../../recoil/userState";
+import { useSetRecoilState } from "recoil";
+import { userTokenState } from "@/recoil/atoms";
+import { postLogin, getUserInfo } from "../../services/api";
 import InputForm from "./InputForm";
-import { ErrorModal } from "../Modal";
-import { useRecoilState } from "recoil";
-import {
-  emailState,
-  passwordState,
-  isValidEmailState,
-  isValidPasswordState,
-} from "@/recoil/input";
+import { ErrorModal, SuccessModal } from "../Modal";
 import { validateEmail, validatePassword } from "./FormValidation";
 
 const SigninForm = () => {
-  const [email, setEmail] = useRecoilState(emailState);
-  const [password, setPassword] = useRecoilState(passwordState);
-  const [isValidEmail, setIsValidEmail] = useRecoilState(isValidEmailState);
-  const [isValidPassword, setIsValidPassword] =
-    useRecoilState(isValidPasswordState);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAppropriate, setIsAppropriate] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [token, setToken] = useRecoilState(userTokenState);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const router = useRouter();
+
+  const setUserToken = useSetRecoilState(userTokenState);
+  const setUserId = useSetRecoilState(userIdState);
 
   const handleLogin = async () => {
     const loginInfo = {
@@ -43,13 +40,27 @@ const SigninForm = () => {
         return;
       }
 
-      const loginResponse = await postLogin(loginInfo);
-      console.log("Login Response:", loginResponse);
+      const token = await postLogin(loginInfo);
 
-      setToken(loginResponse);
-      sessionStorage.setItem("userTokenState", loginResponse);
+      if (token) {
+        setUserToken(token);
+        sessionStorage.setItem("userTokenState", token);
 
-      router.push("/");
+        const userInfoResponse = await getUserInfo(token);
+
+        if (
+          userInfoResponse &&
+          userInfoResponse.data &&
+          userInfoResponse.data.id
+        ) {
+          setUserId(userInfoResponse.data.id);
+        }
+        sessionStorage.setItem("usernickname", userInfoResponse.data.nickname);
+        sessionStorage.setItem("userIdState", userInfoResponse.data.id);
+
+        setShowSuccessMessage(true);
+        router.push("/main/main");
+      }
     } catch (error) {
       setIsAppropriate(false);
       console.error("Error fetching data:", error);
@@ -73,8 +84,10 @@ const SigninForm = () => {
     let timer;
     if (!isAppropriate) {
       setShowErrorMessage(true);
+      setShowSuccessMessage(true);
       timer = setTimeout(() => {
         setShowErrorMessage(false);
+        setShowSuccessMessage(false);
       }, 5000);
     }
     return () => {
@@ -91,7 +104,7 @@ const SigninForm = () => {
       <Image
         src="/images/logo.svg"
         alt="Logo"
-        className={styles.logo}
+        className={styles.logo + " padding "}
         width={150}
         height={50}
       />
@@ -117,6 +130,7 @@ const SigninForm = () => {
           onClear={() => setPassword("")}
         />
         {showErrorMessage && <ErrorModal />}
+        {showSuccessMessage && <SuccessModal />}
       </div>
       <div className={styles.btnArea}>
         <button

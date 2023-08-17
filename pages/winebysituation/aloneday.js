@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 import styles from "./winebysituation.module.css";
-import { getRecommendedWineList } from "@/services/api";
+import { getWineList } from "@/services/api";
 import Link from "next/link";
 import Image from "next/image";
+import { userTokenState } from "@/recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 export default function WineBySituation() {
   const [wines, setWines] = useState([]);
-
+  const token = useRecoilValue(userTokenState);
   useEffect(() => {
     const fetchWines = async () => {
       try {
-        const recommendedWines = await getRecommendedWineList();
-        console.log("Recommended Wines:", recommendedWines);
-        const filteredWines = recommendedWines.filter(
-          (wine) => wine.body <= 2.5
-        );
-        console.log(filteredWines);
+        const recommendedWines = await getWineList(token);
+        const filteredWines = recommendedWines.filter((wine) => wine.body <= 2.5);
         setWines(filteredWines);
       } catch (error) {
         console.error("와인 정보를 가져오는 데 실패했습니다:", error);
@@ -47,12 +45,7 @@ export default function WineBySituation() {
               <li key={wine.id} className={styles.lovedWineItem}>
                 <Link href={`/detail/${wine.id}`}>
                   {" "}
-                  <Image
-                    src={wine.picture}
-                    alt={`Wine ${wine.id}`}
-                    width={100}
-                    height={250}
-                  />
+                  <Image src={wine.picture} alt={`Wine ${wine.id}`} width={100} height={250} />
                 </Link>
               </li>
             ))}

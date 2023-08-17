@@ -16,3 +16,27 @@
   padding: 2rem 1rem;
   border-radius: 0.5rem;
 }
+
+.nicknameModal {
+  position: absolute;
+  top: -43rem;
+  left: 24rem;
+  z-index: 1000;
+  min-width: 45rem;
+}
+
+.passwordModal {
+  position: absolute;
+  top: -10rem;
+  left: 24rem;
+  z-index: 1000;
+  min-width: 45rem;
+}
+
+.collectionModal {
+  position: absolute;
+  top: -22rem;
+  left: 42rem;
+  z-index: 1000;
+  min-width: 45rem;
+}

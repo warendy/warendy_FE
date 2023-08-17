@@ -28,7 +28,15 @@ export default function NewLanding() {
 
   console.log("바디= " + body, "드라이= " + dry, "탄닌= " + tannin, "산미= " + acidity);
   const handleSkipClick = () => {
-    router.push("/");
+    router.push("/main/main");
+  };
+
+  const handleMemberLoginClick = () => {
+    router.push("/sign-in");
+  };
+
+  const handleNonMemberSignUpClick = () => {
+    router.push("/sign-up");
   };
 
   const texts = [
@@ -81,11 +89,38 @@ export default function NewLanding() {
     }
   };
 
+  const handleShareClick = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href).then(
+        () => {
+          console.log("주소가 복사되었습니다");
+          alert("와렌디의 주소가 복사되었습니다!");
+        },
+        (err) => {
+          console.error("주소를 복사할 수 없습니다", err);
+        }
+      );
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = window.location.href;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    }
+  };
+
   useEffect(() => {
     if (buttonClickCount >= 3) {
       (async () => {
         try {
-          const wineData = await getRecommendedWineList();
+          const params = {
+            tannin: tannin,
+            acidity: acidity,
+            dry: dry,
+            body: body,
+          };
+          const wineData = await getRecommendedWineList(params);
           let filteredWines;
 
           if (likesCount === 3) {
@@ -169,15 +204,7 @@ export default function NewLanding() {
         <div className={styles.resultContainer} style={{ display: buttonClickCount >= 4 ? "flex" : "none" }}>
           <div className={styles.resultAnimal}>
             <Image
-              src={
-                dislikeCount === 4
-                  ? "/images/cat.svg"
-                  : soSoCount === 4
-                  ? "/images/quokka.svg"
-                  : likesCount === 4
-                  ? "/images/otter.svg"
-                  : "/images/quokka.svg"
-              }
+              src={body >= 2 ? "/images/otter.svg" : tannin >= 2 ? "/images/cat.svg" : "/images/quokka.svg"}
               alt="Logo"
               className={styles.img}
               width={40}
@@ -185,14 +212,9 @@ export default function NewLanding() {
             />
           </div>
           <h2 className={styles.resultTitle}>
-            {likesCount === 3
-              ? "고독한 시간을 즐기고 싶은 당신"
-              : soSoCount === 3
-              ? "이제 와인의 세계로 입문하려는 당신"
-              : dislikeCount === 3
-              ? "광란의 파티에 흠뻑 빠지고 싶은 당신"
-              : "이제 와인의 세계로 입문하려는 당신"}
+            {body >= 2 ? "고독한 시간을 즐기고 싶은 당신" : tannin >= 2 ? "광란의 파티를 좋아하는 당신" : "와인을 입문하고 싶은 당신"}
           </h2>
+
           <div className={styles.resultContent}>
             <div className={styles.resultWine}>
               {recommendedWine && recommendedWine.length > 0 && recommendedWine[0].picture && (
@@ -206,7 +228,7 @@ export default function NewLanding() {
             </div>
             <div className={styles.resultExplain}>
               <h2 className={styles.resultTitleOne}>
-                {dislikeCount === 3 ? (
+                {acidity === 2 ? (
                   <>
                     좋은 사람들과 함께
                     <br />
@@ -235,8 +257,8 @@ export default function NewLanding() {
             <FontAwesomeIcon icon={faForward} className={styles.icon} />
           </div>
           <div className={styles.shareContainer} style={{ display: buttonClickCount >= 3 ? "flex" : "none" }}>
-            <h3 className={styles.share}>
-              친구들에게 결과를 공유해보세요!
+            <h3 className={styles.share} onClick={handleShareClick}>
+              친구들에게도 와렌디를 알리고 싶다면?
               <FontAwesomeIcon icon={faShareFromSquare} className={styles.shareIcon} style={{ backgroundColor: "transparent" }} />
             </h3>
           </div>
@@ -246,13 +268,19 @@ export default function NewLanding() {
               <br /> 더 알고 싶지 않으세요?
             </h2>
             <div className={styles.buttonContainer}>
-              <button className={`btn outline ${styles.memberLogin}`}>회원 로그인</button>
-              <button className={`btn outline ${styles.nonMemberLogin}`}>비회원 회원가입</button>
+              <button className={`btn outline ${styles.memberLogin}`} onClick={handleMemberLoginClick}>
+                회원 로그인
+              </button>
+              <button className={`btn outline ${styles.nonMemberLogin}`} onClick={handleNonMemberSignUpClick}>
+                비회원 회원가입
+              </button>
             </div>
           </div>
         </div>
         <div className={styles.skipContainer} style={{ display: buttonClickCount >= 4 ? "none" : "block" }}>
-          <button onClick={handleSkipClick}>SKIP</button>
+          <div className={styles.skipContent} onClick={handleSkipClick}>
+            SKIP
+          </div>
         </div>
       </div>
     </div>

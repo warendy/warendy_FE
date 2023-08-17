@@ -123,12 +123,7 @@ export const getMyReview = async (token) => {
   }
 };
 
-export const updateMyReview = async (
-  reviewId,
-  newContents,
-  updatedRating,
-  token
-) => {
+export const updateMyReview = async (reviewId, newContents, updatedRating, token) => {
   console.log(reviewId);
   console.log(newContents);
   console.log(updatedRating);
@@ -180,15 +175,10 @@ export const getMyCollection = async (token) => {
 
 // postMyCollectionApi
 export const saveMyCollection = async (dataToSend, token) => {
-  console.log(dataToSend);
   try {
-    const response = await instance.post(
-      "/collections/update/category",
-      dataToSend,
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const response = await instance.post("/collections/update/category", dataToSend, {
+      headers: { Authorization: token },
+    });
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
@@ -199,13 +189,9 @@ export const saveMyCollection = async (dataToSend, token) => {
 // deleteMyCollectionApi
 export const deleteMyCollection = async (dataToSend, token) => {
   try {
-    const response = await instance.delete(
-      "/collections/delete/wine",
-      dataToSend,
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const response = await instance.delete("/collections/delete/wine", dataToSend, {
+      headers: { Authorization: token },
+    });
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
@@ -239,12 +225,10 @@ export const addWineToFavorite = async (dataToSend, token) => {
 };
 
 //와인 추천 리스트 조회
-export const getRecommendedWineList = async () => {
+export const getRecommendedWineList = async (params) => {
+  console.log(params);
   try {
-    const token = sessionStorage.getItem("userTokenState");
-    const response = await instance.get("/wines/recommendation", {
-      headers: { Authorization: token },
-    });
+    const response = await instance.post("/landing/recommendation", params);
     return response.data;
   } catch (error) {
     console.error("Error sending data to the server:", error);
@@ -254,13 +238,35 @@ export const getRecommendedWineList = async () => {
 
 export const fetchNearbyWineStores = async (longitude, latitude) => {
   try {
-    const response = await fetch(
-      `${process.env.API_KEY}winebars/around?lnt=${longitude}&lat=${latitude}`
-    );
+    const response = await fetch(`${process.env.API_KEY}winebars/around?lnt=${longitude}&lat=${latitude}`);
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching nearby wine stores:", error);
+  }
+};
+
+//와인 리뷰 작성
+export const postWineReview = async (data, token) => {
+  try {
+    const response = await instance.post(`/reviews/wines?wine-id=${data.wineId}`, data, { headers: { Authorization: token } });
+
+    return response;
+  } catch (error) {
+    console.error("Error fetching nearby wine stores:", error);
+  }
+};
+
+export const getWineList = async (token) => {
+  console.log(token);
+  try {
+    const response = await instance.get("/wines/recommendation", {
+      headers: { Authorization: token },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to the server:", error);
+    throw error;
   }
 };
 

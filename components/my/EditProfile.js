@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./EditInfos.module.css";
-import { getUserInfo, patchUserInfo } from "@/services/api";
+import { NicknameUpdateModal } from "../Modal";
+import { patchUserInfo } from "@/services/api";
 
 const EditProfile = ({ userInfo, token }) => {
   const [newNickname, setNewNickname] = useState("");
   const [editingNickname, setEditingNickname] = useState(false);
+  const [showUpdateMessage, setShowUpdateMessage] = useState(false);
+  const router = useRouter();
 
   const handleNicknameUpdate = async () => {
     if (userInfo.nickname == newNickname) {
@@ -17,15 +21,13 @@ const EditProfile = ({ userInfo, token }) => {
       const updateResponse = await patchUserInfo(token, {
         nickname: newNickname,
       });
-      console.log(updateResponse);
 
       if (updateResponse.status === "success") {
-        const closeAlert = alert(
-          "닉네임 업데이트가 완료되었습니다. 누르면 페이지가 이동됩니다."
-        );
-        if (closeAlert) {
-          router.push("/sign-in");
-        }
+        setShowUpdateMessage(true);
+        setTimeout(() => {
+          setShowUpdateMessage(false);
+        }, 10000);
+        router.push("/main/main");
       } else {
         alert("닉네임 업데이트 실패");
       }
@@ -33,6 +35,7 @@ const EditProfile = ({ userInfo, token }) => {
       return null;
     }
   };
+
   return (
     <div className={styles.editArea}>
       <h3 className={styles.title}>프로필 관리</h3>
@@ -78,6 +81,7 @@ const EditProfile = ({ userInfo, token }) => {
               >
                 저장
               </button>
+              {showUpdateMessage && <NicknameUpdateModal />}
             </div>
           ) : (
             <div className={styles.editTarget}>
