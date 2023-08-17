@@ -56,7 +56,6 @@
   border-radius: 5rem;
 }
 
-
 .wineGrapes {
   width: 71%;
   display: flex;
@@ -114,7 +113,6 @@
 }
 
 .detailContainer {
-  height: 35vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -161,8 +159,8 @@ button.rightBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%; /* reduced width */
-  height: 70%;
+  width: 14rem;
+  height: 14rem;
   border-radius: 50%;
   background-color: lightcoral;
   color: black;
@@ -201,28 +199,30 @@ button.rightBtn {
 }
 
 .reviewContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 25vh;
+  height: 50vh;
   border-top: 2px solid black;
+  border-bottom: 2px solid black;
   margin-top: 6rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .reviewBox {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 90%;
   margin-top: 3rem;
   align-items: center;
   justify-content: center;
-  margin-left: 20%;
+  border-bottom: 1px solid #ccc;
 }
 
 .reviewWriter {
-  width: 10%;
+  width: 20%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -237,12 +237,14 @@ button.rightBtn {
   padding: 1rem;
   border-radius: 5px;
   margin-left: 2rem;
-  border-bottom: 1px dotted black;
+
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .reviewSubmit {
+  position: absolute;
+  bottom: 0;
   width: 90%;
   height: 10vh;
   display: flex;
@@ -250,15 +252,13 @@ button.rightBtn {
   justify-content: center;
   flex-direction: row;
   margin: auto;
-  margin-top: 2rem;
-  margin-bottom: 15rem;
 }
 
 .reviewContent {
   display: flex;
   align-items: center;
   flex-grow: 1;
-  gap: 10px;
+  justify-content: space-between;
 }
 
 /* styles.module.css */
@@ -267,7 +267,7 @@ button.rightBtn {
   color: #ffffff;
   border: none;
   border-radius: 5px;
-  padding: 8px 12px;
+  padding: 0.8rem 0.4rem;
   font-size: 2rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -336,7 +336,7 @@ button.rightBtn {
 
 .foodPairings {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   width: 100%;
