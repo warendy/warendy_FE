@@ -27,6 +27,7 @@ const PostId = () => {
     };
     getNickname();
   }, []);
+
   useEffect(() => {
     const fetchPostData = async () => {
       if (postId) {

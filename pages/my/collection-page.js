@@ -25,6 +25,7 @@ import CreateTabButton from "../../components/collection/CreateTabButton";
 const CollectionPage = () => {
   const [bookmarkedItems, setBookmarkedItems] = useState([]);
   const [collectionTabs, setCollectionTabs] = useState([]);
+  console.log(collectionTabs);
   const [userNickname, setUserNickname] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -73,7 +74,7 @@ const CollectionPage = () => {
   };
 
   // postMyCollectionApi
-  const handleSaveCollection = async () => {
+  const handleSaveCollection = async (token) => {
     const bookmarkedWineIds = bookmarkedItems
       .map((wine) => wine.wine_id)
       .join(",");
@@ -104,15 +105,14 @@ const CollectionPage = () => {
     const updatedTabs = collectionTabs.map((tab) => {
       if (tab.id === tabId) {
         const updatedItems = tab.items.filter(
-          (items) => items.wine_id !== wineId
+          (item) => item.wine_id !== wineId
         );
-        console.log(updatedItems);
         return { ...tab, items: updatedItems };
       }
-      console.log(tab);
       return tab;
     });
     setCollectionTabs(updatedTabs);
+
     try {
       await deleteMyCollection(wineId, token);
       console.log("Item deleted successfully");
@@ -137,9 +137,6 @@ const CollectionPage = () => {
   // dndFunction
   const onDragEnd = (result) => {
     const { source, destination } = result;
-    if (isEditMode) {
-      return;
-    }
     if (!destination) return;
 
     const sourceKey = source.droppableId;
@@ -151,7 +148,7 @@ const CollectionPage = () => {
         const updatedItems = Array.from(tab.items);
         const [targetItem] = updatedItems.splice(source.index, 1);
         bookmarkedItems.splice(destination.index, 0, targetItem);
-        setBookmarkedItems(bookmarkedItems);
+        setBookmarkedItems([...bookmarkedItems]); // 새로운 배열을 생성하여 상태를 업데이트합니다.
         return {
           ...tab,
           items: updatedItems,
@@ -168,7 +165,7 @@ const CollectionPage = () => {
       if (tab.id === destinationKey) {
         const updatedItems = Array.from(tab.items);
 
-        if (sourceKey == "Wine List") {
+        if (sourceKey === "Wine List") {
           const [targetItem] = bookmarkedItems.splice(source.index, 1);
           updatedItems.splice(destination.index, 0, targetItem);
         } else {
@@ -209,85 +206,68 @@ const CollectionPage = () => {
     setCollectionTabs((prevTabs) => prevTabs.filter((tab) => tab.id !== tabId));
   };
 
-  if (bookmarkedItems.length > 0) {
-    return (
-      <>
-        <Layout>
-          <h1 className={styles.title + " title "}>
-            {userNickname}의 와인 컬렉션
-          </h1>
-          <div className={styles.collectionPage}>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {isEditMode ? (
-                <button
-                  onClick={handleSaveCollection}
-                  className={styles.saveButton + " resetBtn "}
-                >
-                  <FontAwesomeIcon
-                    icon={faSquareCheck}
-                    className={styles.icon}
-                  />
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setIsEditMode(true);
-                  }}
-                  className={styles.editModeButton + " resetBtn "}
-                >
-                  <FontAwesomeIcon
-                    icon={faPenToSquare}
-                    className={styles.icon}
-                  />
-                </button>
-              )}
-              <div className={styles.collectionContainer}>
-                <BookmarkedTab items={bookmarkedItems} />
-                <div className={styles.collectionTabContainer}>
-                  <div className={styles.collectionTabs}>
-                    {collectionTabs.map((tab) => (
-                      <div key={tab.id} className={styles.tabOutline}>
-                        {isEditMode && (
-                          <button
-                            onClick={() => handleDeleteTab(tab.id)}
-                            className={styles.deleteTabButton + " resetBtn "}
-                          >
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              className={styles.icon}
-                            />
-                          </button>
-                        )}
-                        <CollectionTab
-                          title={tab.title}
-                          items={tab.items}
-                          onDeleteItem={(wineId) =>
-                            handleDeleteItem(tab.id, wineId)
-                          }
-                          onMoveToBookmark={handleMoveToBookmark}
-                          isEditMode={isEditMode}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  {isEditMode && (
-                    <CreateTabButton onCreateTab={handleCreateTab} />
-                  )}
+  return (
+    <>
+      <Layout>
+        <h1 className={styles.title + " title "}>
+          {userNickname}의 와인 컬렉션
+        </h1>
+        <div className={styles.collectionPage}>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <button
+              onClick={() => {
+                if (isEditMode) {
+                  handleSaveCollection(token);
+                }
+                setIsEditMode(!isEditMode);
+              }}
+              className={styles.editModeButton + " resetBtn "}
+            >
+              <FontAwesomeIcon
+                icon={isEditMode ? faSquareCheck : faPenToSquare}
+                className={styles.icon}
+              />
+            </button>
+            <div className={styles.collectionContainer}>
+              <BookmarkedTab items={bookmarkedItems} />
+              <div className={styles.collectionTabContainer}>
+                <div className={styles.collectionTabs}>
+                  {collectionTabs.map((tab) => (
+                    <div key={tab.id} className={styles.tabOutline}>
+                      {isEditMode && (
+                        <button
+                          onClick={() => handleDeleteTab(tab.id)}
+                          className={styles.deleteTabButton + " resetBtn "}
+                        >
+                          <FontAwesomeIcon
+                            icon={faTrash}
+                            className={styles.icon}
+                          />
+                        </button>
+                      )}
+                      <CollectionTab
+                        title={tab.title}
+                        items={tab.items}
+                        onDeleteItem={(wineId) =>
+                          handleDeleteItem(tab.id, wineId)
+                        }
+                        onMoveToBookmark={handleMoveToBookmark}
+                        isEditMode={isEditMode}
+                      />
+                    </div>
+                  ))}
                 </div>
+                {isEditMode && (
+                  <CreateTabButton onCreateTab={handleCreateTab} />
+                )}
               </div>
-            </DragDropContext>
-          </div>
-          {showSuccessModal && <CollectionUpdateModal />}
-        </Layout>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <h1>와인정보 불러오는중</h1>
-      </>
-    );
-  }
+            </div>
+          </DragDropContext>
+        </div>
+        {showSuccessModal && <CollectionUpdateModal />}
+      </Layout>
+    </>
+  );
 };
 
 export default CollectionPage;
